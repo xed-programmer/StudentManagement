@@ -15,4 +15,13 @@ class AdminController extends Controller
     {
         return view('admin.student.register');
     }
+
+    public function editStudent(Request $request)
+    {
+        return view('admin.student.edit', compact($request));
+    }
+
+    public function updateStudent(Request $request)
+    {
+    }
 }
