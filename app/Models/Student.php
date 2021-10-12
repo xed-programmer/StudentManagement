@@ -12,4 +12,14 @@ class Student extends Model
     protected $fillable = [
         'user_id', 'student_code',
     ];
+
+
+    public function users()
+    {
+        return $this->hasOne(User::class);
+    }
+    public function guardians()
+    {
+        return $this->belongsToMany(Guardian::class);
+    }
 }

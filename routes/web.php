@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Auth\RegisteredStudentController;
 use App\Http\Controllers\GuardianController;
 use App\Http\Controllers\ProfessorController;
 use App\Http\Controllers\StudentController;
@@ -32,8 +33,10 @@ Route::group(['middleware' => ['auth']], function () {
         return view('nopermission');
     })->name('nopermission');
 
-    Route::group(['middleware' => ['checkrole:admin']], function () {
-        Route::get('/admin', [AdminController::class, 'index'])->name('admin');
+    Route::group(['middleware' => ['checkrole:admin'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
+        Route::get('/', [AdminController::class, 'index'])->name('index');
+        Route::get('/student/register', [AdminController::class, 'createStudent'])->name('student.register');
+        Route::post('/student/register', [RegisteredStudentController::class, 'store'])->name('student.register');
     });
 
     Route::group(['middleware' => ['checkrole:student']], function () {
@@ -45,7 +48,7 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
     Route::group(['middleware' => ['checkrole:professor']], function () {
-        Route::get('/guardian', [ProfessorController::class, 'index'])->name('guardian');
+        Route::get('/professor', [ProfessorController::class, 'index'])->name('professor');
     });
 });
 

@@ -16,8 +16,10 @@ class CreateGuardiansTable extends Migration
         Schema::create('guardians', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->foreignId('student_code')->constrained('students');
+            $table->string('student_code');
             $table->timestamps();
+
+            $table->foreign('student_code')->references('student_code')->on('students');
         });
     }
 
