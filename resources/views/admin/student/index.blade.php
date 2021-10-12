@@ -15,6 +15,9 @@
       <h3 class="card-title">{{__('Student Lists')}}</h3>
     </div>    
     <div class="card-body">
+        <div class="row">
+            <a href="{{route('admin.student.register')}}" class="btn btn-lg btn-success m-2">Add new student</a>
+        </div>
         <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
             <div class="row">
                 <div class="col-sm-12">
@@ -32,7 +35,7 @@
                                     <td class="dtr-control sorting_1" tabindex="0">{{$student->users->name}}</td>
                                     <td class="dtr-control sorting_1" tabindex="0">{{$student->student_code}}</td>
                                     <td class="dtr-control sorting_1" tabindex="0">
-                                        <a href="#" class="btn btn-sm btn-success">Edit</a>
+                                        <a href="#" class="btn btn-sm btn-warning">Edit</a>
                                         <a href="#" class="btn btn-sm btn-danger">Delete</a>
                                     </td>
                                 </tr>

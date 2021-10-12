@@ -28,7 +28,7 @@ class CreateStudentRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'student_code' => ['required', 'string', 'max:10', 'unique:students'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'phone' => ['required', 'regex:/(09)[0-9]{9}/'],
         ];
     }
 }

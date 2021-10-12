@@ -22,16 +22,16 @@ class RegisteredStudentController extends Controller
 
     public function store(CreateStudentRequest $request)
     {
-
+        $default_student_password = '123456789';
         $request->validated();
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'password' => Hash::make($default_student_password),
         ]);
 
-        $user->students()->create($request->only('student_code'));
+        $user->students()->create($request->only(['student_code', 'phone']));
 
         $role = Role::where('name', 'student')->firstOrFail();
 

@@ -16,7 +16,7 @@
             <div>
                 <x-label for="student_code" :value="__('Student Code')" />
 
-            <x-input id="student_code" class="block mt-1 w-full" type="text" name="student_code" :value="old('student_code')" required autofocus />
+                <x-input id="student_code" class="block mt-1 w-full" type="text" name="student_code" :value="old('student_code')" required autofocus />
             </div>
 
             <!-- Name -->

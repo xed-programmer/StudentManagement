@@ -64,10 +64,16 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon far fa-circle text-info"></i>
-              <p>{{__('Log Out')}}</p>
+            <!-- Authentication -->            
+            <form method="POST" action="{{ route('logout') }}" class="nav-link">
+            @csrf
+            <a href="route('logout')"
+                    onclick="event.preventDefault();
+                                this.closest('form').submit();">
+                <i class="nav-icon fas fa-sign-out-alt text-info"></i>
+                <p>{{ __('Log Out') }}</p>
             </a>
+        </form>
           </li>
         </ul>
       </nav>
