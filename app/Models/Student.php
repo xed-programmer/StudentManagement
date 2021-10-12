@@ -16,8 +16,14 @@ class Student extends Model
 
     public function users()
     {
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
+
+    public function roles()
+    {
+        return $this->hasMany(Role::class);
+    }
+
     public function guardians()
     {
         return $this->belongsToMany(Guardian::class);

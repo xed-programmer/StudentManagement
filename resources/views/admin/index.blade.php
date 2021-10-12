@@ -2,68 +2,71 @@
 
         
 @section('header')
-{{ __('Admin') }}
+{{ __('Dashboard') }}
 @endsection        
 
 @section('content')
-@if(session()->has('message'))
-    <div class="alert alert-success alert-dismissible fade show" id="alert" role="alert">
-        {{ session()->get('message') }}
-    </div>
-@endif
-<div class="card">
-    <div class="card-header">
-      <h3 class="card-title">Student Lists</h3>
-    </div>
-    <!-- /.card-header -->
-    <div class="card-body">
-      <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
-        <div class="row">
-
-        </div>
 <div class="row">
-    <div class="col-sm-12">
-        <table id="example1" class="table table-bordered table-striped dataTable dtr-inline collapsed" role="grid" aria-describedby="example1_info">
-            <thead>
-                <tr role="row">
-                    <th class="sorting sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending">Name</th>
-                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Role: activate to sort column ascending">Role</th>
-                </tr>
-            </thead>
-            <tbody>
-                {{-- @foreach ($users as $i => $user)
-                    <tr>
-                        <td class="dtr-control sorting_1" tabindex="0">{{$user->name}}</td>
-                        <td>
-                            @if (Auth::user()->id != $user->id)
-                                @if ($user->hasRole('admin'))
-                                <form action="{{route('admin.remove.permission', $user)}}" method="post">
-                                    @csrf
-                                    <input class="btn btn-danger" type="submit" value="Remove Admin Permission">
-                                </form>                                     
-                                @else
-                                <form action="{{route('admin.give.permission', $user)}}" method="post">
-                                    @csrf
-                                    <input class="btn btn-success" type="submit" value="Give Admin Permission">
-                                </form>                                    
-                                @endif                                                    
-                            @endif
-                        </td>
-                    </tr>
-                @endforeach --}}
-            </tbody>
-            {{-- <tfoot>
-                <tr>
-                    <th rowspan="1" colspan="1">Rendering engine</th>
-                    <th rowspan="1" colspan="1">Browser</th>
-                </tr>
-            </tfoot> --}}
-      </table>
+    <div class="col-lg-3 col-6">
+      <!-- small box -->
+      <div class="small-box bg-info">
+        <div class="inner">
+          <h3>0</h3>
+
+          <p>Students</p>
+        </div>
+        <div class="icon">
+          <i class="ion ion-bag"></i>
+        </div>
+        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+      </div>
     </div>
-</div>
-</div>
+    <!-- ./col -->
+    <div class="col-lg-3 col-6">
+      <!-- small box -->
+      <div class="small-box bg-success">
+        <div class="inner">
+          <h3>53<sup style="font-size: 20px">%</sup></h3>
+
+          <p>Bounce Rate</p>
+        </div>
+        <div class="icon">
+          <i class="ion ion-stats-bars"></i>
+        </div>
+        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+      </div>
     </div>
-    <!-- /.card-body -->
+    <!-- ./col -->
+    <div class="col-lg-3 col-6">
+      <!-- small box -->
+      <div class="small-box bg-warning">
+        <div class="inner">
+          <h3>44</h3>
+
+          <p>User Registrations</p>
+        </div>
+        <div class="icon">
+          <i class="ion ion-person-add"></i>
+        </div>
+        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+      </div>
+    </div>
+    <!-- ./col -->
+    <div class="col-lg-3 col-6">
+      <!-- small box -->
+      <div class="small-box bg-danger">
+        <div class="inner">
+          <h3>65</h3>
+
+          <p>Unique Visitors</p>
+        </div>
+        <div class="icon">
+          <i class="ion ion-pie-graph"></i>
+        </div>
+        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+      </div>
+    </div>
+    <!-- ./col -->
   </div>
 @endsection
 

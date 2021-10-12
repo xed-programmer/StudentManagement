@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Student;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -11,6 +13,12 @@ class AdminController extends Controller
         return view('admin.index');
     }
 
+    public function student()
+    {
+        $students = Student::with('users')->get();
+
+        return view('admin.student.index')->with(['students' => $students]);
+    }
     public function createStudent()
     {
         return view('admin.student.register');
