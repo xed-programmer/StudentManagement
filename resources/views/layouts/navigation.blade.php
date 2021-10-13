@@ -21,6 +21,15 @@
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 @auth
+                @if (auth()->user()->hasRole('admin'))
+                <div class="flex mr-4">
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.index')">
+                            {{ __('Admin') }}
+                        </x-nav-link>
+                    </div>
+                </div>
+                @endif
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
                             <button class="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
@@ -35,6 +44,12 @@
                         </x-slot>
 
                         <x-slot name="content">
+                            <x-dropdown-link href="{{route('profile.index', auth()->user())}}">
+                                <div class="px-4">
+                                    <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
+                                    <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+                                </div>
+                            </x-dropdown-link>
                             <!-- Authentication -->
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
@@ -53,7 +68,7 @@
                         {{ __('Login') }}
                     </x-nav-link>
                     <a href="{{route('register')}}" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
-                        Register
+                        {{__('Register')}}
                       </a>
                 </div>
                 @endauth

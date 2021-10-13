@@ -5,7 +5,9 @@ use App\Http\Controllers\Auth\RegisteredGuardianController;
 use App\Http\Controllers\Auth\RegisteredStudentController;
 use App\Http\Controllers\GuardianController;
 use App\Http\Controllers\ProfessorController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('home');
 })->name('home');
-
+// Auth::routes(['verify' => true]);
 
 
 Route::group(['middleware' => ['auth']], function () {
@@ -33,6 +35,13 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/no-permission', function () {
         return view('nopermission');
     })->name('nopermission');
+
+
+    Route::group(['prefix' => 'profile', 'as' => 'profile.'], function () {
+        Route::get('/{user}', [ProfileController::class, 'index'])->name('index');
+        Route::get('/edit/{user}', [ProfileController::class, 'edit'])->name('edit');
+        Route::put('/update/{user}', [ProfileController::class, 'update'])->name('update');
+    });
 
     Route::group(['middleware' => ['checkrole:admin'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::get('/', [AdminController::class, 'index'])->name('index');
