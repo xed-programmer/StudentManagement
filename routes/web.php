@@ -39,6 +39,9 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/student', [AdminController::class, 'student'])->name('student.index');
         Route::get('/student/register', [AdminController::class, 'createStudent'])->name('student.register');
         Route::post('/student/register', [RegisteredStudentController::class, 'store'])->name('student.register');
+        Route::get('/student/edit/{student}', [AdminController::class, 'editStudent'])->name('student.edit');
+        Route::put('/student/edit/{student}', [AdminController::class, 'updateStudent'])->name('student.update');
+        Route::delete('/student/{student}', [AdminController::class, 'destroyStudent'])->name('student.delete');
     });
 
     Route::group(['middleware' => ['checkrole:student']], function () {

@@ -35,8 +35,14 @@
                                     <td class="dtr-control sorting_1" tabindex="0">{{$student->users->name}}</td>
                                     <td class="dtr-control sorting_1" tabindex="0">{{$student->student_code}}</td>
                                     <td class="dtr-control sorting_1" tabindex="0">
-                                        <a href="#" class="btn btn-sm btn-warning">Edit</a>
-                                        <a href="#" class="btn btn-sm btn-danger">Delete</a>
+                                        <a href="{{route('admin.student.edit', $student)}}" class="btn btn-sm btn-warning">Edit</a>                                        
+                                        <form action="{{route('admin.student.delete', $student)}}" method="POST" onclick="
+                                            return confirm('Do you want to delete this data?');
+                                        ">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-sm btn-danger">Delete</button>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach

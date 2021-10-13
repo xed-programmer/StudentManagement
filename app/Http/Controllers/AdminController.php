@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateStudentRequest;
 use App\Models\Student;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -24,12 +25,35 @@ class AdminController extends Controller
         return view('admin.student.register');
     }
 
-    public function editStudent(Request $request)
+    public function editStudent(Student $student, Request $request)
     {
-        return view('admin.student.edit', compact($request));
+        return view('admin.student.edit', ['student' => $student]);
     }
 
-    public function updateStudent(Request $request)
+    public function updateStudent(Student $student, Request $request)
     {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email, ' . $student->user_id],
+            'student_code' => ['required', 'string', 'max:10', 'unique:students,student_code, ' . $student->id],
+            'phone' => ['required', 'regex:/(09)[0-9]{9}/'],
+        ]);
+
+
+        $student->student_code = $request->student_code;
+        $student->phone = $request->phone;
+
+        $student->users->name = $request->name;
+        $student->users->email = $request->email;
+
+        $student->push();
+        return redirect()->route('admin.student.index');
+    }
+
+    public function destroyStudent(Student $student)
+    {
+        // $res = $student->deleteOrFail();
+        $res = User::findOrFail($student->user_id)->deleteOrFail();
+        dd($res);
     }
 }
