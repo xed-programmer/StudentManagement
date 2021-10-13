@@ -4,6 +4,11 @@
 {{ __('Add Student') }}
 @endsection   
 @section('content')
+@if(session()->has('message'))
+    <div class="alert {{session()->get('alert-class')}} alert-dismissible fade show" id="alert" role="alert">
+        {{ session()->get('message') }}
+    </div>
+@endif
 <div class="card card-primary">
     <div class="card-header">
       <h3 class="card-title">Student Information</h3>
@@ -50,3 +55,15 @@
     </form>
   </div>
 @endsection
+@push('scripts')
+<script>
+  @if(session()->has('message'))
+  $(document).ready(function() {        
+      $("#alert").fadeTo(3000, 500).slideUp(500, function() {
+          $("#alert").slideUp(500);
+          $("#alert").remove();
+          });
+      });
+  @endif
+  </script>
+@endpush

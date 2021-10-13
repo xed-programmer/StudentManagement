@@ -31,11 +31,19 @@ class RegisteredStudentController extends Controller
             'password' => Hash::make($default_student_password),
         ]);
 
-        $user->students()->create($request->only(['student_code', 'phone']));
+        $res = $user->students()->create($request->only(['student_code', 'phone']));
 
         $role = Role::where('name', 'student')->firstOrFail();
 
         $user->roles()->attach($role->id);
+
+        if ($res) {
+            $request->session()->flash('message', 'Student Added Successfully!');
+            $request->session()->flash('alert-class', 'alert-success');
+        } else {
+            $request->session()->flash('message', 'Student Added Unuccessfully!');
+            $request->session()->flash('alert-class', 'alert-warning');
+        }
 
         // return redirect(RouteServiceProvider::HOME);
         return redirect()->back();

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateStudentRequest;
 use App\Models\Student;
 use App\Models\User;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -46,14 +47,28 @@ class AdminController extends Controller
         $student->users->name = $request->name;
         $student->users->email = $request->email;
 
-        $student->push();
+        if ($student->push()) {
+            $request->session()->flash('message', 'Student Data Updated Successfully!');
+            $request->session()->flash('alert-class', 'alert-success');
+        } else {
+            $request->session()->flash('message', 'Student Data Updated Unuccessfully!');
+            $request->session()->flash('alert-class', 'alert-warning');
+        }
+
         return redirect()->route('admin.student.index');
     }
 
-    public function destroyStudent(Student $student)
+    public function destroyStudent(Student $student, Request $request)
     {
         // $res = $student->deleteOrFail();
         $res = User::findOrFail($student->user_id)->deleteOrFail();
-        dd($res);
+        if ($res) {
+            $request->session()->flash('message', 'Student Data Deleted Successfully!');
+            $request->session()->flash('alert-class', 'alert-success');
+        } else {
+            $request->session()->flash('message', 'Student Data Deleted Unuccessfully!');
+            $request->session()->flash('alert-class', 'alert-warning');
+        }
+        return redirect()->route('admin.student.index');
     }
 }

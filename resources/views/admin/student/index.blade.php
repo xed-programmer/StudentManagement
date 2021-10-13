@@ -6,7 +6,7 @@
 
 @section('content')
 @if(session()->has('message'))
-    <div class="alert alert-success alert-dismissible fade show" id="alert" role="alert">
+    <div class="alert {{session()->get('alert-class')}} alert-dismissible fade show" id="alert" role="alert">
         {{ session()->get('message') }}
     </div>
 @endif
@@ -35,14 +35,16 @@
                                     <td class="dtr-control sorting_1" tabindex="0">{{$student->users->name}}</td>
                                     <td class="dtr-control sorting_1" tabindex="0">{{$student->student_code}}</td>
                                     <td class="dtr-control sorting_1" tabindex="0">
-                                        <a href="{{route('admin.student.edit', $student)}}" class="btn btn-sm btn-warning">Edit</a>                                        
-                                        <form action="{{route('admin.student.delete', $student)}}" method="POST" onclick="
-                                            return confirm('Do you want to delete this data?');
-                                        ">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="btn btn-sm btn-danger">Delete</button>
-                                        </form>
+                                        <div class="d-flex justify-content-center">
+                                            <a href="{{route('admin.student.edit', $student)}}" class="btn btn-sm btn-warning mr-2">Edit</a>                                        
+                                            <form action="{{route('admin.student.delete', $student)}}" method="POST" onclick="
+                                                return confirm('Do you want to delete this data?');
+                                            ">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="btn btn-sm btn-danger">Delete</button>
+                                            </form>
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach
@@ -84,6 +86,7 @@
     $(document).ready(function() {        
         $("#alert").fadeTo(3000, 500).slideUp(500, function() {
             $("#alert").slideUp(500);
+            $("#alert").remove();
             });
         });
     @endif
