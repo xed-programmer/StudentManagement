@@ -1,4 +1,9 @@
 <x-app-layout>
+{{-- @if(session()->has('message'))
+    <div class="alert {{session()->get('alert-class')}} alert-dismissible fade show" id="alert">
+        {{ session()->get('message') }}
+    </div>
+@endif --}}
     <div class="w-1/2 mx-auto mt-2">
         <div class="bg-white shadow overflow-hidden sm:rounded-lg">
             <div class="flex justify-between px-4 py-5 sm:px-6">
