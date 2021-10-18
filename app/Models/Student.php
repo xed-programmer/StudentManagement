@@ -14,14 +14,19 @@ class Student extends Model
     ];
 
 
-    public function users()
+    public function user()
     {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        return $this->belongsTo(User::class);
     }
 
     public function roles()
     {
         return $this->hasMany(Role::class);
+    }
+
+    public function attendances()
+    {
+        return $this->hasMany(Attendance::class);
     }
 
     public function guardians()

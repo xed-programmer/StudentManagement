@@ -52,12 +52,12 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsToMany(Role::class);
     }
 
-    public function students()
+    public function student()
     {
         return $this->hasOne(Student::class);
     }
 
-    public function guardians()
+    public function guardian()
     {
         return $this->hasOne(Guardian::class);
     }

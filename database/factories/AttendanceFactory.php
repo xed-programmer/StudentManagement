@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Attendance;
+use App\Models\Student;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class AttendanceFactory extends Factory
@@ -22,7 +23,8 @@ class AttendanceFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'student_id' => 5,
+            'status' => array_rand(['time-in','time-out', 'present', 'absent'])
         ];
     }
 }

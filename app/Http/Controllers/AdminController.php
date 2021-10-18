@@ -17,7 +17,7 @@ class AdminController extends Controller
 
     public function student()
     {
-        $students = Student::with('users')->get();
+        $students = Student::with('user')->get();
 
         return view('admin.student.index')->with(['students' => $students]);
     }
@@ -44,8 +44,8 @@ class AdminController extends Controller
         $student->student_code = $request->student_code;
         $student->phone = $request->phone;
 
-        $student->users->name = $request->name;
-        $student->users->email = $request->email;
+        $student->user->name = $request->name;
+        $student->user->email = $request->email;
 
         if ($student->push()) {
             $request->session()->flash('message', 'Student Data Updated Successfully!');

@@ -15,6 +15,8 @@ class CreateAttendancesTable extends Migration
     {
         Schema::create('attendances', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('student_id')->constrained();
+            $table->string('status'); // time-in, time-out, present, absent
             $table->timestamps();
         });
     }
