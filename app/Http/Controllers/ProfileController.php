@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class ProfileController extends Controller
 {
     public function index(User $user)
-    {
+    {        
         switch ($user->roles()->pluck('name')[0]) {
             case 'admin':
                 return view('admin.profile', ['user' => $user]);

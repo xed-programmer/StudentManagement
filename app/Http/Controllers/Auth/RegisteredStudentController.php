@@ -35,8 +35,8 @@ class RegisteredStudentController extends Controller
 
         $role = Role::where('name', 'student')->firstOrFail();
 
-        $user->roles()->attach($role->id);
-
+        $user->roles()->attach($role->id);        
+        
         if ($res) {
             $request->session()->flash('message', 'Student Added Successfully!');
             $request->session()->flash('alert-class', 'alert-success');
@@ -44,7 +44,6 @@ class RegisteredStudentController extends Controller
             $request->session()->flash('message', 'Student Added Unuccessfully!');
             $request->session()->flash('alert-class', 'alert-warning');
         }
-
         // return redirect(RouteServiceProvider::HOME);
         return redirect()->back();
     }
