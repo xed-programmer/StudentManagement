@@ -26,7 +26,7 @@ class Student extends Model
 
     public function attendances()
     {
-        return $this->hasMany(Attendance::class)->sortByDesc('created_at');
+        return $this->hasMany(Attendance::class);
     }
 
     public function guardians()

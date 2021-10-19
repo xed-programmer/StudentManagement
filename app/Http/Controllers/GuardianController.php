@@ -9,6 +9,7 @@ use App\Models\Student;
 use App\Models\User;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class GuardianController extends Controller
 {
@@ -28,14 +29,16 @@ class GuardianController extends Controller
 
     public function showStudent(Student $student)
     {
-        $datas = Attendance::with('student')->whereBelongsTo($student)->get()->groupBy('status');  
-        // dd($datas);
+        if(!$student->guardians->contains(auth()->user()->guardian->id)){
+            return view('nopermission');
+        }
+        
+        $datas = Attendance::with('student')->whereBelongsTo($student)->orderBy('created_at', 'DESC')->get()->groupBy('status');          
         $time_in = ($datas->count() > 0)? PaginationHelper::paginate($datas['time-in'], 100) : [];
         $time_out = ($datas->count() > 0)? PaginationHelper::paginate($datas['time-out'], 100) : [];
         $present = ($datas->count() > 0)? PaginationHelper::paginate($datas['present'], 100) : [];
         $absent = ($datas->count() > 0)? PaginationHelper::paginate($datas['absent'], 100) : [];
         return view('students.index', ['time_in' => $time_in, 'time_out' => $time_out, 'present' => $present, 'absent' => $absent]);
-        dd($student);
     }
 
     /**
