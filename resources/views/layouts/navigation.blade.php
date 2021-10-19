@@ -66,7 +66,7 @@
 
                                         <x-dropdown-link :href="route('logout')"
                                             onclick="event.preventDefault();
-                                                                                                        this.closest('form').submit();">
+                                                                                                            this.closest('form').submit();">
                                             {{ __('Log Out') }}
                                         </x-dropdown-link>
                                     </form>
@@ -76,7 +76,7 @@
                             <x-nav-link :href="route('login')" :active="request()->routeIs('login')">
                                 {{ __('Login') }}
                             </x-nav-link>
-                            <a href="{{ route('register') }}"
+                            <a href="{{ route('guardian.register') }}"
                                 class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
                                 {{ __('Register') }}
                             </a>
@@ -124,7 +124,7 @@
 
                         <x-responsive-nav-link :href="route('logout')"
                             onclick="event.preventDefault();
-                                                                                                this.closest('form').submit();">
+                                                                                                    this.closest('form').submit();">
                             {{ __('Log Out') }}
                         </x-responsive-nav-link>
                     </form>

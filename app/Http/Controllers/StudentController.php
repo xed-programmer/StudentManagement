@@ -14,7 +14,7 @@ class StudentController extends Controller
         $student = auth()->user()->student;
         $datas = Attendance::with('student')->whereBelongsTo($student)->orderBy('created_at', 'DESC')->get()->groupBy('status');                
         // dd($datas[0]);
-        $time_in = PaginationHelper::paginate($datas[0], 1);
+        $time_in = PaginationHelper::paginate($datas[0], 100);
         $time_out = PaginationHelper::paginate($datas[1], 100);
         $present = PaginationHelper::paginate($datas[2], 100);
         $absent = PaginationHelper::paginate($datas[3], 100);
