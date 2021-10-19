@@ -31,7 +31,7 @@ class RegisteredStudentController extends Controller
             'password' => Hash::make($default_student_password),
         ]);
 
-        $res = $user->students()->create($request->only(['student_code', 'phone']));
+        $res = $user->student()->create($request->only(['student_code', 'phone']));
 
         $role = Role::where('name', 'student')->firstOrFail();
 

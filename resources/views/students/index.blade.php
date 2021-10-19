@@ -27,7 +27,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody class="bg-white divide-y divide-gray-200">
-                                                @foreach ($time_in as $ti)
+                                                @forelse ($time_in as $ti)
                                                     <tr>
                                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                                             {{ $ti->created_at->format('D M j Y') }}
@@ -36,14 +36,21 @@
                                                             {{ $ti->created_at->format('h:i:s a') }}
                                                         </td>
                                                     </tr>
-
-                                                @endforeach
+                                                @empty
+                                                    <tr>
+                                                        <td>
+                                                            <p class="text-gray-300 text-center">No Records</p>
+                                                        </td>
+                                                    </tr>
+                                                @endforelse
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div class="p-4">
-                                        {{ $time_in->links() }}
-                                    </div>
+                                    @if (count($time_in) > 0)
+                                        <div class="p-4">
+                                            {{ $time_in->links() }}
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -68,7 +75,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody class="bg-white divide-y divide-gray-200">
-                                                @foreach ($time_out as $to)
+                                                @forelse ($time_out as $to)
                                                     <tr>
                                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                                             {{ $to->created_at->format('D M j Y') }}
@@ -77,14 +84,21 @@
                                                             {{ $to->created_at->format('h:i:s a') }}
                                                         </td>
                                                     </tr>
-
-                                                @endforeach
+                                                @empty
+                                                    <tr>
+                                                        <td>
+                                                            <p class="text-gray-300 text-center">No Records</p>
+                                                        </td>
+                                                    </tr>
+                                                @endforelse
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div class="p-4">
-                                        {{ $time_in->links() }}
-                                    </div>
+                                    @if (count($time_out) > 0)
+                                        <div class="p-4">
+                                            {{ $time_out->links() }}
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -109,7 +123,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody class="bg-white divide-y divide-gray-200">
-                                                @foreach ($present as $p)
+                                                @forelse ($present as $p)
                                                     <tr>
                                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                                             {{ $p->created_at->format('D M j Y') }}
@@ -118,14 +132,21 @@
                                                             {{ $p->created_at->format('h:i:s a') }}
                                                         </td>
                                                     </tr>
-
-                                                @endforeach
+                                                @empty
+                                                    <tr>
+                                                        <td>
+                                                            <p class="text-gray-300 text-center">No Records</p>
+                                                        </td>
+                                                    </tr>
+                                                @endforelse
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div class="p-4">
-                                        {{ $time_in->links() }}
-                                    </div>
+                                    @if (count($present) > 0)
+                                        <div class="p-4">
+                                            {{ $present->links() }}
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -150,7 +171,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody class="bg-white divide-y divide-gray-200">
-                                                @foreach ($absent as $a)
+                                                @forelse ($absent as $a)
                                                     <tr>
                                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                                             {{ $a->created_at->format('D M j Y') }}
@@ -159,14 +180,21 @@
                                                             {{ $a->created_at->format('h:i:s a') }}
                                                         </td>
                                                     </tr>
-
-                                                @endforeach
+                                                @empty
+                                                    <tr>
+                                                        <td>
+                                                            <p class="text-gray-300 text-center">No Records</p>
+                                                        </td>
+                                                    </tr>
+                                                @endforelse
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div class="p-4">
-                                        {{ $time_in->links() }}
-                                    </div>
+                                    @if (count($absent) > 0)
+                                        <div class="p-4">
+                                            {{ $absent->links() }}
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>

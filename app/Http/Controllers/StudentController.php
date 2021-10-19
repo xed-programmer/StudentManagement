@@ -14,10 +14,10 @@ class StudentController extends Controller
         $student = auth()->user()->student;
         $datas = Attendance::with('student')->whereBelongsTo($student)->orderBy('created_at', 'DESC')->get()->groupBy('status');                
         // dd($datas[0]);
-        $time_in = PaginationHelper::paginate($datas[0], 100);
-        $time_out = PaginationHelper::paginate($datas[1], 100);
-        $present = PaginationHelper::paginate($datas[2], 100);
-        $absent = PaginationHelper::paginate($datas[3], 100);
+        $time_in = ($datas->count() > 0)? PaginationHelper::paginate($datas[0], 100) : [];
+        $time_out = ($datas->count() > 0)? PaginationHelper::paginate($datas[1], 100) : [];
+        $present = ($datas->count() > 0)? PaginationHelper::paginate($datas[2], 100) : [];
+        $absent = ($datas->count() > 0)? PaginationHelper::paginate($datas[3], 100) : [];
         return view('students.index', ['time_in' => $time_in, 'time_out' => $time_out, 'present' => $present, 'absent' => $absent]);
     }
 }

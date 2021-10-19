@@ -13,7 +13,7 @@ class GuardianController extends Controller
      */
     public function index()
     {
-        //
+        return view('guardians.index');
     }
 
     /**

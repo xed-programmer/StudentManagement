@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateGuardianRequest;
+use App\Models\Guardian;
 use App\Models\Role;
+use App\Models\Student;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -15,7 +17,7 @@ class RegisteredGuardianController extends Controller
 {
     public function create()
     {
-        return view('guardian.register');
+        return view('guardians.register');
     }
 
     public function store(CreateGuardianRequest $request)
@@ -27,11 +29,13 @@ class RegisteredGuardianController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
-
-        $user->guardians()->create($request->only('student_code'));
+        
         $role = Role::where('name', 'guardian')->firstOrFail();
-
         $user->roles()->attach($role->id);
+        $guardian = $user->guardian();
+        $student = Student::where('student_code', $request->student_code);
+        $guardian->students()->attach($student->id);
+
         event(new Registered($user));
         // return redirect(RouteServiceProvider::HOME);
         Auth::login($user);

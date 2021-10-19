@@ -57,8 +57,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/student', [StudentController::class, 'index'])->name('student');
     });
 
-    Route::group(['middleware' => ['checkrole:guardian']], function () {
-        Route::get('/guardian', [GuardianController::class, 'index'])->name('guardian');
+    Route::group(['middleware' => ['checkrole:guardian'], 'prefix' => 'guardian', 'as' => 'guardian.'], function () {
+        Route::get('/', [GuardianController::class, 'index'])->name('guardian');
     });
 
     Route::group(['middleware' => ['checkrole:professor']], function () {
@@ -67,7 +67,7 @@ Route::group(['middleware' => ['auth']], function () {
 });
 
 Route::group(['middleware' => 'guest'], function () {
-    Route::get('/guardian/register', [GuardianController::class, 'create'])->name('guardian.register');
+    Route::get('/guardian/register', [RegisteredGuardianController::class, 'create'])->name('guardian.register');
     Route::post('/guardian/register', [RegisteredGuardianController::class, 'store'])->name('guardian.register');
 });
 

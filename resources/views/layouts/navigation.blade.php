@@ -34,6 +34,10 @@
                                 <x-nav-link :href="route('student')" :active="request()->routeIs('student')">
                                     {{ __('Student') }}
                                 </x-nav-link>
+                            @elseif (auth()->user()->hasRole('guardian'))
+                                <x-nav-link :href="route('guardian.index')" :active="request()->routeIs('guardian.index')">
+                                    {{ __('Guardian') }}
+                                </x-nav-link>
                             @endif
                             <x-dropdown align="right" width="48">
                                 <x-slot name="trigger">
@@ -55,9 +59,9 @@
                                 <x-slot name="content">
                                     <x-dropdown-link href="{{ route('profile.index', auth()->user()) }}">
                                         <div class="px-4">
-                                            <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}
+                                            <div class="font-medium text-base text-gray-800">{{ __('Your Profile') }}
                                             </div>
-                                            <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+                                            <div class="text-xs text-gray-500">{{ Auth::user()->email }}</div>
                                         </div>
                                     </x-dropdown-link>
                                     <!-- Authentication -->
@@ -66,7 +70,7 @@
 
                                         <x-dropdown-link :href="route('logout')"
                                             onclick="event.preventDefault();
-                                                                                                            this.closest('form').submit();">
+                                                                                                                                        this.closest('form').submit();">
                                             {{ __('Log Out') }}
                                         </x-dropdown-link>
                                     </form>
@@ -124,7 +128,7 @@
 
                         <x-responsive-nav-link :href="route('logout')"
                             onclick="event.preventDefault();
-                                                                                                    this.closest('form').submit();">
+                                                                                                                                this.closest('form').submit();">
                             {{ __('Log Out') }}
                         </x-responsive-nav-link>
                     </form>
