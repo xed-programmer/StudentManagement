@@ -30,11 +30,13 @@ class RegisteredGuardianController extends Controller
             'password' => Hash::make($request->password),
         ]);
         
+        $guardian = $user->guardian()->create();
         $role = Role::where('name', 'guardian')->firstOrFail();
         $user->roles()->attach($role->id);
-        $guardian = $user->guardian();
-        $student = Student::where('student_code', $request->student_code);
-        $guardian->students()->attach($student->id);
+                
+        $student = Student::where('student_code', $request->student_code)->firstOrFail();        
+        // $guardian->students()->attach($student->id);
+        $student->guardians()->attach($guardian->id);
 
         event(new Registered($user));
         // return redirect(RouteServiceProvider::HOME);

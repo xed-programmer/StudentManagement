@@ -23,8 +23,8 @@ class AttendanceFactory extends Factory
     public function definition()
     {
         return [
-            'student_id' => 5,
-            'status' => array_rand(['time-in','time-out', 'present', 'absent'])
+            'student_id' => 1,
+            'status' => array_rand(['time-in'=>0,'time-out'=>1, 'present'=>2, 'absent'=>3])
         ];
     }
 }

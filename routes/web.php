@@ -58,7 +58,8 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
     Route::group(['middleware' => ['checkrole:guardian'], 'prefix' => 'guardian', 'as' => 'guardian.'], function () {
-        Route::get('/', [GuardianController::class, 'index'])->name('guardian');
+        Route::get('/', [GuardianController::class, 'index'])->name('index');
+        Route::get('/view/{student}', [GuardianController::class, 'showStudent'])->name('show.student');
     });
 
     Route::group(['middleware' => ['checkrole:professor']], function () {

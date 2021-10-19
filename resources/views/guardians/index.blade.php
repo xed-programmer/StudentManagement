@@ -6,7 +6,9 @@
                     Guardian
                 </div>
                 <div class="p-6 bg-white border-b border-gray-200">
-                    You're logged in!
+                    @foreach ($guardian->students as $s)
+                        <a href="{{ route('guardian.show.student', $s) }}">{{ $s->user->name }}</a>
+                    @endforeach
                 </div>
             </div>
         </div>

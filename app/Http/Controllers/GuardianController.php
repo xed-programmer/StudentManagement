@@ -2,6 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\PaginationHelper;
+use App\Models\Attendance;
+use App\Models\Guardian;
+use App\Models\Student;
+use App\Models\User;
+use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
 
 class GuardianController extends Controller
@@ -13,7 +19,23 @@ class GuardianController extends Controller
      */
     public function index()
     {
-        return view('guardians.index');
+        $user = User::with('guardian')->findOrFail(auth()->user()->id);
+        // dd($user->guardian);
+        $guardian = Guardian::with('students')->whereBelongsTo($user)->firstOrFail();
+        // dd($guardian->students[0]->attendances);
+        return view('guardians.index', ['guardian' => $guardian]);
+    }
+
+    public function showStudent(Student $student)
+    {
+        $datas = Attendance::with('student')->whereBelongsTo($student)->get()->groupBy('status');  
+        // dd($datas);
+        $time_in = ($datas->count() > 0)? PaginationHelper::paginate($datas['time-in'], 100) : [];
+        $time_out = ($datas->count() > 0)? PaginationHelper::paginate($datas['time-out'], 100) : [];
+        $present = ($datas->count() > 0)? PaginationHelper::paginate($datas['present'], 100) : [];
+        $absent = ($datas->count() > 0)? PaginationHelper::paginate($datas['absent'], 100) : [];
+        return view('students.index', ['time_in' => $time_in, 'time_out' => $time_out, 'present' => $present, 'absent' => $absent]);
+        dd($student);
     }
 
     /**
