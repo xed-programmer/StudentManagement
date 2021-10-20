@@ -18,6 +18,6 @@ class StudentController extends Controller
         $time_out = ($datas->count() > 0)? PaginationHelper::paginate($datas['time-out'], 100) : [];
         $present = ($datas->count() > 0)? PaginationHelper::paginate($datas['present'], 100) : [];
         $absent = ($datas->count() > 0)? PaginationHelper::paginate($datas['absent'], 100) : [];
-        return view('students.index', ['time_in' => $time_in, 'time_out' => $time_out, 'present' => $present, 'absent' => $absent]);
+        return view('students.index', ['student' => $student,'time_in' => $time_in, 'time_out' => $time_out, 'present' => $present, 'absent' => $absent]);
     }
 }

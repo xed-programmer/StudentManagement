@@ -64,7 +64,7 @@ class ProfileController extends Controller
     private function updateUserStudent(User $user, Request $request)
     {
 
-        $student = Student::findOrFail($user->students()->pluck('id')[0]);
+        $student = Student::findOrFail($user->student()->pluck('id')[0]);
 
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -73,8 +73,8 @@ class ProfileController extends Controller
         ]);
 
         $student->phone = $request->phone;
-        $student->users->name = $request->name;
-        $student->users->email = $request->email;
+        $student->user->name = $request->name;
+        $student->user->email = $request->email;
 
         if ($student->push()) {
             $request->session()->flash('message', 'Student Data Updated Successfully!');
