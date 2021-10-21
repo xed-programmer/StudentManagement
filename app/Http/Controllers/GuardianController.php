@@ -7,9 +7,7 @@ use App\Models\Attendance;
 use App\Models\Guardian;
 use App\Models\Student;
 use App\Models\User;
-use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class GuardianController extends Controller
 {
@@ -34,11 +32,11 @@ class GuardianController extends Controller
         }
         
         $datas = Attendance::with('student')->whereBelongsTo($student)->orderBy('created_at', 'DESC')->get()->groupBy('status');          
-        $time_in = ($datas->count() > 0)? PaginationHelper::paginate($datas['time-in'], 100) : [];
-        $time_out = ($datas->count() > 0)? PaginationHelper::paginate($datas['time-out'], 100) : [];
-        $present = ($datas->count() > 0)? PaginationHelper::paginate($datas['present'], 100) : [];
-        $absent = ($datas->count() > 0)? PaginationHelper::paginate($datas['absent'], 100) : [];
-        return view('students.index', ['student' => $student,'time_in' => $time_in, 'time_out' => $time_out, 'present' => $present, 'absent' => $absent]);
+        $time_in = ($datas->count() > 0)? PaginationHelper::paginate($datas['time-in'], 20) : [];
+        $time_out = ($datas->count() > 0)? PaginationHelper::paginate($datas['time-out'], 20) : [];
+        $present = ($datas->count() > 0)? PaginationHelper::paginate($datas['present'], 20) : [];
+        $absent = ($datas->count() > 0)? PaginationHelper::paginate($datas['absent'], 20) : [];
+        return view('guardians.student.show', ['student' => $student,'time_in' => $time_in, 'time_out' => $time_out, 'present' => $present, 'absent' => $absent]);
     }
 
     /**
