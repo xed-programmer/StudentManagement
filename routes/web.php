@@ -60,6 +60,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['middleware' => ['checkrole:guardian'], 'prefix' => 'guardian', 'as' => 'guardian.'], function () {
         Route::get('/', [GuardianController::class, 'index'])->name('index');
         Route::get('/view/{student:student_code}', [GuardianController::class, 'showStudent'])->name('show.student');
+        Route::get('/create', [GuardianController::class, 'create'])->name('create.student');
+        Route::post('/store/{guardian}', [GuardianController::class, 'store'])->name('store.student');
+        Route::delete('/{guardian}/{student}', [GuardianController::class, 'destroy'])->name('delete.student');
     });
 
     Route::group(['middleware' => ['checkrole:professor']], function () {

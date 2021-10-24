@@ -7,7 +7,9 @@ use App\Models\Attendance;
 use App\Models\Guardian;
 use App\Models\Student;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class GuardianController extends Controller
 {
@@ -44,9 +46,10 @@ class GuardianController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    //Add Student
     public function create()
     {
-        return view('guardians.register');
+        return view('guardians.student.add');
     }
 
     /**
@@ -55,9 +58,16 @@ class GuardianController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(Guardian $guardian, Request $request)
+    {        
+        $request->validate([
+            'student_code' => ['required', 'string', 'max:10', 'exists:students,student_code'],
+        ]);
+        $student = Student::where('student_code', $request->student_code)->firstOrFail();        
+        if($guardian->hasStudent($student)){
+            return response()->json(['error' => $student->user->name.' has already been added'], 404);
+        }       
+        $student->guardians()->attach($guardian->id);
     }
 
     /**
@@ -100,8 +110,12 @@ class GuardianController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($g, $s)
     {
-        //
+        $guardian = Guardian::findOrFail($g);
+        $student = Student::findOrFail($s);        
+        $guardian->students()->detach($student->id);
+        // $guardian->students()->where('student_id', '=', $student->id)->where('guardian_id', '=', $guardian->id)->detach();
+        return redirect()->route('guardian.index');
     }
 }

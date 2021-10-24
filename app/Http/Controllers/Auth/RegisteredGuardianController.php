@@ -38,7 +38,7 @@ class RegisteredGuardianController extends Controller
         // $guardian->students()->attach($student->id);
         $student->guardians()->attach($guardian->id);
 
-        event(new Registered($user));
+        //event(new Registered($user));
         // return redirect(RouteServiceProvider::HOME);
         Auth::login($user);
         return redirect()->route('home');
