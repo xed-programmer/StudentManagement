@@ -33,8 +33,8 @@
                                             </tr>
                                         </thead>
                                         <tbody class="bg-white divide-y divide-gray-200">
-                                            @forelse ($guardian->students as $i => $s)
-                                                <tr>
+                                            @forelse ($guardian->students as $s)
+                                                <tr class="hover:bg-blue-300">
                                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                                         {{ $s->user->name }}
                                                     </td>

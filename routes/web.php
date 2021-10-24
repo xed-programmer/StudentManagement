@@ -38,9 +38,9 @@ Route::group(['middleware' => ['auth']], function () {
 
 
     Route::group(['prefix' => 'profile', 'as' => 'profile.'], function () {
-        Route::get('/{user}', [ProfileController::class, 'index'])->name('index');
-        Route::get('/edit/{user}', [ProfileController::class, 'edit'])->name('edit');
-        Route::put('/update/{user}', [ProfileController::class, 'update'])->name('update');
+        Route::get('/{user:name}', [ProfileController::class, 'index'])->name('index');
+        Route::get('/edit/{user:name}', [ProfileController::class, 'edit'])->name('edit');
+        Route::put('/update/{user:name}', [ProfileController::class, 'update'])->name('update');
     });
 
     Route::group(['middleware' => ['checkrole:admin'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
@@ -48,9 +48,9 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/student', [AdminController::class, 'student'])->name('student.index');
         Route::get('/student/register', [AdminController::class, 'createStudent'])->name('student.register');
         Route::post('/student/register', [RegisteredStudentController::class, 'store'])->name('student.register');
-        Route::get('/student/edit/{student}', [AdminController::class, 'editStudent'])->name('student.edit');
-        Route::put('/student/edit/{student}', [AdminController::class, 'updateStudent'])->name('student.update');
-        Route::delete('/student/{student}', [AdminController::class, 'destroyStudent'])->name('student.delete');
+        Route::get('/student/edit/{student:student_code}', [AdminController::class, 'editStudent'])->name('student.edit');
+        Route::put('/student/edit/{student:student_code}', [AdminController::class, 'updateStudent'])->name('student.update');
+        Route::delete('/student/{student:student_code}', [AdminController::class, 'destroyStudent'])->name('student.delete');
     });
 
     Route::group(['middleware' => ['checkrole:student']], function () {
@@ -59,7 +59,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::group(['middleware' => ['checkrole:guardian'], 'prefix' => 'guardian', 'as' => 'guardian.'], function () {
         Route::get('/', [GuardianController::class, 'index'])->name('index');
-        Route::get('/view/{student}', [GuardianController::class, 'showStudent'])->name('show.student');
+        Route::get('/view/{student:student_code}', [GuardianController::class, 'showStudent'])->name('show.student');
     });
 
     Route::group(['middleware' => ['checkrole:professor']], function () {

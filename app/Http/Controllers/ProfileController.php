@@ -9,7 +9,10 @@ use Illuminate\Http\Request;
 class ProfileController extends Controller
 {
     public function index(User $user)
-    {        
+    {
+        if(auth()->user()->id != $user->id){
+            return redirect()->route('home');
+        }
         switch ($user->roles()->pluck('name')[0]) {
             case 'admin':
                 return view('admin.profile', ['user' => $user]);
@@ -22,6 +25,9 @@ class ProfileController extends Controller
 
     public function edit(User $user)
     {
+        if(auth()->user()->id != $user->id){
+            return redirect()->route('home');
+        }
         switch ($user->roles()->pluck('name')[0]) {
             case 'admin':
                 return view('admin.edit', ['user' => $user]);
@@ -34,7 +40,9 @@ class ProfileController extends Controller
 
     public function update(User $user, Request $request)
     {
-
+        if(auth()->user()->id != $user->id){
+            return redirect()->route('home');
+        }
         switch ($user->roles()->pluck('name')[0]) {
             case 'admin':
                 ProfileController::updateUserAdmin($user, $request);
@@ -51,6 +59,9 @@ class ProfileController extends Controller
 
     private function updateUserAdmin(User $user, Request $request)
     {
+        if(auth()->user()->id != $user->id){
+            return redirect()->route('home');
+        }
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users, email, ' . $user->id],
@@ -63,6 +74,9 @@ class ProfileController extends Controller
 
     private function updateUserStudent(User $user, Request $request)
     {
+        if(auth()->user()->id != $user->id){
+            return redirect()->route('home');
+        }
 
         $student = Student::findOrFail($user->student()->pluck('id')[0]);
 

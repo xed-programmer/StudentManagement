@@ -26,7 +26,7 @@ class GuardianController extends Controller
     }
 
     public function showStudent(Student $student)
-    {
+    {        
         if(!$student->guardians->contains(auth()->user()->guardian->id)){
             return view('nopermission');
         }
