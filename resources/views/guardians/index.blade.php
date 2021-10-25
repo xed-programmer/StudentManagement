@@ -3,9 +3,6 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    Guardian
-                </div>
-                <div class="p-6 bg-white border-b border-gray-200">
                     <h2>Students</h2>
                     <!-- Button trigger modal -->
                     <button
@@ -59,11 +56,12 @@
 
                                                         <form
                                                             action="{{ route('guardian.delete.student', [$guardian, $s]) }}"
-                                                            method="POST" onclick="
-                                                            return confirm('Do you want to delete this data?');">
+                                                            method="POST"
+                                                            onclick="
+                                                            return confirm('Do you want to remove {{ $s->user->name }} ?');">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <input type="submit" value="{{ __('Delete') }}"
+                                                            <input type="submit" value="{{ __('Remove') }}"
                                                                 class="text-xs bg-red-300 text-red-800 py-2 px-4 rounded-lg">
                                                         </form>
                                                     </td>

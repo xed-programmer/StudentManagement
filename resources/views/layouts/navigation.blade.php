@@ -44,7 +44,7 @@
                                 {{ __('Login') }}
                             </x-nav-link>
                             <a href="{{ route('guardian.register') }}"
-                                class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
+                                class="flex items-center self-center text-sm px-8 py-2 h-11 border border-transparent rounded-full text-white bg-indigo-600 hover:bg-indigo-700">
                                 {{ __('Register') }}
                             </a>
                         @endauth
@@ -81,8 +81,9 @@
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
 
-                                    <x-dropdown-link :href="route('logout')" onclick="event.preventDefault();
-                                                                this.closest('form').submit();">
+                                    <x-dropdown-link :href="route('logout')"
+                                        onclick="event.preventDefault();
+                                                                                                                                    this.closest('form').submit();">
                                         <div class="flex items-center">
                                             <i class="fas fa-sign-out-alt mr-2"></i>
                                             {{ __('Log Out') }}
@@ -134,7 +135,7 @@
 
                         <x-responsive-nav-link :href="route('logout')"
                             onclick="event.preventDefault();
-                                                                                                                                                                                            this.closest('form').submit();">
+                                                                                                                                                                                                                                                                this.closest('form').submit();">
                             {{ __('Log Out') }}
                         </x-responsive-nav-link>
                     </form>
