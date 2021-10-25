@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\RegisteredGuardianController;
 use App\Http\Controllers\Auth\RegisteredStudentController;
+use App\Http\Controllers\GatePassController;
 use App\Http\Controllers\GuardianController;
 use App\Http\Controllers\ProfessorController;
 use App\Http\Controllers\ProfileController;
@@ -68,11 +69,19 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['middleware' => ['checkrole:professor']], function () {
         Route::get('/professor', [ProfessorController::class, 'index'])->name('professor');
     });
+
+
 });
 
 Route::group(['middleware' => 'guest'], function () {
     Route::get('/guardian/register', [RegisteredGuardianController::class, 'create'])->name('guardian.register');
     Route::post('/guardian/register', [RegisteredGuardianController::class, 'store'])->name('guardian.register');
+});
+
+//'middleware' => ['checkrole:securityguard']
+Route::group(['prefix' => 'gatepass', 'as' => 'gatepass.'], function () {
+    Route::get('/', [GatePassController::class, 'index'])->name('index');
+    Route::post('/', [GatePassController::class, 'store'])->name('store');
 });
 
 
