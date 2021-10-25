@@ -81,10 +81,12 @@
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
 
-                                    <x-dropdown-link :href="route('logout')"
-                                        onclick="event.preventDefault();
-                                                                                                                                                                        this.closest('form').submit();">
-                                        {{ __('Log Out') }}
+                                    <x-dropdown-link :href="route('logout')" onclick="event.preventDefault();
+                                                                this.closest('form').submit();">
+                                        <div class="flex items-center">
+                                            <i class="fas fa-sign-out-alt mr-2"></i>
+                                            {{ __('Log Out') }}
+                                        </div>
                                     </x-dropdown-link>
                                 </form>
                             </x-slot>
@@ -132,7 +134,7 @@
 
                         <x-responsive-nav-link :href="route('logout')"
                             onclick="event.preventDefault();
-                                                                                                                                                                        this.closest('form').submit();">
+                                                                                                                                                                                            this.closest('form').submit();">
                             {{ __('Log Out') }}
                         </x-responsive-nav-link>
                     </form>
