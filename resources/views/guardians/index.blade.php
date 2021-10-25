@@ -154,7 +154,7 @@
         </script>
 
         <script>
-            $(document).ready(function() {
+            $(document).ready(() => {
                 $('#addform').on('submit', (e) => {
                     e.preventDefault();
 
@@ -163,10 +163,10 @@
                         url: "{{ route('guardian.store.student', $guardian) }}",
                         data: $('#addform').serialize(),
                         success: (response) => {
-                            toggleModal('form-modal');
                             alert("Student Add");
-                            $('#addform').reset();
-                            $this.reload();
+                            $('#addform input').val('');
+                            window.location.reload(1);
+                            toggleModal('form-modal');
                         },
                         error: (error) => {
                             try {

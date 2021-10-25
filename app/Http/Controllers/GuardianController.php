@@ -114,8 +114,7 @@ class GuardianController extends Controller
     {
         $guardian = Guardian::findOrFail($g);
         $student = Student::findOrFail($s);        
-        $guardian->students()->detach($student->id);
-        // $guardian->students()->where('student_id', '=', $student->id)->where('guardian_id', '=', $guardian->id)->detach();
+        $guardian->students()->detach($student->id);        
         return redirect()->route('guardian.index');
     }
 }
