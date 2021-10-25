@@ -19,8 +19,7 @@ class GatePassController extends Controller
             'student_code' => ['required', 'max:10', 'exists:students,student_code'],
         ]);
 
-        $student = Student::with('attendances')->where('student_code', $request->student_code)->firstOrFail();
-        
+        $student = Student::with('attendances')->where('student_code', $request->student_code)->firstOrFail();                
 
         //This is the equivalent syntax in Mysql
         //SELECT * FROM `attendances` WHERE `created_at` > '2021-10-25 00:00:00.0' AND (`status` = 'time-in' OR `status` = 'time-out');
@@ -32,11 +31,15 @@ class GatePassController extends Controller
         ->latest()->get();
         
         //check if the student tap rfid within 60 seconds
-        if(now()->diffInSeconds($attendances[0]->created_at) < 60){
-            $student->attendances()->create(['status' => $attendances[0]->status]);
+        
+        if($attendances->count()>0){
+            if(now()->diffInSeconds($attendances[0]->created_at) < 60){
+                $student->attendances()->create(['status' => $attendances[0]->status]);
+                return redirect()->route('gatepass.index');
+            }
         }
         //if count is even, then it must be time in, else time out
-        else if($attendances->count()%2 == 0){
+        if($attendances->count()%2 == 0){
             $student->attendances()->create(['status' => 'time-in']);
         }else{
             $student->attendances()->create(['status' => 'time-out']);
