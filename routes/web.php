@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminStudentController;
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Auth\RegisteredGuardianController;
 use App\Http\Controllers\Auth\RegisteredStudentController;
 use App\Http\Controllers\GatePassController;
