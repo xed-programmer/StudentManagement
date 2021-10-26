@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminStudentController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AdminPostController;
 use App\Http\Controllers\Auth\RegisteredGuardianController;
 use App\Http\Controllers\Auth\RegisteredStudentController;
 use App\Http\Controllers\GatePassController;
@@ -55,6 +56,13 @@ Route::group(['middleware' => ['auth']], function () {
             Route::put('/edit/{student:student_code}', [AdminStudentController::class, 'update'])->name('update');
             Route::delete('/{student:student_code}', [AdminStudentController::class, 'destroy'])->name('delete'); 
         });        
+
+        Route::prefix('posts')->as('posts.')->group(function () {
+            Route::get('/', [AdminPostController::class, 'index'])->name('index');
+            Route::post('/', [AdminPostController::class, 'store'])->name('store');
+            Route::get('/edit', [AdminPostController::class, 'edit'])->name('edit');
+            Route::delete('/{post}', [AdminPostController::class, 'destroy'])->name('delete');
+        });
     });
 
     Route::group(['middleware' => ['checkrole:student']], function () {
