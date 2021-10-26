@@ -13,7 +13,7 @@
                     @csrf
                     <div class="bg-white flex items-center rounded-full shadow-xl">
                         <input class="border-none rounded-full w-full py-4 px-6 text-gray-700" name="student_code"
-                            type="text" placeholder="Student Code" autofocus required>
+                            id="student_code" type="text" placeholder="Student Code" autofocus required>
 
                         <div class="p-4">
                             <button
@@ -26,4 +26,14 @@
             </div>
         </div>
     </div>
+
+    @prepend('scripts')
+        <script>
+            $(document).ready(() => {
+                setInterval(() => {
+                    $('#student_code').focus();
+                }, 500);
+            });
+        </script>
+    @endprepend
 </x-guest-layout>
