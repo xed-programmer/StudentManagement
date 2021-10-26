@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminStudentController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminPostController;
+use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\Auth\RegisteredGuardianController;
 use App\Http\Controllers\Auth\RegisteredStudentController;
 use App\Http\Controllers\GatePassController;
@@ -95,5 +96,6 @@ Route::group(['prefix' => 'gatepass', 'as' => 'gatepass.'], function () {
     Route::post('/', [GatePassController::class, 'store'])->name('store');
 });
 
+Route::get('/announcements', [AnnouncementController::class, 'index'])->name('announcement');
 
 require __DIR__ . '/auth.php';

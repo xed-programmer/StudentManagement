@@ -13,7 +13,7 @@
                       ['para', ['paragraph']],
                       ['table', ['table']],
                       ['insert', ['link', 'video']],
-                      ['view', ['fullscreen', 'help']],
+                      ['view', ['fullscreen', 'codeview', 'help']],
                   ],
               });
           });

@@ -44,9 +44,8 @@
                                     aria-describedby="example1_info">
                                     <thead>
                                         <tr role="row">
-                                            <th class="sorting sorting_asc" tabindex="0" aria-controls="example1"
-                                                rowspan="1" colspan="1" aria-sort="ascending"
-                                                aria-label="Post: activate to sort column descending">Post</th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
+                                                colspan="1" aria-label="Post: activate to sort column descending">Post</th>
                                             <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
                                                 colspan="1" aria-label="Created At: activate to sort column ascending">
                                                 Created At</th>
@@ -60,7 +59,7 @@
                                                     {!! $post->body !!}
                                                 </td>
                                                 <td class="dtr-control sorting_1" tabindex="0">
-                                                    {{ $post->created_at->diffForHumans() }}</td>
+                                                    {{ $post->created_at }}</td>
                                                 <td class="dtr-control sorting_1" tabindex="0">
                                                     <div class="d-flex justify-content-center">
                                                         <a href="{{ route('admin.posts.edit', $post) }}"

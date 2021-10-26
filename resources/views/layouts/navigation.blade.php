@@ -15,8 +15,8 @@
                     <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
                         {{ __('Home') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                    <x-nav-link :href="route('announcement')" :active="request()->routeIs('announcement')">
+                        {{ __('Announcements') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -83,7 +83,7 @@
 
                                     <x-dropdown-link :href="route('logout')"
                                         onclick="event.preventDefault();
-                                                                                                                                    this.closest('form').submit();">
+                                                                                                                                        this.closest('form').submit();">
                                         <div class="flex items-center">
                                             <i class="fas fa-sign-out-alt mr-2"></i>
                                             {{ __('Log Out') }}
@@ -135,7 +135,7 @@
 
                         <x-responsive-nav-link :href="route('logout')"
                             onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                this.closest('form').submit();">
+                                                                                                                                                                                                                                                                    this.closest('form').submit();">
                             {{ __('Log Out') }}
                         </x-responsive-nav-link>
                     </form>

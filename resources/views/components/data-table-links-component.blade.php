@@ -16,6 +16,7 @@
  <script>
      $(function() {
          $("#example1").DataTable({
+             "aaSorting": [],
              "paging": true,
              "responsive": true,
              "lengthChange": false,
