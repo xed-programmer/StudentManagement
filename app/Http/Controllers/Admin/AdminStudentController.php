@@ -1,37 +1,55 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\CreateStudentRequest;
+use App\Http\Controllers\Controller;
 use App\Models\Student;
 use App\Models\User;
-use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 
-class AdminController extends Controller
+class AdminStudentController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
-    {
-        return view('admin.index');
-    }
-
-    public function student()
     {
         $students = Student::with('user')->get();
 
         return view('admin.student.index')->with(['students' => $students]);
     }
-    public function createStudent()
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
     {
         return view('admin.student.register');
     }
 
-    public function editStudent(Student $student, Request $request)
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Student $student)
     {
         return view('admin.student.edit', ['student' => $student]);
     }
 
-    public function updateStudent(Student $student, Request $request)
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Student $student, Request $request)
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -58,9 +76,14 @@ class AdminController extends Controller
         return redirect()->route('admin.student.index');
     }
 
-    public function destroyStudent(Student $student, Request $request)
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Student $student, Request $request)
     {
-        // $res = $student->deleteOrFail();
         $res = User::findOrFail($student->user_id)->deleteOrFail();
         if ($res) {
             $request->session()->flash('message', 'Student Data Deleted Successfully!');

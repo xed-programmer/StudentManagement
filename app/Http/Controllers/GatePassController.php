@@ -20,7 +20,7 @@ class GatePassController extends Controller
         ]);
 
         $student = Student::with('attendances')->where('student_code', $request->student_code)->firstOrFail();                
-
+        
         //This is the equivalent syntax in Mysql
         //SELECT * FROM `attendances` WHERE `created_at` > '2021-10-25 00:00:00.0' AND (`status` = 'time-in' OR `status` = 'time-out');
         $attendances = $student->attendances()

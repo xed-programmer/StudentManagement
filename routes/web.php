@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminStudentController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\RegisteredGuardianController;
 use App\Http\Controllers\Auth\RegisteredStudentController;
@@ -8,7 +9,6 @@ use App\Http\Controllers\GuardianController;
 use App\Http\Controllers\ProfessorController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -45,13 +45,16 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
     Route::group(['middleware' => ['checkrole:admin'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
-        Route::get('/', [AdminController::class, 'index'])->name('index');
-        Route::get('/student', [AdminController::class, 'student'])->name('student.index');
-        Route::get('/student/register', [AdminController::class, 'createStudent'])->name('student.register');
-        Route::post('/student/register', [RegisteredStudentController::class, 'store'])->name('student.register');
-        Route::get('/student/edit/{student:student_code}', [AdminController::class, 'editStudent'])->name('student.edit');
-        Route::put('/student/edit/{student:student_code}', [AdminController::class, 'updateStudent'])->name('student.update');
-        Route::delete('/student/{student:student_code}', [AdminController::class, 'destroyStudent'])->name('student.delete');
+        Route::get('/',[AdminController::class, 'index'])->name('index');
+
+        Route::prefix('student')->as('student.')->group(function () {
+            Route::get('/', [AdminStudentController::class, 'index'])->name('index');
+            Route::get('/register', [AdminStudentController::class, 'create'])->name('register');
+            Route::post('/register', [RegisteredStudentController::class, 'store'])->name('register');
+            Route::get('/edit/{student:student_code}', [AdminStudentController::class, 'edit'])->name('edit');
+            Route::put('/edit/{student:student_code}', [AdminStudentController::class, 'update'])->name('update');
+            Route::delete('/{student:student_code}', [AdminStudentController::class, 'destroy'])->name('delete'); 
+        });        
     });
 
     Route::group(['middleware' => ['checkrole:student']], function () {
