@@ -16,7 +16,25 @@
                 </div>
             </div>
         @empty
-
+            <div class="pt-4">
+                <div class="max-w-3xl mx-auto  sm:px-6 lg:px-8">
+                    <div class="p-6 text-lg text-center text-gray-400 uppercase tracking-wider">
+                        NO ANNOUNCEMENTS
+                    </div>
+                </div>
+            </div>
         @endforelse
+
+        @if (count($posts) > 0)
+            <div class="pt-4">
+                <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
+                    <div class="bg-white overflow-hidden sm:rounded-lg">
+                        <div class="p-6 text-lg text-gray-400 uppercase tracking-wider">
+                            {{ $posts->links() }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
     </div>
 </x-app-layout>

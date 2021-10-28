@@ -9,8 +9,7 @@ class AnnouncementController extends Controller
 {
     public function index()
     {
-        $posts = Post::latest()->paginate(10);
-
+        $posts = Post::latest()->paginate(10);        
         return view('announcement')->with(['posts' => $posts]);
     }
 }
