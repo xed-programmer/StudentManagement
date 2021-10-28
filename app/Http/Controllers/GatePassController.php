@@ -34,7 +34,7 @@ class GatePassController extends Controller
         
         if($attendances->count()>0){
             if(now()->diffInSeconds($attendances[0]->created_at) < 60){
-                $student->attendances()->create(['status' => $attendances[0]->status]);
+                // $student->attendances()->create(['status' => $attendances[0]->status]);
                 return redirect()->route('gatepass.index');
             }
         }

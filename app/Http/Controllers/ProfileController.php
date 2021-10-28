@@ -23,16 +23,17 @@ class ProfileController extends Controller
         return view('nopermission');
     }
 
-    public function edit(User $user)
+    public function edit(Request $request)
     {
-        if(auth()->user()->id != $user->id){
+        
+        if(auth()->user()->id != $request->user()->id){
             return redirect()->route('home');
         }
-        switch ($user->roles()->pluck('name')[0]) {
+        switch ($request->user()->roles()->pluck('name')[0]) {
             case 'admin':
-                return view('admin.edit', ['user' => $user]);
+                return view('admin.edit', ['user' => $request->user()]);
             case 'student':
-                return view('students.edit', ['user' => $user]);
+                return view('students.edit', ['user' => $request->user()]);
         }
 
         return view('nopermission');

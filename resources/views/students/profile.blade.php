@@ -4,6 +4,12 @@
         {{ session()->get('message') }}
     </div>
 @endif --}}
+
+    @if (session('status') == 'verification-link-sent')
+        <div class="mb-4 font-medium text-sm text-green-600">
+            {{ __('A new verification link has been sent to the email address you provided during registration.') }}
+        </div>
+    @endif
     <div class="w-1/2 mx-auto mt-2">
         <div class="bg-white shadow overflow-hidden sm:rounded-lg">
             <div class="flex justify-between px-4 py-5 sm:px-6">
@@ -11,8 +17,24 @@
                     Your Information
                 </h3>
                 @if (!$user->hasVerifiedEmail())
-                    <a href="{{ route('profile.edit', $user) }}"
-                        class="text-gray-900 bg-blue-500 py-2 px-8 rounded text-sm">Edit</a>
+                    <form method="POST" action="{{ route('profile.edit') }}">
+                        @csrf
+                        <div>
+                            <x-button>
+                                {{ __('Edit') }}
+                            </x-button>
+                        </div>
+                    </form>
+                @else
+                    <form method="POST" action="{{ route('verification.send') }}">
+                        @csrf
+
+                        <div>
+                            <x-button>
+                                {{ __('Resend Verification Email') }}
+                            </x-button>
+                        </div>
+                    </form>
                 @endif
                 {{-- <p class="mt-1 max-w-2xl text-sm text-gray-500">
                 
