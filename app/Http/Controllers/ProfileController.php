@@ -8,16 +8,16 @@ use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
-    public function index(User $user)
+    public function index(Request $request)
     {
-        if(auth()->user()->id != $user->id){
+        if(auth()->user()->id != $request->user()->id){
             return redirect()->route('home');
         }
-        switch ($user->roles()->pluck('name')[0]) {
+        switch ($request->user()->roles()->pluck('name')[0]) {
             case 'admin':
-                return view('admin.profile', ['user' => $user]);
+                return view('admin.profile', ['user' => $request->user()]);
             case 'student':
-                return view('students.profile', ['user' => $user]);
+                return view('students.profile', ['user' => $request->user()]);
         }
 
         return view('nopermission');
@@ -39,23 +39,23 @@ class ProfileController extends Controller
         return view('nopermission');
     }
 
-    public function update(User $user, Request $request)
+    public function update(Request $request)
     {
-        if(auth()->user()->id != $user->id){
+        if(auth()->user()->id != $request->user()->id){
             return redirect()->route('home');
         }
-        switch ($user->roles()->pluck('name')[0]) {
+        switch ($request->user()->roles()->pluck('name')[0]) {
             case 'admin':
-                ProfileController::updateUserAdmin($user, $request);
+                ProfileController::updateUserAdmin($request->user(), $request);
                 break;
             case 'student':
-                ProfileController::updateUserStudent($user, $request);
+                ProfileController::updateUserStudent($request->user(), $request);
                 break;
             default:
                 return view('nopermission');
         }
 
-        return redirect()->route('profile.index', $user);
+        return redirect()->route('profile.index');
     }
 
     private function updateUserAdmin(User $user, Request $request)

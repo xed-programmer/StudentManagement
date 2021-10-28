@@ -41,9 +41,9 @@ Route::group(['middleware' => ['auth']], function () {
 
 
     Route::group(['prefix' => 'profile', 'as' => 'profile.'], function () {
-        Route::get('/{user:name}', [ProfileController::class, 'index'])->name('index');
+        Route::get('/', [ProfileController::class, 'index'])->name('index');
         Route::post('/edit', [ProfileController::class, 'edit'])->name('edit');
-        Route::put('/update/{user:name}', [ProfileController::class, 'update'])->name('update');
+        Route::put('/update', [ProfileController::class, 'update'])->name('update');
     });
 
     Route::group(['middleware' => ['checkrole:admin'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
