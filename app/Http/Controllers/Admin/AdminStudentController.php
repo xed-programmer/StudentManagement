@@ -17,7 +17,6 @@ class AdminStudentController extends Controller
     public function index()
     {
         $students = Student::with('user')->get();
-
         return view('admin.student.index')->with(['students' => $students]);
     }
 

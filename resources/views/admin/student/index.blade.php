@@ -44,8 +44,8 @@
                                                     class="btn btn-sm btn-warning mr-2">Edit</a>
                                                 <form action="{{ route('admin.student.delete', $student) }}" method="POST"
                                                     onclick="
-                                                            return confirm('Do you want to delete this data?');
-                                                        ">
+                                                                return confirm('Do you want to delete this data?');
+                                                            ">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button class="btn btn-sm btn-danger">Delete</button>
