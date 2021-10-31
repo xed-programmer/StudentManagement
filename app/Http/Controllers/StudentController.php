@@ -10,7 +10,7 @@ class StudentController extends Controller
     public function index()
     {
         $student = auth()->user()->student;
-        $datas = Attendance::with('student')->whereBelongsTo($student)->orderBy('created_at', 'DESC')->get()->groupBy('status');                        
+        $datas = Attendance::whereBelongsTo($student)->orderBy('created_at', 'DESC')->get()->groupBy('status');                        
         $time_in = ($datas->count() > 0)? PaginationHelper::paginate($datas['time-in'], 20) : [];
         $time_out = ($datas->count() > 0)? PaginationHelper::paginate($datas['time-out'], 20) : [];
         $present = ($datas->count() > 0)? PaginationHelper::paginate($datas['present'], 20) : [];

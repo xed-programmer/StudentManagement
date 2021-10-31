@@ -20,10 +20,8 @@ class GuardianController extends Controller
      */
     public function index()
     {
-        $user = User::with('guardian')->findOrFail(auth()->user()->id);        
-        //dd($user);
-        $guardian = Guardian::with('students')->whereBelongsTo($user)->firstOrFail();
-        // dd($guardian->students[0]->attendances);
+        $user = User::findOrFail(auth()->user()->id);                
+        $guardian = Guardian::with('students', 'students.user')->whereBelongsTo($user)->firstOrFail();        
         return view('guardians.index', ['guardian' => $guardian]);
     }
 
@@ -33,7 +31,7 @@ class GuardianController extends Controller
             return view('nopermission');
         }
         
-        $datas = Attendance::with('student')->whereBelongsTo($student)->orderBy('created_at', 'DESC')->get()->groupBy('status');          
+        $datas = Attendance::whereBelongsTo($student)->orderBy('created_at', 'DESC')->get()->groupBy('status');          
         $time_in = ($datas->count() > 0)? PaginationHelper::paginate($datas['time-in'], 20) : [];
         $time_out = ($datas->count() > 0)? PaginationHelper::paginate($datas['time-out'], 20) : [];
         $present = ($datas->count() > 0)? PaginationHelper::paginate($datas['present'], 20) : [];
