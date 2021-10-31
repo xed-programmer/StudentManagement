@@ -17,7 +17,7 @@
                     Your Information
                 </h3>
                 @if (!$user->hasVerifiedEmail())
-                    <form method="POST" action="{{ route('profile.edit') }}">
+                    <form method="GET" action="{{ route('profile.student.edit') }}">
                         @csrf
                         <div>
                             <x-button>
