@@ -25,7 +25,7 @@
             </div>
         @endforelse
 
-        @if (count($posts) > 0)
+        @if ($posts->count() > 0)
             <div class="pt-4">
                 <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
                     <div class="bg-white overflow-hidden sm:rounded-lg">
