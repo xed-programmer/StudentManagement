@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\RegisteredStudentController;
 use App\Http\Controllers\GatePassController;
 use App\Http\Controllers\GuardianController;
 use App\Http\Controllers\ProfessorController;
+use App\Http\Controllers\Profile\ProfileAdminController;
 use App\Http\Controllers\Profile\ProfileStudentController;
 use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\StudentController;
@@ -43,19 +44,17 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::group(['prefix' => 'profile', 'as' => 'profile.'], function () {
         Route::get('/', [ProfileController::class, 'index'])->name('index');
-        // Route::get('/edit', [ProfileController::class, 'edit'])->name('edit');
-        // Route::put('/update', [ProfileController::class, 'update'])->name('update');
-        // Route::put('/update/password', [ProfileController::class, 'updatePassword'])->name('update.password');
 
-        Route::as('student.')->group(function () {            
+        Route::middleware('checkrole:student')->prefix('student')->as('student.')->group(function () {            
             Route::get('/edit', [ProfileStudentController::class, 'edit'])->name('edit');
             Route::put('/update/user', [ProfileStudentController::class, 'updateUser'])->name('update.user');
             Route::put('/update/password', [ProfileStudentController::class, 'updatePassword'])->name('update.password');
         });
-        Route::as('admin.')->group(function () {            
-            Route::get('/edit', [ProfileStudentController::class, 'edit'])->name('edit');
-            Route::put('/update/user', [ProfileStudentController::class, 'updateUser'])->name('update.user');
-            Route::put('/update/password', [ProfileStudentController::class, 'updatePassword'])->name('update.password');
+        
+        Route::middleware('checkrole:admin')->prefix('admin')->as('admin.')->group(function () {            
+            Route::get('/edit', [ProfileAdminController::class, 'edit'])->name('edit');
+            Route::put('/update/user', [ProfileAdminController::class, 'updateUser'])->name('update.user');
+            Route::put('/update/password', [ProfileAdminController::class, 'updatePassword'])->name('update.password');
         });
     });
 

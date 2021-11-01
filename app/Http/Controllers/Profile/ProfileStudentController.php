@@ -57,7 +57,7 @@ class ProfileStudentController extends Controller
             $request->session()->flash('message', 'Student Data Updated Unuccessfully!');
             $request->session()->flash('alert-class', 'alert-warning');
         }
-        return redirect()->route('student.index');
+        return redirect()->route('profile.index');
     }
 
     //Update User's Password
@@ -90,6 +90,6 @@ class ProfileStudentController extends Controller
             $request->session()->flash('message', 'Student Data Updated Unuccessfully!');
             $request->session()->flash('alert-class', 'alert-warning');
         }
-            return redirect()->route('student.index');
+            return redirect()->route('profile.index');
     }
 }
