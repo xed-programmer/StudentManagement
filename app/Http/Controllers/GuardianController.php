@@ -19,23 +19,23 @@ class GuardianController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $user = User::findOrFail(auth()->user()->id);                
-        $guardian = Guardian::with('students', 'students.user')->whereBelongsTo($user)->firstOrFail();        
+    {        
+        $user = auth()->user();
+        $guardian = Guardian::with('students', 'students.user')->whereBelongsTo($user)->firstOrFail();
         return view('guardians.index', ['guardian' => $guardian]);
     }
 
     public function showStudent(Student $student)
     {        
-        if(!$student->guardians->contains(auth()->user()->guardian->id)){
+        if(!$student->guardians->contains(auth()->user()->guardian)){
             return view('nopermission');
         }
         
         $datas = Attendance::whereBelongsTo($student)->orderBy('created_at', 'DESC')->get()->groupBy('status');          
-        $time_in = ($datas->count() > 0)? (array_key_exists('time-in', $datas->toArray()))? PaginationHelper::paginate($datas['time-in'], 20) : [] : [];
-        $time_out = ($datas->count() > 0)? (array_key_exists('time-out', $datas->toArray()))? PaginationHelper::paginate($datas['time-out'], 20) : [] : [];
-        $present = ($datas->count() > 0)? (array_key_exists('present', $datas->toArray()))? PaginationHelper::paginate($datas['present'], 20) : [] : [];
-        $absent = ($datas->count() > 0)? (array_key_exists('absent', $datas->toArray()))? PaginationHelper::paginate($datas['absent'], 20) : [] : [];
+        $time_in = ($datas->count() > 0 && $datas->has('time-in'))? PaginationHelper::paginate($datas['time-in'], 20) : [];
+        $time_out = ($datas->count() > 0 && $datas->has('time-out'))? PaginationHelper::paginate($datas['time-out'], 20) : [];
+        $present = ($datas->count() > 0 && $datas->has('present'))? PaginationHelper::paginate($datas['present'], 20) : [];
+        $absent = ($datas->count() > 0 && $datas->has('absent'))? PaginationHelper::paginate($datas['absent'], 20) : [];
         return view('guardians.student.show', ['student' => $student,'time_in' => $time_in, 'time_out' => $time_out, 'present' => $present, 'absent' => $absent]);
     }
 
@@ -66,40 +66,6 @@ class GuardianController extends Controller
             return response()->json(['error' => $student->user->name.' has already been added'], 404);
         }       
         $student->guardians()->attach($guardian->id);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
     }
 
     /**
