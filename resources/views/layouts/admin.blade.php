@@ -31,10 +31,10 @@
                             class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="{{ route('home') }}" class="nav-link">Home</a>
+                    <a href="{{ route('home') }}" class="nav-link">{{ __('Home') }}</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="#" class="nav-link">Contact</a>
+                    <a href="{{ route('announcement') }}" class="nav-link">{{ __('Announcements') }}</a>
                 </li>
             </ul>
 
@@ -42,9 +42,9 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item d-none d-sm-inline-block">
                     <!-- Authentication -->
-                    <form method="POST" action="{{ route('logout') }}" class="nav-link">
+                    <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <input type="submit" value="{{ __('Log Out') }}" class="btn btn-link">
+                        <input type="submit" value="{{ __('Log Out') }}" class="nav-link btn">
                     </form>
                 </li>
             </ul>
@@ -69,7 +69,8 @@
           <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div> --}}
                     <div class="info">
-                        <a href="#" class="d-block">{{ auth()->user()->name }}</a>
+                        <a href="{{ route('profile.index') }}"
+                            class="d-block">{{ auth()->user()->name }}</a>
                     </div>
                 </div>
 
