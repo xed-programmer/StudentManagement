@@ -57,7 +57,7 @@ class ProfileStudentController extends Controller
             $request->session()->flash('message', 'Student Data Updated Unuccessfully!');
             $request->session()->flash('alert-class', 'alert-warning');
         }
-        return redirect()->route('student.profile');
+        return redirect()->route('student.index');
     }
 
     //Update User's Password

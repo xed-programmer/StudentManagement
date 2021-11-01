@@ -52,6 +52,11 @@ Route::group(['middleware' => ['auth']], function () {
             Route::put('/update/user', [ProfileStudentController::class, 'updateUser'])->name('update.user');
             Route::put('/update/password', [ProfileStudentController::class, 'updatePassword'])->name('update.password');
         });
+        Route::as('admin.')->group(function () {            
+            Route::get('/edit', [ProfileStudentController::class, 'edit'])->name('edit');
+            Route::put('/update/user', [ProfileStudentController::class, 'updateUser'])->name('update.user');
+            Route::put('/update/password', [ProfileStudentController::class, 'updatePassword'])->name('update.password');
+        });
     });
 
     Route::group(['middleware' => ['checkrole:admin'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
