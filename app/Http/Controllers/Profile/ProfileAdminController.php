@@ -9,17 +9,13 @@ use Illuminate\Validation\Rules;
 
 class ProfileAdminController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Request $request)
+    
+    public function edit(Request $request)
     {
         // if(auth()->user()->id != $request->user()->id){
         //     return redirect()->route('home');
         // }
-        return view('students.edit', ['user' => $request->user()]);
+        return view('admin.edit', ['user' => $request->user()]);
     }
 
    //Update Personal Information
