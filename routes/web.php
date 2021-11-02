@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\RegisteredGuardianController;
 use App\Http\Controllers\Auth\RegisteredStudentController;
 use App\Http\Controllers\GatePassController;
 use App\Http\Controllers\GuardianController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfessorController;
 use App\Http\Controllers\Profile\ProfileAdminController;
 use App\Http\Controllers\Profile\ProfileStudentController;
@@ -27,11 +28,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-})->name('home');
-// Auth::routes(['verify' => true]);
-
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/dashboard', function () {
