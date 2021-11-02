@@ -17,14 +17,19 @@
                     Your Information
                 </h3>
                 @if (!$user->hasVerifiedEmail())
-                    <form method="GET" action="{{ route('profile.student.edit') }}">
+                    {{-- <form method="GET" action="{{ route('profile.student.edit') }}">
                         @csrf
                         <div>
                             <x-button>
                                 {{ __('Edit') }}
                             </x-button>
                         </div>
-                    </form>
+                    </form> --}}
+                    <a href="{{ route('profile.student.edit') }}">
+                        <x-button type="button">
+                            {{ __('Edit') }}
+                        </x-button>
+                    </a>
                 @else
                     <form method="POST" action="{{ route('verification.send') }}">
                         @csrf

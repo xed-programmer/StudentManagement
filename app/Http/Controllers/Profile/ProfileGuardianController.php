@@ -19,7 +19,7 @@ class ProfileGuardianController extends Controller
     {
         // if(auth()->user()->id != $request->user()->id){
         //     return redirect()->route('home');
-        // }
+        // }        
         return view('guardians.edit', ['user' => $request->user()]);
     }
 
