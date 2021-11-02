@@ -7,7 +7,11 @@
                     <div class="bg-white overflow-hidden shadow-lg sm:rounded-lg">
                         <div class="p-4 text-sm flex items-center justify-end text-gray-500 border-b border-gray-300">
                             <i class="fas fa-clock mr-2"></i>
-                            {{ $post->created_at->diffForHumans() }}
+                            @if (now()->diffInDays($post->created_at) >= 1)
+                                {{ $post->created_at->format('D, d F Y') }}
+                            @else
+                                {{ $post->created_at->diffForHumas() }}
+                            @endif
                         </div>
                         <div class="p-6">
                             {!! $post->body !!}
