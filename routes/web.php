@@ -12,6 +12,7 @@ use App\Http\Controllers\ProfessorController;
 use App\Http\Controllers\Profile\ProfileAdminController;
 use App\Http\Controllers\Profile\ProfileStudentController;
 use App\Http\Controllers\Profile\ProfileController;
+use App\Http\Controllers\Profile\ProfileGuardianController;
 use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 
@@ -55,6 +56,12 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/edit', [ProfileAdminController::class, 'edit'])->name('edit');
             Route::put('/update/user', [ProfileAdminController::class, 'updateUser'])->name('update.user');
             Route::put('/update/password', [ProfileAdminController::class, 'updatePassword'])->name('update.password');
+        });
+
+        Route::middleware('checkrole:guardian')->prefix('guardian')->as('guardian.')->group(function () {            
+            Route::get('/edit', [ProfileGuardianController::class, 'edit'])->name('edit');
+            Route::put('/update/user', [ProfileGuardianController::class, 'updateUser'])->name('update.user');
+            Route::put('/update/password', [ProfileGuardianController::class, 'updatePassword'])->name('update.password');
         });
     });
 

@@ -21,6 +21,9 @@ class ProfileController extends Controller
                 return view('admin.profile', ['user' => $request->user()]);
             case 'student':
                 return view('students.profile', ['user' => $request->user()]);
+            case 'guardian':
+                // $user = User::with('guardian.students.user')->where('id', $request->user()->id)->firstOrFail();                
+                return view('guardians.profile', ['user' => $request->user()]);
         }
 
         return view('nopermission');
