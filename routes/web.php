@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\Admin\AdminStudentController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AdminCourseController;
 use App\Http\Controllers\Admin\AdminPostController;
+use App\Http\Controllers\Admin\AdminSubjectController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\Auth\RegisteredGuardianController;
 use App\Http\Controllers\Auth\RegisteredStudentController;
@@ -65,6 +67,24 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['middleware' => ['checkrole:admin'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::get('/',[AdminController::class, 'index'])->name('index');
 
+        Route::prefix('course')->as('course.')->group(function () {
+            Route::get('/', [AdminCourseController::class, 'index'])->name('index');
+            Route::get('/create', [AdminCourseController::class, 'create'])->name('create');
+            Route::post('/create', [AdminCourseController::class, 'store'])->name('create');
+            Route::get('/edit/{course:code}', [AdminCourseController::class, 'edit'])->name('edit');
+            Route::put('/edit/{course:code}', [AdminCourseController::class, 'update'])->name('update');            
+            Route::delete('/{course:code}', [AdminCourseController::class, 'destroy'])->name('delete'); 
+        });  
+
+        Route::prefix('subject')->as('subject.')->group(function () {
+            Route::get('/', [AdminSubjectController::class, 'index'])->name('index');
+            Route::get('/create', [AdminSubjectController::class, 'create'])->name('create');
+            Route::post('/create', [AdminSubjectController::class, 'store'])->name('create');
+            Route::get('/edit/{subject:code}', [AdminSubjectController::class, 'edit'])->name('edit');
+            Route::put('/edit/{subject:code}', [AdminSubjectController::class, 'update'])->name('update');            
+            Route::delete('/{subject:code}', [AdminSubjectController::class, 'destroy'])->name('delete'); 
+        });   
+        
         Route::prefix('student')->as('student.')->group(function () {
             Route::get('/', [AdminStudentController::class, 'index'])->name('index');
             Route::get('/register', [AdminStudentController::class, 'create'])->name('register');
