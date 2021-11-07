@@ -1,5 +1,9 @@
 @extends('layouts.admin')
 
+@push('links')
+    <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
+@endpush
+
 @section('header')
     {{ __('Add Subject') }}
 @endsection
@@ -28,15 +32,66 @@
                         value="{{ $acad_year }}" required autofocus />
                 </div>
 
-                <!-- Course -->
-                <div class="form-group">
-                    <x-label for="course" :value="__('Course')" />
+                <div class="row">
+                    <div class="col-4">
+                        <!-- Course -->
+                        <span name="course">Course</span>
+                        <div class="form-group clearfix">
+                            @forelse ($courses as $i => $c)
+                                <div class="icheck-primary d-inline">
+                                    <x-input id="course{{ $i }}" type="checkbox" name="{{ $c->code }}"
+                                        :value="$c->code" />
+                                    <x-label for="course{{ $i }}" :value="$c->code" />
+                                </div>
+                            @empty
+                                <span class="form-control text-muted ">No Course available</span>
+                            @endforelse
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <!-- year -->
+                        <span name="year">Year</span>
+                        <div class="form-group clearfix">
+                            <div class="icheck-primary d-inline">
+                                <x-input id="year1" type="checkbox" name="year1" :value="__('1ST')" />
+                                <x-label for="year1" :value="__('1ST')" />
+                            </div>
+                            <div class="icheck-primary d-inline">
+                                <x-input id="year2" type="checkbox" name="year2" :value="__('2ND')" />
+                                <x-label for="year2" :value="__('2ND')" />
+                            </div>
+                            <div class="icheck-primary d-inline">
+                                <x-input id="year3" type="checkbox" name="year3" :value="__('3RD')" />
+                                <x-label for="year3" :value="__('3RD')" />
+                            </div>
+                            <div class="icheck-primary d-inline">
+                                <x-input id="year4" type="checkbox" name="year4" :value="__('4TH')" />
+                                <x-label for="year4" :value="__('4TH')" />
+                            </div>
+                        </div>
+                    </div>
 
-                    <section class="form-control" name='course' id='course'>
-                        @foreach ($courses as $c)
-                            <option value="{{ $c->code }}">{{ $c->code }}</option>
-                        @endforeach
-                    </section>
+                    <div class="col-4">
+                        <span name='section'>Section</span>
+                        <div class="form-group clearfix">
+                            <div class="icheck-primary d-inline">
+                                <x-input id="section1" type="checkbox" name="section1" :value="__('A')" />
+                                <x-label for="section1" :value="__('A')" />
+                            </div>
+                            <div class="icheck-primary d-inline">
+                                <x-input id="section2" type="checkbox" name="section2" :value="__('B')" />
+                                <x-label for="section2" :value="__('B')" />
+                            </div>
+                            <div class="icheck-primary d-inline">
+                                <x-input id="section3" type="checkbox" name="section3" :value="__('C')" />
+                                <x-label for="section3" :value="__('C')" />
+                            </div>
+                            <div class="icheck-primary d-inline">
+                                <x-input id="section4" type="checkbox" name="section4" :value="__('D')" />
+                                <x-label for="section4" :value="__('D')" />
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Code -->
@@ -64,6 +119,7 @@
                 <div class="card-footer">
                     <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
                 </div>
+            </div>
         </form>
     </div>
 @endsection

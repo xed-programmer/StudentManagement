@@ -17,6 +17,7 @@
     @stack('links')
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
+
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -118,11 +119,11 @@
             </div>
         </div>
 
-        <!-- Control Sidebar -->
+        {{-- <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
             <!-- Control sidebar content goes here -->
         </aside>
-        <!-- /.control-sidebar -->
+        <!-- /.control-sidebar --> --}}
 
         <!-- Main Footer -->
         <footer class="main-footer">

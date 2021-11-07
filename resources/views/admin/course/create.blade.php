@@ -38,55 +38,10 @@
                     <x-input id="name" class="form-control" type="text" name="name" :value="old('name')" required />
                 </div>
 
-                <!-- year -->
-                <span name="year">Year</span>
-                <div class="row">
-                    <div class="form-group clearfix">
-                        <div class="icheck-primary d-inline">
-                            <x-input id="year1" type="checkbox" name="year1" :value="__('1ST')" />
-                            <x-label for="year1" :value="__('1ST')" />
-                        </div>
-                        <div class="icheck-primary d-inline">
-                            <x-input id="year2" type="checkbox" name="year2" :value="__('2ND')" />
-                            <x-label for="year2" :value="__('2ND')" />
-                        </div>
-                        <div class="icheck-primary d-inline">
-                            <x-input id="year3" type="checkbox" name="year3" :value="__('3RD')" />
-                            <x-label for="year3" :value="__('3RD')" />
-                        </div>
-                        <div class="icheck-primary d-inline">
-                            <x-input id="year4" type="checkbox" name="year4" :value="__('4TH')" />
-                            <x-label for="year4" :value="__('4TH')" />
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Section -->
-                <span name='section'>Section</span>
-                <div class="row">
-                    <div class="form-group clearfix">
-                        <div class="icheck-primary d-inline">
-                            <x-input id="section1" type="checkbox" name="section1" :value="__('A')" />
-                            <x-label for="section1" :value="__('A')" />
-                        </div>
-                        <div class="icheck-primary d-inline">
-                            <x-input id="section2" type="checkbox" name="section2" :value="__('B')" />
-                            <x-label for="section2" :value="__('B')" />
-                        </div>
-                        <div class="icheck-primary d-inline">
-                            <x-input id="section3" type="checkbox" name="section3" :value="__('C')" />
-                            <x-label for="section3" :value="__('C')" />
-                        </div>
-                        <div class="icheck-primary d-inline">
-                            <x-input id="section4" type="checkbox" name="section4" :value="__('D')" />
-                            <x-label for="section4" :value="__('D')" />
-                        </div>
-                    </div>
-                </div>
-
                 <div class="card-footer">
                     <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
                 </div>
+            </div>
         </form>
     </div>
 @endsection

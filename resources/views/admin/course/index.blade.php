@@ -30,10 +30,6 @@
                                         aria-label="Code: activate to sort column descending">Code</th>
                                     <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
                                         aria-label="Description: activate to sort column ascending">Name</th>
-                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
-                                        aria-label="Units: activate to sort column ascending">year</th>
-                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
-                                        aria-label="Units: activate to sort column ascending">Section</th>
                                     <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1">Actions</th>
                                 </tr>
                             </thead>
@@ -42,8 +38,6 @@
                                     <tr>
                                         <td class="dtr-control sorting_1" tabindex="0">{{ $course->code }}</td>
                                         <td class="dtr-control sorting_1" tabindex="0">{{ $course->name }}</td>
-                                        <td class="dtr-control sorting_1" tabindex="0">{{ $course->year }}</td>
-                                        <td class="dtr-control sorting_1" tabindex="0">{{ $course->section }}</td>
                                         <td class="dtr-control sorting_1" tabindex="0">
                                             <div class="d-flex justify-content-center">
                                                 <a href="{{ route('admin.course.edit', $course) }}"
