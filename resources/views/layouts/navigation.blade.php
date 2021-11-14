@@ -83,7 +83,7 @@
 
                                     <x-dropdown-link :href="route('logout')"
                                         onclick="event.preventDefault();
-                                                                                                                                                                                                        this.closest('form').submit();">
+                                                                                                                                                                                                                this.closest('form').submit();">
                                         <div class="flex items-center">
                                             <i class="fas fa-sign-out-alt mr-2"></i>
                                             {{ __('Log Out') }}
@@ -121,14 +121,32 @@
             <x-responsive-nav-link :href="route('announcement')" :active="request()->routeIs('announcement')">
                 {{ __('Announcements') }}
             </x-responsive-nav-link>
+
+            @auth
+                @if (auth()->user()->hasRole('admin'))
+                    <x-responsive-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.index')">
+                        {{ __('Admin') }}
+                    </x-responsive-nav-link>
+                @elseif (auth()->user()->hasRole('student'))
+                    <x-responsive-nav-link :href="route('student')" :active="request()->routeIs('student')">
+                        {{ __('Student') }}
+                    </x-responsive-nav-link>
+                @elseif (auth()->user()->hasRole('guardian'))
+                    <x-responsive-nav-link :href="route('guardian.index')" :active="request()->routeIs('guardian.index')">
+                        {{ __('Guardian') }}
+                    </x-responsive-nav-link>
+                @endif
+            @endauth
         </div>
 
         @auth
             <!-- Responsive Settings Options -->
             <div class="pt-4 pb-1 border-t border-gray-200">
                 <div class="px-4">
-                    <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
-                    <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+                    <x-responsive-nav-link :href="route('profile.index')" :active="request()->routeIs('profile.index')">
+                        <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
+                        <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+                    </x-responsive-nav-link>
                 </div>
 
                 <div class="mt-3 space-y-1">
@@ -138,11 +156,20 @@
 
                         <x-responsive-nav-link :href="route('logout')"
                             onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                    this.closest('form').submit();">
+                                                                                                                                                                                                                                                                                                                                            this.closest('form').submit();">
                             {{ __('Log Out') }}
                         </x-responsive-nav-link>
                     </form>
                 </div>
+            </div>
+        @else
+            <div class="pt-2 pb-3 space-y-1">
+                <x-responsive-nav-link :href="route('login')" :active="request()->routeIs('login')">
+                    {{ __('Login') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('register')" :active="request()->routeIs('register')">
+                    {{ __('Register') }}
+                </x-responsive-nav-link>
             </div>
         @endauth
     </div>

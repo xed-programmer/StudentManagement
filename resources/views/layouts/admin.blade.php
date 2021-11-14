@@ -65,12 +65,14 @@
             <div class="sidebar">
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                    {{-- <div class="image">
-          <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-        </div> --}}
+                    <div class="image">
+                        {{-- <img src="{{ asset('dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2"
+                            alt="User Image"> --}}
+                        <i class="text-xl far fa-user text-info"></i>
+                    </div>
                     <div class="info">
                         <a href="{{ route('profile.index') }}"
-                            class="d-block">{{ auth()->user()->name }}</a>
+                            class="nav-link d-block">{{ auth()->user()->name }}</a>
                     </div>
                 </div>
 
@@ -78,6 +80,12 @@
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
+                        <li class="nav-item">
+                            <a href="{{ route('admin.professor.index') }}" class="nav-link">
+                                <i class="nav-icon far fa-user text-info"></i>
+                                <p>{{ __('Professor') }}</p>
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a href="{{ route('admin.student.index') }}" class="nav-link">
                                 <i class="nav-icon far fa-user text-info"></i>
@@ -88,6 +96,18 @@
                             <a href="{{ route('admin.posts.index') }}" class="nav-link">
                                 <i class="nav-icon far fa-newspaper text-info"></i>
                                 <p>{{ __('Posts') }}</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.course.index') }}" class="nav-link">
+                                <i class="nav-icon far fa-newspaper text-info"></i>
+                                <p>{{ __('Courses') }}</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.subject.index') }}" class="nav-link">
+                                <i class="nav-icon far fa-newspaper text-info"></i>
+                                <p>{{ __('Subjects') }}</p>
                             </a>
                         </li>
                     </ul>

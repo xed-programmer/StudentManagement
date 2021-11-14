@@ -33,7 +33,7 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-4">
+                    <div class="col-6">
                         <!-- Course -->
                         <span name="course">Course</span>
                         <div class="form-group clearfix">
@@ -48,7 +48,7 @@
                             @endforelse
                         </div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-3">
                         <!-- year -->
                         <span name="year">Year</span>
                         <div class="form-group clearfix">
@@ -71,7 +71,7 @@
                         </div>
                     </div>
 
-                    <div class="col-4">
+                    <div class="col-3">
                         <span name='section'>Section</span>
                         <div class="form-group clearfix">
                             <div class="icheck-primary d-inline">

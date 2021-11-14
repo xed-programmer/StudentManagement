@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminStudentController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminCourseController;
 use App\Http\Controllers\Admin\AdminPostController;
+use App\Http\Controllers\Admin\AdminProfessorController;
 use App\Http\Controllers\Admin\AdminSubjectController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\Auth\RegisteredGuardianController;
@@ -84,6 +85,15 @@ Route::group(['middleware' => ['auth']], function () {
             Route::put('/edit/{subject:code}', [AdminSubjectController::class, 'update'])->name('update');            
             Route::delete('/{subject:code}', [AdminSubjectController::class, 'destroy'])->name('delete'); 
         });   
+
+        Route::prefix('professor')->as('professor.')->group(function () {
+            Route::get('/', [AdminProfessorController::class, 'index'])->name('index');
+            Route::get('/register', [AdminProfessorController::class, 'create'])->name('register');
+            Route::post('/register', [RegisteredStudentController::class, 'store'])->name('register');
+            Route::get('/edit/{pofessor}', [AdminProfessorController::class, 'edit'])->name('edit');
+            Route::put('/edit/{pofessor}', [AdminProfessorController::class, 'update'])->name('update');            
+            Route::delete('/{pofessor}', [AdminProfessorController::class, 'destroy'])->name('delete'); 
+        });  
         
         Route::prefix('student')->as('student.')->group(function () {
             Route::get('/', [AdminStudentController::class, 'index'])->name('index');
