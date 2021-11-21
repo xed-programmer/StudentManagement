@@ -2,7 +2,7 @@
 
 @push('links')
     {{-- SUmmernote --}}
-    <link rel="stylesheet" href="../../plugins/summernote/summernote-bs4.min.css">
+    <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
 @endpush
 @section('header')
     POST
