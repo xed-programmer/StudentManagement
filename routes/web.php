@@ -89,7 +89,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::prefix('professor')->as('professor.')->group(function () {
             Route::get('/', [AdminProfessorController::class, 'index'])->name('index');
             Route::get('/register', [AdminProfessorController::class, 'create'])->name('register');
-            Route::post('/register', [RegisteredStudentController::class, 'store'])->name('register');
+            Route::post('/register', [AdminProfessorController::class, 'store'])->name('register');
             Route::get('/edit/{pofessor}', [AdminProfessorController::class, 'edit'])->name('edit');
             Route::put('/edit/{pofessor}', [AdminProfessorController::class, 'update'])->name('update');            
             Route::delete('/{pofessor}', [AdminProfessorController::class, 'destroy'])->name('delete'); 
