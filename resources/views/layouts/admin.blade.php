@@ -55,7 +55,7 @@
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="{{ route('home') }}" class="brand-link">
+            <a href="{{ route('admin.index') }}" class="brand-link">
                 <img src="{{ asset('dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
                     class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light">Soft Eng 1</span>
@@ -82,31 +82,31 @@
                         data-accordion="false">
                         <li class="nav-item">
                             <a href="{{ route('admin.professor.index') }}" class="nav-link">
-                                <i class="nav-icon far fa-user text-info"></i>
+                                <i class="nav-icon fas fa-chalkboard-teacher text-info"></i>
                                 <p>{{ __('Professor') }}</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('admin.student.index') }}" class="nav-link">
-                                <i class="nav-icon far fa-user text-info"></i>
+                                <i class="nav-icon fas fa-user-graduate text-info"></i>
                                 <p>{{ __('Students') }}</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('admin.posts.index') }}" class="nav-link">
-                                <i class="nav-icon far fa-newspaper text-info"></i>
+                                <i class="nav-icon fas fa-bullhorn text-info"></i>
                                 <p>{{ __('Posts') }}</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('admin.course.index') }}" class="nav-link">
-                                <i class="nav-icon far fa-newspaper text-info"></i>
+                                <i class="nav-icon fas fa-university text-info"></i>
                                 <p>{{ __('Courses') }}</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('admin.subject.index') }}" class="nav-link">
-                                <i class="nav-icon far fa-newspaper text-info"></i>
+                                <i class="nav-icon fas fa-book text-info"></i>
                                 <p>{{ __('Subjects') }}</p>
                             </a>
                         </li>
