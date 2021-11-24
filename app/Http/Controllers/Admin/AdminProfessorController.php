@@ -90,9 +90,10 @@ class AdminProfessorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Professor $professor)    
     {
-        //
+        $professor = Professor::with('user')->findOrFail($professor->id);
+        return view('admin.professor.edit', compact(['professor']));
     }
 
     /**
@@ -102,9 +103,33 @@ class AdminProfessorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Professor $professor, Request $request)
     {
-        //
+        $request->validate([
+            'units' => ['required', 'numeric'],
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email']
+        ]);
+
+        if($request->units <= 0){
+            return back()->withErrors(['units' => 'Units must be greater than 0']);
+        }
+        
+        $user = $professor->user;
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+
+        $professor->units = $request->units;
+        
+        if ($professor->push()) {
+            $request->session()->flash('message', 'Professor Updated Successfully!');
+            $request->session()->flash('alert-class', 'alert-success');
+        } else {
+            $request->session()->flash('message', 'Professor Updated Unuccessfully!');
+            $request->session()->flash('alert-class', 'alert-warning');
+        }
+        return redirect()->route('admin.professor.index');
     }
 
     /**
@@ -113,8 +138,15 @@ class AdminProfessorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Professor $professor, Request $request)
     {
-        //
+        if ($professor->delete()) {
+            $request->session()->flash('message', 'Professor Data Deleted Successfully!');
+            $request->session()->flash('alert-class', 'alert-success');
+        } else {
+            $request->session()->flash('message', 'Professor Data Deleted Unuccessfully!');
+            $request->session()->flash('alert-class', 'alert-warning');
+        }
+        return redirect()->route('admin.professor.index');
     }
 }

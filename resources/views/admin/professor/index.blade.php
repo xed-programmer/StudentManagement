@@ -28,6 +28,9 @@
                                     <th class="sorting sorting_asc" tabindex="0" aria-controls="example1" rowspan="1"
                                         colspan="1" aria-sort="ascending"
                                         aria-label="Name: activate to sort column descending">Name</th>
+                                    <th class="sorting sorting_asc" tabindex="0" aria-controls="example1" rowspan="1"
+                                        colspan="1" aria-sort="ascending"
+                                        aria-label="Email: activate to sort column descending">Email</th>
                                     <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
                                         aria-label="Student Code: activate to sort column ascending">Units</th>
                                     <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1">Actions</th>
@@ -36,13 +39,15 @@
                             <tbody>
                                 @foreach ($professors as $professor)
                                     <tr>
-                                        <td class="dtr-control sorting_1" tabindex="0">{{ $professors->user->name }}</td>
-                                        <td class="dtr-control sorting_1" tabindex="0">{{ $professors->units }}</td>
+                                        <td class="dtr-control sorting_1" tabindex="0">{{ $professor->user->name }}</td>
+                                        <td class="dtr-control sorting_1" tabindex="0">{{ $professor->user->email }}</td>
+                                        <td class="dtr-control sorting_1" tabindex="0">{{ $professor->units }}</td>
                                         <td class="dtr-control sorting_1" tabindex="0">
                                             <div class="d-flex justify-content-center">
-                                                <a href="{{ route('admin.student.edit', $student) }}"
+                                                <a href="{{ route('admin.professor.edit', $professor) }}"
                                                     class="btn btn-sm btn-warning mr-2">Edit</a>
-                                                <form action="{{ route('admin.student.delete', $student) }}" method="POST"
+                                                <form action="{{ route('admin.professor.delete', $professor) }}"
+                                                    method="POST"
                                                     onclick="return confirm('Do you want to delete this data?');">
                                                     @csrf
                                                     @method('DELETE')
