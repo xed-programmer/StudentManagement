@@ -52,17 +52,22 @@
                             <tbody>
                                 @foreach ($schedules as $schedule)
                                     <tr>
-                                        <td class="dtr-control sorting_1" tabindex="0">{{ $schedule->subjects->name }}
+                                        <td class="dtr-control sorting_1" tabindex="0">
+                                            {{ $schedule->coursesubjects->subjects->name }}
                                         </td>
-                                        <td class="dtr-control sorting_1" tabindex="0">{{ $schedule->courses->name }}</td>
-                                        <td class="dtr-control sorting_1" tabindex="0">{{ $schedule->year }}</td>
+                                        <td class="dtr-control sorting_1" tabindex="0">
+                                            {{ $schedule->coursesubjects->courses->code }}</td>
+                                        <td class="dtr-control sorting_1" tabindex="0">
+                                            {{ $schedule->coursesubjects->year }}</td>
                                         <td class="dtr-control sorting_1" tabindex="0">{{ $schedule->professors->name }}
                                         </td>
                                         <td class="dtr-control sorting_1" tabindex="0">{{ $schedule->day }}</td>
                                         <td class="dtr-control sorting_1" tabindex="0">{{ $schedule->time_start }}</td>
                                         <td class="dtr-control sorting_1" tabindex="0">{{ $schedule->time_end }}</td>
-                                        <td class="dtr-control sorting_1" tabindex="0">{{ $schedule->units }}</td>
-                                        <td class="dtr-control sorting_1" tabindex="0">{{ $schedule->school_year }}</td>
+                                        <td class="dtr-control sorting_1" tabindex="0">
+                                            {{ $schedule->coursesubjects->units }}</td>
+                                        <td class="dtr-control sorting_1" tabindex="0">
+                                            {{ $schedule->coursesubjects->school_year }}</td>
                                         <td class="dtr-control sorting_1" tabindex="0">
                                             <div class="d-flex justify-content-center">
                                                 <a href="{{ route('admin.schedule.edit', $schedule) }}"

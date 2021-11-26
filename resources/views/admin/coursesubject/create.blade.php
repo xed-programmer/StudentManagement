@@ -94,28 +94,6 @@
                     </div>
                 </div>
 
-                {{-- <div class="row">
-                    <!-- Time -->
-                    <span name="time">Time</span>
-                    <div class="col-3">
-                        <!-- Start Time -->
-                        <div class="form-group">
-                            <x-label for="start" :value="__('Start')" />
-
-                            <x-input id="start" class="form-control" type="time" name="start" :value="old('start')"
-                                required />
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <!-- End Time -->
-                        <div class="form-group">
-                            <x-label for="end" :value="__('End')" />
-
-                            <x-input id="end" class="form-control" type="time" name="end" :value="old('end')" required />
-                        </div>
-                    </div>
-                </div> --}}
-
                 <!-- Subject -->
                 <div class="form-group">
                     <x-label for="subject" :value="__('Subject')" />

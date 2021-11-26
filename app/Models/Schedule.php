@@ -10,19 +10,12 @@ class Schedule extends Model
     use HasFactory;
 
     protected $fillable = [
-        'subject_id', 'course_id', 'section', 'year',
-        'professor_id', 'day', 'time_start', 'time_end',
-        'units', 'school_year'
+        'course_subject_id','professor_id', 'day', 'time_start', 'time_end',
     ];
 
-    public function subjects()
+    public function coursesubjects()
     {
-        return $this->hasMany(Subject::class);
-    }
-
-    public function courses()
-    {
-        return $this->hasMany(Course::class);
+        return $this->hasMany(CourseSubject::class);
     }
 
     public function professors()

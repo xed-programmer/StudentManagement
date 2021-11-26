@@ -50,19 +50,6 @@ class AdminCourseSubjectController extends Controller
             'subject' => ['required'],
         ]);
 
-        // // Format the String 24 time to 12 time        
-        // $time_start = strftime('%I:%M %p', strtotime($request->start));
-        // $time_end = strftime('%I:%M %p', strtotime($request->end));
-        
-        // // Convert Time to Carbon Datetime
-        // $dt_time_start = today()->setTimeFromTimeString($request->start);
-        // $dt_time_end = today()->setTimeFromTimeString($request->end);
-        
-        // // Check if the the time interval from start to end is not equal to units
-        // if($dt_time_end->diffInHours($dt_time_start) != $request->units){
-        //     return back()->withErrors(['time' => 'The time interval between class session does not match to units']);
-        // }
-
         $courses = Course::orderBy('code')->get();
         
         $validcourses = [];
