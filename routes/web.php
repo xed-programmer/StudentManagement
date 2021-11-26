@@ -98,8 +98,8 @@ Route::group(['middleware' => ['auth']], function () {
         
         Route::prefix('schedule')->as('schedule.')->group(function () {
             Route::get('/', [AdminScheduleController::class, 'index'])->name('index');
-            Route::get('/register', [AdminScheduleController::class, 'create'])->name('register');
-            Route::post('/register', [AdminScheduleController::class, 'store'])->name('register');
+            Route::get('/add', [AdminScheduleController::class, 'create'])->name('add');
+            Route::post('/add', [AdminScheduleController::class, 'store'])->name('add');
             Route::get('/edit/{schedule}', [AdminScheduleController::class, 'edit'])->name('edit');
             Route::put('/edit/{schedule}', [AdminScheduleController::class, 'update'])->name('update');            
             Route::delete('/{schedule}', [AdminScheduleController::class, 'destroy'])->name('delete'); 

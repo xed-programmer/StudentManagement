@@ -16,7 +16,7 @@
         </div>
         <div class="card-body">
             <div class="row">
-                <a href="{{ route('admin.student.register') }}" class="btn btn-lg btn-success m-2">Add new Schedule</a>
+                <a href="{{ route('admin.schedule.add') }}" class="btn btn-lg btn-success m-2">Add new Schedule</a>
             </div>
             <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
                 <div class="row">

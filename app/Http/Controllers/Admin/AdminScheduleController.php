@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Schedule;
+use App\Models\Subject;
 use Illuminate\Http\Request;
 
 class AdminScheduleController extends Controller
@@ -26,7 +27,8 @@ class AdminScheduleController extends Controller
      */
     public function create()
     {
-        //
+        $subjects = Subject::orderBy('description', 'ASC')->get();        
+        return view('admin.schedule.add', compact(['subjects']));
     }
 
     /**
