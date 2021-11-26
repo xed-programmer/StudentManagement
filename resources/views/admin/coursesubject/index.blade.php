@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('header')
-    {{ __('Subjects') }}
+    {{ __('Course Subject') }}
 @endsection
 
 @section('content')
@@ -12,11 +12,12 @@
     @endif
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">{{ __('Subject Lists') }}</h3>
+            <h3 class="card-title">{{ __('Course Subject Lists') }}</h3>
         </div>
         <div class="card-body">
             <div class="row">
-                <a href="{{ route('admin.subject.create') }}" class="btn btn-lg btn-success m-2">Add new subject</a>
+                <a href="{{ route('admin.coursesubject.create') }}" class="btn btn-lg btn-success m-2">Add new Course
+                    Subject</a>
             </div>
             <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
                 <div class="row">
@@ -27,11 +28,9 @@
                                 <tr role="row">
                                     <th class="sorting sorting_asc" tabindex="0" aria-controls="example1" rowspan="1"
                                         colspan="1" aria-sort="ascending"
-                                        aria-label="Code: activate to sort column descending">Code</th>
+                                        aria-label="Course Code: activate to sort column descending">Course Code</th>
                                     <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
-                                        aria-label="Name: activate to sort column ascending">Name</th>
-                                    {{-- <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
-                                        aria-label="Course: activate to sort column ascending">Course</th>
+                                        aria-label="Subject Name: activate to sort column ascending">Subject Name</th>
                                     <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
                                         aria-label="Year: activate to sort column ascending">Year</th>
                                     <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
@@ -39,25 +38,28 @@
                                     <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
                                         aria-label="Units: activate to sort column ascending">Units</th>
                                     <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
-                                        aria-label="Academic Year: activate to sort column ascending">Academic Year</th> --}}
+                                        aria-label="Academic Year: activate to sort column ascending">Academic Year</th>
                                     <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($subjects as $subject)
+                                @foreach ($coursesubjects as $coursesubject)
                                     <tr>
-                                        <td class="dtr-control sorting_1" tabindex="0">{{ $subject->code }}</td>
-                                        <td class="dtr-control sorting_1" tabindex="0">{{ $subject->name }}</td>
-                                        {{-- <td class="dtr-control sorting_1" tabindex="0">{{ $subject->course_code }}</td>
-                                        <td class="dtr-control sorting_1" tabindex="0">{{ $subject->year }}</td>
-                                        <td class="dtr-control sorting_1" tabindex="0">{{ $subject->section }}</td>
-                                        <td class="dtr-control sorting_1" tabindex="0">{{ $subject->units }}</td>
-                                        <td class="dtr-control sorting_1" tabindex="0">{{ $subject->academic_year }}</td> --}}
+                                        <td class="dtr-control sorting_1" tabindex="0">{{ $coursesubject->courses->code }}
+                                        </td>
+                                        <td class="dtr-control sorting_1" tabindex="0">
+                                            {{ $coursesubject->subjects->name }}</td>
+                                        <td class="dtr-control sorting_1" tabindex="0">{{ $coursesubject->year }}</td>
+                                        <td class="dtr-control sorting_1" tabindex="0">{{ $coursesubject->section }}</td>
+                                        <td class="dtr-control sorting_1" tabindex="0">{{ $coursesubject->units }}</td>
+                                        <td class="dtr-control sorting_1" tabindex="0">
+                                            {{ $coursesubject->academic_year }}</td>
                                         <td class="dtr-control sorting_1" tabindex="0">
                                             <div class="d-flex justify-content-center">
-                                                <a href="{{ route('admin.subject.edit', $subject) }}"
+                                                <a href="{{ route('admin.coursesubject.edit', $coursesubject) }}"
                                                     class="btn btn-sm btn-warning mr-2">Edit</a>
-                                                <form action="{{ route('admin.subject.delete', $subject) }}" method="POST"
+                                                <form action="{{ route('admin.coursesubject.delete', $coursesubject) }}"
+                                                    method="POST"
                                                     onclick="return confirm('Do you want to delete this data?');">
                                                     @csrf
                                                     @method('DELETE')

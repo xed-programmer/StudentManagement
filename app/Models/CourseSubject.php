@@ -12,4 +12,14 @@ class CourseSubject extends Model
     protected $fillable = [
         'course_id', 'subject_id', 'units', 'year', 'section' , 'academic_year'
     ];
+
+    public function courses()
+    {
+        return $this->hasMany(Course::class);
+    }
+
+    public function subjects()
+    {
+        return $this->hasMany(Subject::class);
+    }
 }

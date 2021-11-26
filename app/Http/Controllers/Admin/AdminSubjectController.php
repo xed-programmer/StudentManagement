@@ -27,10 +27,10 @@ class AdminSubjectController extends Controller
      */
     public function create()
     {
-        $acad_year = today()->format('Y') . '-' . today()->addYears(1)->format('Y'); 
+        // $acad_year = today()->format('Y') . '-' . today()->addYears(1)->format('Y'); 
         // $courses = Course::latest()->get()->groupBy('code');
         $courses = Course::orderBy('code')->get();        
-        return view('admin.subject.create')->with(['acad_year' => $acad_year, 'courses' => $courses]);
+        return view('admin.subject.create')->with(['courses' => $courses]);
     }
 
     /**

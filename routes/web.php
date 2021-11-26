@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminStudentController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminCourseController;
+use App\Http\Controllers\Admin\AdminCourseSubjectController;
 use App\Http\Controllers\Admin\AdminPostController;
 use App\Http\Controllers\Admin\AdminProfessorController;
 use App\Http\Controllers\Admin\AdminScheduleController;
@@ -85,6 +86,15 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/edit/{subject:code}', [AdminSubjectController::class, 'edit'])->name('edit');
             Route::put('/edit/{subject:code}', [AdminSubjectController::class, 'update'])->name('update');            
             Route::delete('/{subject:code}', [AdminSubjectController::class, 'destroy'])->name('delete'); 
+        });   
+
+        Route::prefix('coursesubject')->as('coursesubject.')->group(function () {
+            Route::get('/', [AdminCourseSubjectController::class, 'index'])->name('index');
+            Route::get('/create', [AdminCourseSubjectController::class, 'create'])->name('create');
+            Route::post('/create', [AdminCourseSubjectController::class, 'store'])->name('create');
+            Route::get('/edit/{coursesubject}', [AdminCourseSubjectController::class, 'edit'])->name('edit');
+            Route::put('/edit/{coursesubject}', [AdminCourseSubjectController::class, 'update'])->name('update');            
+            Route::delete('/{coursesubject}', [AdminCourseSubjectController::class, 'destroy'])->name('delete'); 
         });   
 
         Route::prefix('professor')->as('professor.')->group(function () {
