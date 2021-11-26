@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminCourseController;
 use App\Http\Controllers\Admin\AdminPostController;
 use App\Http\Controllers\Admin\AdminProfessorController;
+use App\Http\Controllers\Admin\AdminScheduleController;
 use App\Http\Controllers\Admin\AdminSubjectController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\Auth\RegisteredGuardianController;
@@ -93,6 +94,15 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/edit/{professor}', [AdminProfessorController::class, 'edit'])->name('edit');
             Route::put('/edit/{professor}', [AdminProfessorController::class, 'update'])->name('update');            
             Route::delete('/{professor}', [AdminProfessorController::class, 'destroy'])->name('delete'); 
+        });  
+        
+        Route::prefix('schedule')->as('schedule.')->group(function () {
+            Route::get('/', [AdminScheduleController::class, 'index'])->name('index');
+            Route::get('/register', [AdminScheduleController::class, 'create'])->name('register');
+            Route::post('/register', [AdminScheduleController::class, 'store'])->name('register');
+            Route::get('/edit/{schedule}', [AdminScheduleController::class, 'edit'])->name('edit');
+            Route::put('/edit/{schedule}', [AdminScheduleController::class, 'update'])->name('update');            
+            Route::delete('/{schedule}', [AdminScheduleController::class, 'destroy'])->name('delete'); 
         });  
         
         Route::prefix('student')->as('student.')->group(function () {
