@@ -24,7 +24,7 @@
         <form method="POST" action="{{ route('admin.subject.create') }}">
             @csrf
             <div class="card-body">
-                <!-- Academic Year -->
+                {{-- <!-- Academic Year -->
                 <div class="form-group">
                     <x-label for="academic_year" :value="__('Academic Year')" />
 
@@ -92,7 +92,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
                 <!-- Code -->
                 <div class="form-group">
@@ -101,20 +101,19 @@
                     <x-input id="code" class="form-control" type="text" name="code" :value="old('code')" required />
                 </div>
 
-                <!-- Description -->
+                <!-- Name -->
                 <div class="form-group">
-                    <x-label for="description" :value="__('Description')" />
+                    <x-label for="name" :value="__('Name')" />
 
-                    <x-input id="description" class="form-control" type="text" name="description"
-                        :value="old('description')" required />
+                    <x-input id="name" class="form-control" type="text" name="name" :value="old('name')" required />
                 </div>
 
-                <!-- Units -->
+                {{-- <!-- Units -->
                 <div class="form-group">
                     <x-label for="units" :value="__('Units')" />
 
                     <x-input id="units" class="form-control" type="number" name="units" :value="old('units')" required />
-                </div>
+                </div> --}}
 
                 <div class="card-footer">
                     <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
