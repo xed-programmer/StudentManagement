@@ -9,7 +9,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $post = Post::latest()->firstOrFail();
+        $post = Post::latest()->first();          
         return view('home')->with(['post'=>$post]);
     }
 }
