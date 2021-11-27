@@ -20,10 +20,12 @@ class AdminScheduleController extends Controller
     public function getDays(){
         return ['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY'];
     }
+    
     public function index()
     {
-        $schedules = Schedule::with('professors.user', 'coursesubjects.courses', 'coursesubjects.subjects')->latest()->get();
-        return view('admin.schedule.index', compact('schedules'));        
+        $limit = 15;
+        $schedules = Schedule::with('professors.user', 'coursesubjects.courses')->latest()->get();        
+        return view('admin.schedule.index', compact('schedules', 'limit'));        
     }
 
     /**
@@ -89,10 +91,10 @@ class AdminScheduleController extends Controller
             );
         }
               
-        
-        // Format the String 24 time to 12 time        
-        $time_start = strftime('%I:%M %p', strtotime($request->start));
-        $time_end = strftime('%I:%M %p', strtotime($request->end));
+                
+        // Convert to timestamp
+        $time_start = strtotime($request->start);                
+        $time_end = strtotime($request->end);        
         
         // Convert Time to Carbon Datetime
         $dt_time_start = today()->setTimeFromTimeString($request->start);
@@ -122,12 +124,32 @@ class AdminScheduleController extends Controller
             ->where('time_start', $data['time_start'])
             ->where('time_end', $data['time_end'])->get();
 
-            if($sched->count == 0){
+            if($sched->count() == 0){
                 $datas[] = $data;
             }else{
                 array_push($dataExists, $coursesubject->courses->code .'-'. $coursesubject->subjects->code .'-'. $data['year'] .'-'.$data['section']. '-' .$data['academic_year']);
             }
         }
+
+        if(count($datas) == 0){
+            $request->session()->flash('message', 'Course Not Added! ' . implode('-', $dataExists) .' Already Exists');
+            $request->session()->flash('alert-class', 'alert-warning');
+            return redirect()->route('admin.schedule.index');
+        }        
+        
+        $sched = Schedule::upsert($datas, ['course_subject_id', 'professor_id', 'day', 'time_start', 'time_end']);
+        if ($sched){
+            if(count($dataExists)>0){
+                $request->session()->flash('message', 'Schedule Added Successfully! Some Data alreay exists ' . implode('-', $dataExists));
+            }else{
+                $request->session()->flash('message', 'Schedule Added Successfully!');
+            }            
+            $request->session()->flash('alert-class', 'alert-success');
+        } else {
+            $request->session()->flash('message', 'Schedule Added Unsuccessfully!');
+            $request->session()->flash('alert-class', 'alert-warning');
+        }
+        return redirect()->route('admin.schedule.index');
     }
 
     /**

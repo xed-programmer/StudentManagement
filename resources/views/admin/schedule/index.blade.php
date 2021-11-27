@@ -43,8 +43,6 @@
                                     <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
                                         aria-label="End Time: activate to sort column ascending">End Time</th>
                                     <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
-                                        aria-label="Units: activate to sort column ascending">Units</th>
-                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
                                         aria-label="School Year: activate to sort column ascending">School Year</th>
                                     <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1">Actions</th>
                                 </tr>
@@ -53,21 +51,24 @@
                                 @foreach ($schedules as $schedule)
                                     <tr>
                                         <td class="dtr-control sorting_1" tabindex="0">
-                                            {{ $schedule->coursesubjects->subjects->name }}
+                                            {{ Str::limit($schedule->coursesubjects->subjects->name, $limit, '...') }}
                                         </td>
                                         <td class="dtr-control sorting_1" tabindex="0">
                                             {{ $schedule->coursesubjects->courses->code }}</td>
                                         <td class="dtr-control sorting_1" tabindex="0">
+                                            {{ $schedule->coursesubjects->section }}</td>
+                                        <td class="dtr-control sorting_1" tabindex="0">
                                             {{ $schedule->coursesubjects->year }}</td>
-                                        <td class="dtr-control sorting_1" tabindex="0">{{ $schedule->professors->name }}
+                                        <td class="dtr-control sorting_1" tabindex="0">
+                                            {{ Str::limit($schedule->professors->user->name, $limit, '...') }}
                                         </td>
                                         <td class="dtr-control sorting_1" tabindex="0">{{ $schedule->day }}</td>
-                                        <td class="dtr-control sorting_1" tabindex="0">{{ $schedule->time_start }}</td>
-                                        <td class="dtr-control sorting_1" tabindex="0">{{ $schedule->time_end }}</td>
                                         <td class="dtr-control sorting_1" tabindex="0">
-                                            {{ $schedule->coursesubjects->units }}</td>
+                                            {{ date('h:i A', $schedule->time_start) }}</td>
                                         <td class="dtr-control sorting_1" tabindex="0">
-                                            {{ $schedule->coursesubjects->school_year }}</td>
+                                            {{ date('h:i A', $schedule->time_end) }}</td>
+                                        <td class="dtr-control sorting_1" tabindex="0">
+                                            {{ $schedule->coursesubjects->academic_year }}</td>
                                         <td class="dtr-control sorting_1" tabindex="0">
                                             <div class="d-flex justify-content-center">
                                                 <a href="{{ route('admin.schedule.edit', $schedule) }}"

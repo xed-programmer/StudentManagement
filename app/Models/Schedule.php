@@ -15,12 +15,12 @@ class Schedule extends Model
 
     public function coursesubjects()
     {
-        return $this->hasMany(CourseSubject::class);
+        return $this->belongsTo(CourseSubject::class, 'course_subject_id', 'id');
     }
 
     public function professors()
     {
-        return $this->hasMany(Professor::class);
+        return $this->belongsTo(Professor::class, 'professor_id', 'id');
     }
 
 }
