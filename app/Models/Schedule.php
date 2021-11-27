@@ -23,4 +23,8 @@ class Schedule extends Model
         return $this->belongsTo(Professor::class, 'professor_id', 'id');
     }
 
+    public function timestampToTime($time){
+        return date('h:i A', $time);
+    }
+
 }
