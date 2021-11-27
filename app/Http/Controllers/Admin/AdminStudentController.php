@@ -3,12 +3,23 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Course;
 use App\Models\Student;
 use App\Models\User;
 use Illuminate\Http\Request;
 
 class AdminStudentController extends Controller
 {
+
+    private function getYearLevel(){
+        return ['1ST', '2ND', '3RD', '4TH'];
+    }
+
+    private function getSections()
+    {
+        return ['A', 'B', 'C', 'D'];
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +27,7 @@ class AdminStudentController extends Controller
      */
     public function index()
     {
-        $students = Student::with('user')->get();        
+        $students = Student::with(['user', 'course'])->get();
         return view('admin.student.index')->with(['students' => $students]);
     }
 
@@ -27,7 +38,10 @@ class AdminStudentController extends Controller
      */
     public function create()
     {
-        return view('admin.student.register');
+        $yearlevels = $this::getYearLevel();
+        $sections = $this::getSections();
+        $courses = Course::orderby('code')->get();
+        return view('admin.student.register', compact(['yearlevels', 'sections', 'courses']));
     }
 
     /**
@@ -38,7 +52,10 @@ class AdminStudentController extends Controller
      */
     public function edit(Student $student)
     {
-        return view('admin.student.edit', ['student' => $student]);
+        $yearlevels = $this::getYearLevel();
+        $sections = $this::getSections();
+        $courses = Course::orderby('code')->get();
+        return view('admin.student.edit', compact(['student', 'courses','yearlevels', 'sections']));
     }
 
     /**
@@ -52,14 +69,21 @@ class AdminStudentController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
+            'course' => ['required', 'exists:courses,id'],
+            'year' => ['required'],
+            'section' => ['required'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email, ' . $student->user_id],
             'student_code' => ['required', 'string', 'max:10', 'unique:students,student_code, ' . $student->id],
             'phone' => ['required', 'regex:/(09)[0-9]{9}/'],
         ]);
 
+        
 
         $student->student_code = $request->student_code;
         $student->phone = $request->phone;
+        $student->year = $request->year;
+        $student->section = $request->section;
+        $student->course_id = $request->course;
 
         $student->user->name = $request->name;
         $student->user->email = $request->email;

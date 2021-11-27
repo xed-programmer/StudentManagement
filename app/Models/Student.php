@@ -10,7 +10,7 @@ class Student extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 'student_code', 'phone',
+        'user_id', 'student_code', 'phone', 'course_id', 'year', 'section', 'academic_year'
     ];
 
 
@@ -32,5 +32,10 @@ class Student extends Model
     public function guardians()
     {
         return $this->belongsToMany(Guardian::class);
+    }
+
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
     }
 }
