@@ -30,6 +30,10 @@
                                 <x-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.index')">
                                     {{ __('Admin') }}
                                 </x-nav-link>
+                            @elseif (auth()->user()->hasRole('professor'))
+                                <x-nav-link :href="route('professor')" :active="request()->routeIs('professor')">
+                                    {{ __('Professor') }}
+                                </x-nav-link>
                             @elseif (auth()->user()->hasRole('student'))
                                 <x-nav-link :href="route('student')" :active="request()->routeIs('student')">
                                     {{ __('Student') }}
@@ -83,7 +87,7 @@
 
                                     <x-dropdown-link :href="route('logout')"
                                         onclick="event.preventDefault();
-                                                                                                                                                                                                                this.closest('form').submit();">
+                                                                                                                                                                                                                                    this.closest('form').submit();">
                                         <div class="flex items-center">
                                             <i class="fas fa-sign-out-alt mr-2"></i>
                                             {{ __('Log Out') }}
@@ -127,6 +131,10 @@
                     <x-responsive-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.index')">
                         {{ __('Admin') }}
                     </x-responsive-nav-link>
+                @elseif (auth()->user()->hasRole('professor'))
+                    <x-responsive-nav-link :href="route('professor')" :active="request()->routeIs('professor')">
+                        {{ __('Professor') }}
+                    </x-responsive-nav-link>
                 @elseif (auth()->user()->hasRole('student'))
                     <x-responsive-nav-link :href="route('student')" :active="request()->routeIs('student')">
                         {{ __('Student') }}
@@ -156,7 +164,7 @@
 
                         <x-responsive-nav-link :href="route('logout')"
                             onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                            this.closest('form').submit();">
+                                                                                                                                                                                                                                                                                                                                                                this.closest('form').submit();">
                             {{ __('Log Out') }}
                         </x-responsive-nav-link>
                     </form>

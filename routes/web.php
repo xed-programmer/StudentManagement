@@ -146,6 +146,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::group(['middleware' => ['checkrole:professor']], function () {
         Route::get('/professor', [ProfessorController::class, 'index'])->name('professor');
+        Route::get('/professor/schedule', [ProfessorController::class, 'showSchedule'])->name('schedule.show');
     });
 
 
