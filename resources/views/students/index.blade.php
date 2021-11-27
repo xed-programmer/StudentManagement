@@ -7,8 +7,8 @@
                         {{ __('Your Class Schedule') }}
                     </div>
                     <div class="p-6 bg-white">
-                        {{ $schedules[0]->coursesubjects->courses->code }} {{ $schedules[0]->coursesubjects->year }}
-                        {{ $schedules[0]->coursesubjects->section }}
+                        {{ $student->course->code }} {{ $student->year }}
+                        {{ $student->section }}
                     </div>
                 </div>
                 <!-- This example requires Tailwind CSS v2.0+ -->
@@ -49,7 +49,7 @@
                                         @php
                                             $total_units = 0;
                                         @endphp
-                                        @foreach ($schedules as $schedule)
+                                        @forelse ($schedules as $schedule)
                                             <tr>
                                                 <td class="px-6 py-4 whitespace-nowrap">
                                                     <div class="text-sm text-gray-900">
@@ -79,7 +79,15 @@
                                             @php
                                                 $total_units += $schedule->coursesubjects->units;
                                             @endphp
-                                        @endforeach
+                                        @empty
+                                            <tr>
+                                                <td class="px-6 py-4 whitespace-nowrap">
+                                                    <div class="text-sm text-gray-500">
+                                                        No Schedule
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforelse
                                         <tr>
                                             <td class="px-6 py-4 whitespace-nowrap">Total Units: {{ $total_units }}
                                             </td>

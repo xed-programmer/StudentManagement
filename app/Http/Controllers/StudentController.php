@@ -10,7 +10,7 @@ class StudentController extends Controller
 {
     public function index()
     {
-        $student = auth()->user()->student;        
+        $student = auth()->user()->student;
         $datas = $student->attendances()->orderBy('created_at', 'DESC')->get()->groupBy('status');
         //$datas = Attendance::whereBelongsTo($student)->orderBy('created_at', 'DESC')->get()->groupBy('status');
         
@@ -20,12 +20,18 @@ class StudentController extends Controller
         $absent = ($datas->count() > 0 && $datas->has('absent'))? PaginationHelper::paginate($datas['absent'], 20) : [];
 
         // Get Class Schedules
+        // $schedules = Schedule::with(['coursesubjects.courses', 'coursesubjects.subjects', 'professors.user'])
+        // ->whereHas('coursesubjects.courses', function($query){
+        //     return $query->where('id', auth()->user()->student->course_id);
+        // })->get();
         $schedules = Schedule::with(['coursesubjects.courses', 'coursesubjects.subjects', 'professors.user'])
-        ->whereHas('coursesubjects.courses', function($query){
-            return $query->where('id', auth()->user()->student->course_id);
-        })->get();                
-        // dd($schedules);        
-        return view('students.index', ['time_in' => $time_in, 'time_out' => $time_out, 'present' => $present,
+        ->whereRelation('coursesubjects', [
+        ['section', '=', $student->section],
+        ['year', '=', $student->year],
+        ['course_id', '=', $student->course_id],
+        ])->get();
+        
+        return view('students.index', ['student' => $student, 'time_in' => $time_in, 'time_out' => $time_out, 'present' => $present,
          'absent' => $absent, 'schedules' => $schedules]);
     }
 }
