@@ -110,6 +110,12 @@
                                 <p>{{ __('Subjects') }}</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.schedule.index') }}" class="nav-link">
+                                <i class="nav-icon far fa-calendar-alt text-info"></i>
+                                <p>{{ __('Schedule') }}</p>
+                            </a>
+                        </li>
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
