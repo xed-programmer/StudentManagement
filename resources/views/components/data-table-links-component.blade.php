@@ -18,9 +18,11 @@
          $("#example1").DataTable({
              "aaSorting": [],
              "paging": true,
+             'autoWidth': false,
              "ordering": true,
              "info": true,
              "scrollX": true,
+             "scrollY": true,
              "buttons": ["copy", "csv", "excel", "pdf", "print"]
          }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
      });
