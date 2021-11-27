@@ -93,7 +93,14 @@ class AdminScheduleController extends Controller
             if($cs->courses->code == $request->course && $cs->subjects->code == $request->subject){    
                 $coursesubject = $cs;
             }
-        }        
+        }
+        
+        // Check if there is no record
+        if($coursesubject == null){
+            return back()->withErrors(
+                ['error' => 'The ' . $request->subject . ' is not enrolled for ' . $request->course . ' ' . $request->year . ' ' . $request->section]
+            );
+        }
 
         $datas = [];
         $dataExists = [];
