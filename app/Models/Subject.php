@@ -11,4 +11,9 @@ class Subject extends Model
     protected $fillable = [
         'code', 'name',
     ];
+
+    public function coursesubjects()
+    {
+        return $this->belongsTo(CourseSubject::class, 'id', 'subject_id');
+    }
 }

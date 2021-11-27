@@ -152,7 +152,8 @@
                         @foreach ($subjects as $subject)
                             <option value="{{ $subject->code }}" @if (old('subject->code') == $subject->code)
                                 selected
-                        @endif>{{ $subject->code }} - {{ $subject->name }}</option>
+                        @endif>{{ $subject->coursesubjects->units }} units - {{ $subject->code }}
+                        - {{ $subject->name }}</option>
                         @endforeach
                     </select>
                 </div>
