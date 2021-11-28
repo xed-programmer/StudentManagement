@@ -144,10 +144,10 @@ Route::group(['middleware' => ['auth']], function () {
         Route::delete('/{guardian}/{student}', [GuardianController::class, 'destroy'])->name('delete.student');
     });
 
-    Route::group(['middleware' => ['checkrole:professor']], function () {
-        Route::get('/professor', [ProfessorController::class, 'index'])->name('professor');
-        Route::get('/professor/schedule', [ProfessorController::class, 'showSchedule'])->name('schedule.show');
-        Route::get('/professor/class/{schedule}', [ProfessorController::class, 'showClass'])->name('class.show');
+    Route::group(['middleware' => ['checkrole:professor'], 'prefix' => 'professor', 'as'=> 'professor.'], function () {
+        Route::get('/', [ProfessorController::class, 'index'])->name('index');
+        Route::get('/schedule', [ProfessorController::class, 'showSchedule'])->name('schedule.show');
+        Route::get('/class/{schedule}', [ProfessorController::class, 'showClass'])->name('class.show');
     });
 
 
