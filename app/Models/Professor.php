@@ -26,4 +26,9 @@ class Professor extends Model
     {
         return $this->belongsToMany(Subject::class);
     }
+
+    public function schedules()
+    {
+        return $this->hasMany(Schedule::class);
+    }
 }
