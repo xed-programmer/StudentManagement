@@ -22,9 +22,18 @@ class ProfessorController extends Controller
 
     public function showSchedule()
     {
-        $professor = Professor::with(['schedules.coursesubjects.courses', 'schedules.coursesubjects.subjects'])
-        ->whereBelongsTo(auth()->user())->get();
-        dd($professor);
-        return view('professors.schedule.show');
+        // $professor = Professor::with(['schedules.coursesubjects.courses', 'schedules.coursesubjects.subjects'])
+        // ->whereBelongsTo(auth()->user())->get();
+        // $professor = Professor::with(['schedules' => function($query){
+        //     $query->groupBy('day');
+        // }, 'schedules.coursesubjects.courses','schedules.coursesubjects.subjects'])
+        // ->whereBelongsTo(auth()->user())->get();
+        // dd($professor);
+
+        $schedules = Schedule::with(['coursesubjects.courses','coursesubjects.subjects', 'professors'])
+        ->where('professor_id', auth()->user()->professor->id)
+        ->get()->groupBy('day');
+        $days = $this::getDays();        
+        return view('professors.schedule.show', compact('schedules', 'days'));
     }
 }
