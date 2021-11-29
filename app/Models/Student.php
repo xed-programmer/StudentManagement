@@ -38,4 +38,9 @@ class Student extends Model
     {
         return $this->belongsTo(Course::class);
     }
+
+    public function addsubjects()
+    {
+        return $this->hasMany(StudentAddSubject::class);
+    }
 }

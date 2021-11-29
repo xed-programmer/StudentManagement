@@ -33,15 +33,25 @@ class ProfessorController extends Controller
 
     public function showClass(Schedule $schedule)
     {
+        // Fetch all students that has a particular schedule
         // This query ASC the name in Users table
-        $students = Student::with('user')
-        ->join('users', 'students.user_id', '=', 'users.id')
-        ->where('students.course_id', $schedule->coursesubjects->course_id)        
-        ->where('students.year', $schedule->coursesubjects->year)        
-        ->where('students.section', $schedule->coursesubjects->section)
+        // it also gets the irreg students from student_add_subjects table
+        $students = Student::with(['user'])
+        ->join('users', 'students.user_id', '=', 'users.id')        
+        ->where(function($query) use ($schedule){
+            $query->where('students.course_id', $schedule->coursesubjects->course_id)        
+            ->where('students.year', $schedule->coursesubjects->year)        
+            ->where('students.section', $schedule->coursesubjects->section);
+        })  
+        ->orWhereIn('students.id', function($query) use ($schedule){
+            //This is for irreg students that has a same schedule
+            $query->from('student_add_subjects')
+            ->where('student_add_subjects.schedule_id', $schedule->id)
+            ->select(['student_add_subjects.student_id']);
+        })
         ->orderBy('users.name')
-        ->get();
-         
+        ->get();        
+            
         return view('professors.class.index', compact('students', 'schedule'));
     }
 }
