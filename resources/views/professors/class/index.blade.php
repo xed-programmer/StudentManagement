@@ -14,11 +14,15 @@
     @endif
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">{{ __('Student Lists') }}</h3>
+            <h3 class="card-title">
+                {{ $schedule->coursesubjects->courses->code }} {{ $schedule->coursesubjects->year }}
+                {{ $schedule->coursesubjects->section }} {{ __('Lists') }}
+            </h3>
         </div>
         <div class="card-body">
             <div class="row">
-                <a href="{{ route('admin.schedule.add') }}" class="btn btn-lg btn-success m-2">Add Student</a>
+                <a href="{{ route('professor.student.add', $schedule) }}" class="btn btn-lg btn-success m-2">Add
+                    Student</a>
             </div>
             <div class="row">
                 <a href="{{ route('admin.schedule.add') }}" class="btn btn-lg btn-info m-2">Attendance</a>

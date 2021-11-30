@@ -2,15 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
 use App\Models\Professor;
 use App\Models\Schedule;
 use App\Models\Student;
+use App\Models\StudentAddSubject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class ProfessorController extends Controller
 {
 
+    private function getYearLevel(){
+        return ['1ST', '2ND', '3RD', '4TH'];
+    }
+
+    private function getSections()
+    {
+        return ['A', 'B', 'C', 'D'];
+    }
+    
     private function getDays()
     {
         return ['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY'];
@@ -39,6 +50,7 @@ class ProfessorController extends Controller
         $students = Student::with(['user'])
         ->join('users', 'students.user_id', '=', 'users.id')        
         ->where(function($query) use ($schedule){
+            // this is for reg students
             $query->where('students.course_id', $schedule->coursesubjects->course_id)        
             ->where('students.year', $schedule->coursesubjects->year)        
             ->where('students.section', $schedule->coursesubjects->section);
@@ -53,5 +65,52 @@ class ProfessorController extends Controller
         ->get();        
             
         return view('professors.class.index', compact('students', 'schedule'));
+    }
+
+    public function addStudent(Schedule $schedule)
+    {
+        $yearlevels = $this::getYearLevel();
+        $sections = $this::getSections();
+        $courses = Course::orderby('code')->get();
+        return view('professors.student.add', compact(['yearlevels', 'sections', 'courses', 'schedule']));
+    }
+
+    public function storeStudent(Schedule $schedule, Request $request)
+    {
+        $request->validate([
+            'student' => ['required', 'exists:students,id'],
+        ]);
+
+        $res = StudentAddSubject::where('student_id', $request->student)
+        ->where('schedule_id', $schedule->id)->get();
+        if($res->count()>0){
+            $request->session()->flash('message', 'Student Not Added! Maybe the student has been enrolled to this class');
+            $request->session()->flash('alert-class', 'alert-danger');
+            return back();
+        }
+        
+        $res = StudentAddSubject::create([
+            'student_id' => $request->student,
+            'schedule_id' => $schedule->id,
+        ]);
+        if ($res) {
+            $request->session()->flash('message', 'Student Added Successfully!');
+            $request->session()->flash('alert-class', 'alert-success');
+        } else {
+            $request->session()->flash('message', 'Student Added Unuccessfully!');
+            $request->session()->flash('alert-class', 'alert-warning');
+        }
+        return back();
+    }
+
+    public function getStudentData(Request $request)
+    {        
+        $students = Student::with('user')
+        ->where('course_id', $request->course)        
+        ->where('year', $request->year)
+        ->where('section', $request->section)
+        ->get();
+        
+        return $students;
     }
 }

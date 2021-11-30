@@ -148,6 +148,11 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/', [ProfessorController::class, 'index'])->name('index');
         Route::get('/schedule', [ProfessorController::class, 'showSchedule'])->name('schedule.show');
         Route::get('/class/{schedule}', [ProfessorController::class, 'showClass'])->name('class.show');
+        Route::prefix('student')->as('student.')->group(function () {
+            Route::post('/data', [ProfessorController::class, 'getStudentData'])->name('data');
+            Route::get('/add/{schedule}', [ProfessorController::class, 'addStudent'])->name('add');
+            Route::post('/add/{schedule}', [ProfessorController::class, 'storeStudent'])->name('add');
+        });
     });
 
 
