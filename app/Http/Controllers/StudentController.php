@@ -18,7 +18,7 @@ class StudentController extends Controller
         $time_out = ($datas->count() > 0 && $datas->has('time-out'))? PaginationHelper::paginate($datas['time-out'], 20) : [];
         $present = ($datas->count() > 0 && $datas->has('present'))? PaginationHelper::paginate($datas['present'], 20) : [];
         $absent = ($datas->count() > 0 && $datas->has('absent'))? PaginationHelper::paginate($datas['absent'], 20) : [];
-
+        
         // Get Class Schedules
         // $schedules = Schedule::with(['coursesubjects.courses', 'coursesubjects.subjects', 'professors.user'])
         // ->whereHas('coursesubjects.courses', function($query){

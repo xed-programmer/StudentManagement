@@ -12,7 +12,7 @@ class SmsController extends Controller
       try {
         $message = Nexmo::message()->send([
           'to'   => '639663126435',
-          'from' => '639663126435',
+          'from' => '639510592362',
           'text' => 'SMS NOTIFICATION GOODS NA .'
         ]);
         echo 'sent';
