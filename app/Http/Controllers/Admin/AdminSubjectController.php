@@ -116,8 +116,16 @@ class AdminSubjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Subject $subject, Request $request)
     {
-        //
+        if ($subject->delete()) {
+            $request->session()->flash('message', 'Subject Deleted Updated Successfully!');
+            $request->session()->flash('alert-class', 'alert-success');
+        } else {
+            $request->session()->flash('message', 'Subject Deleted Updated Unsuccessfully!');
+            $request->session()->flash('alert-class', 'alert-warning');
+        }
+
+        return redirect()->route('admin.subject.index');
     }
 }
