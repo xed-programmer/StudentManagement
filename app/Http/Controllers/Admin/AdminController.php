@@ -7,6 +7,7 @@ use App\Models\Course;
 use App\Models\Guardian;
 use App\Models\Post;
 use App\Models\Professor;
+use App\Models\Schedule;
 use App\Models\Student;
 use App\Models\Subject;
 use App\Models\User;
@@ -22,8 +23,9 @@ class AdminController extends Controller
         $course = Course::count();
         $subject = Subject::count();        
         $post = Post::count();
+        $schedule = Schedule::count();        
 
         return view('admin.index', compact(['users', 'prof', 'student', 'guardian', 'course', 
-        'subject', 'post']));
+        'subject', 'post', 'schedule']));
     }    
 }

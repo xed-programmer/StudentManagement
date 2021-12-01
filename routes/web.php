@@ -156,8 +156,6 @@ Route::group(['middleware' => ['auth']], function () {
             Route::post('/attendance/{schedule}', [ProfessorController::class, 'storeAttendance'])->name('attendance.store');
         });
     });
-
-
 });
 
 Route::group(['middleware' => 'guest'], function () {

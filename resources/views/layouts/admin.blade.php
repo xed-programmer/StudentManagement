@@ -81,6 +81,13 @@
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
                         <li class="nav-item">
+                            <a href="{{ route('admin.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-tachometer-alt text-info"></i>
+                                <p>{{ __('Dashboard') }}</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
                             <a href="{{ route('admin.professor.index') }}" class="nav-link">
                                 <i class="nav-icon fas fa-chalkboard-teacher text-info"></i>
                                 <p>{{ __('Professor') }}</p>
