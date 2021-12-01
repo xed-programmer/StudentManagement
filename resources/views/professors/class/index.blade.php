@@ -25,7 +25,8 @@
                     Student</a>
             </div>
             <div class="row">
-                <a href="{{ route('admin.schedule.add') }}" class="btn btn-lg btn-info m-2">Attendance</a>
+                <a href="{{ route('professor.student.attendance.create', ['schedule' => $schedule, 'student' => $students]) }}"
+                    class="btn btn-lg btn-info m-2">Attendance</a>
             </div>
             <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
                 <div class="row">

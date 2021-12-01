@@ -7,6 +7,7 @@ use App\Models\Professor;
 use App\Models\Schedule;
 use App\Models\Student;
 use App\Models\StudentAddSubject;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -62,7 +63,9 @@ class ProfessorController extends Controller
             ->select(['student_add_subjects.student_id']);
         })
         ->orderBy('users.name')
-        ->get();        
+        ->get();
+
+        session(['students' => $students]);
             
         return view('professors.class.index', compact('students', 'schedule'));
     }
@@ -112,5 +115,16 @@ class ProfessorController extends Controller
         ->get();
         
         return $students;
+    }
+
+    public function createAttendance(Schedule $schedule, Request $request)
+    {
+        $students = $request->session()->get('students');
+        return view('professors.student.attendance', compact('students', 'schedule'));
+    }
+
+    public function storeAttendance(Request $request)
+    {
+        dd($request->session()->get('students'));
     }
 }

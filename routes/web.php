@@ -152,6 +152,8 @@ Route::group(['middleware' => ['auth']], function () {
             Route::post('/data', [ProfessorController::class, 'getStudentData'])->name('data');
             Route::get('/add/{schedule}', [ProfessorController::class, 'addStudent'])->name('add');
             Route::post('/add/{schedule}', [ProfessorController::class, 'storeStudent'])->name('add');
+            Route::get('/attendance/{schedule}', [ProfessorController::class, 'createAttendance'])->name('attendance.create');
+            Route::post('/attendance', [ProfessorController::class, 'storeAttendance'])->name('attendance.store');
         });
     });
 
