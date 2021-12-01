@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Attendance;
 use App\Models\Course;
 use App\Models\Professor;
 use App\Models\Schedule;
@@ -63,7 +64,7 @@ class ProfessorController extends Controller
             ->select(['student_add_subjects.student_id']);
         })
         ->orderBy('users.name')
-        ->get();
+        ->get(['students.*']);        
 
         session(['students' => $students]);
             
@@ -123,8 +124,44 @@ class ProfessorController extends Controller
         return view('professors.student.attendance', compact('students', 'schedule'));
     }
 
-    public function storeAttendance(Request $request)
+    public function storeAttendance(Request $request, Schedule $schedule)
     {
-        dd($request->session()->get('students'));
+        // Validate if students exists
+        $students = $request->session()->get('students');
+        $presentStudents = [];
+        $absentStudents = [];        
+        foreach ($students as $student) {
+            if($request->has($student->student_code)){                
+                $presentStudents[] = [
+                    'student_id' => $student->id,
+                    'status' => 'present',
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ];
+            }else{
+                $absentStudents[] = [
+                    'student_id' => $student->id,
+                    'status' => 'absent',
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ];
+            }
+        }
+        
+        // dd(array_merge($presentStudents, $absentStudents));        
+
+        $results = array_merge($presentStudents, $absentStudents);
+        
+        $res = DB::table('attendances')->insert($results);
+
+        if ($res) {
+            $request->session()->flash('message', 'Student Attendance Successfully!');
+            $request->session()->flash('alert-class', 'alert-success');
+        } else {
+            $request->session()->flash('message', 'Student Attendance Unsuccessful!');
+            $request->session()->flash('alert-class', 'alert-warning');
+        }
+
+        return redirect()->route('professor.class.show', compact('schedule'));
     }
 }

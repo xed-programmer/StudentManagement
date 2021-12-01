@@ -23,7 +23,7 @@
             <div class="row">
                 <p>Total Students: {{ $students->count() }}</p>
             </div>
-            <form method="POST" action="{{ route('professor.student.attendance.store') }}">
+            <form method="POST" action="{{ route('professor.student.attendance.store', $schedule) }}">
                 @csrf
 
                 <table class="table">
@@ -36,7 +36,6 @@
                     </thead>
                     <tbody>
                         @foreach ($students as $i => $student)
-
                             <tr>
                                 <th scope="row">{{ $i + 1 }}</th>
                                 <td>{{ $student->user->name }}</td>
