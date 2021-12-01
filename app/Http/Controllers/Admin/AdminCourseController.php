@@ -113,8 +113,16 @@ class AdminCourseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Course $course, Request $request)
     {
-        //
+        if ($course->delete()) {
+            $request->session()->flash('message', 'Course Data Deleted Successfully!');
+            $request->session()->flash('alert-class', 'alert-success');
+        } else {
+            $request->session()->flash('message', 'Course Data Deleted Unsuccessfully!');
+            $request->session()->flash('alert-class', 'alert-warning');
+        }
+
+        return redirect()->route('admin.course.index');
     }
 }
