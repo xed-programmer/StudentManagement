@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use App\Helpers\PaginationHelper;
 use App\Models\Attendance;
 use App\Models\Schedule;
+use Illuminate\Support\Facades\DB;
 
 class StudentController extends Controller
 {
     public function index()
     {
         $student = auth()->user()->student;
-        $datas = $student->attendances()->orderBy('created_at', 'DESC')->get()->groupBy('status');
+        $datas = $student->attendances()->orderBy('created_at', 'DESC')->get()->groupBy('status');        
         //$datas = Attendance::whereBelongsTo($student)->orderBy('created_at', 'DESC')->get()->groupBy('status');
         
         $time_in = ($datas->count() > 0 && $datas->has('time-in'))? PaginationHelper::paginate($datas['time-in'], 20) : [];
@@ -21,15 +22,24 @@ class StudentController extends Controller
 
         // Get Class Schedules
         // $schedules = Schedule::with(['coursesubjects.courses', 'coursesubjects.subjects', 'professors.user'])
-        // ->whereHas('coursesubjects.courses', function($query){
-        //     return $query->where('id', auth()->user()->student->course_id);
-        // })->get();
+        // ->whereRelation('coursesubjects', [
+        // ['section', '=', $student->section],
+        // ['year', '=', $student->year],
+        // ['course_id', '=', $student->course_id],
+        // ])->get();
         $schedules = Schedule::with(['coursesubjects.courses', 'coursesubjects.subjects', 'professors.user'])
-        ->whereRelation('coursesubjects', [
-        ['section', '=', $student->section],
-        ['year', '=', $student->year],
-        ['course_id', '=', $student->course_id],
-        ])->get();
+        ->join('course_subjects', 'course_subjects.id', '=', 'schedules.course_subject_id')
+        ->where(function($query) use ($student){
+            $query->where('course_subjects.section', $student->section)
+            ->where('course_subjects.year', $student->year)
+            ->where('course_subjects.course_id', $student->course_id);
+        })
+        ->orWhereIn('schedules.id', function($query) use ($student){
+            $query->from('student_add_subjects')
+            ->where('student_add_subjects.student_id', $student->id)
+            ->select('student_add_subjects.schedule_id');
+        })
+        ->get(['schedules.*']);
         
         return view('students.index', ['student' => $student, 'time_in' => $time_in, 'time_out' => $time_out, 'present' => $present,
          'absent' => $absent, 'schedules' => $schedules]);

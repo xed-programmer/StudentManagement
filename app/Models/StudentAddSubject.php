@@ -13,5 +13,8 @@ class StudentAddSubject extends Model
         'student_id', 'schedule_id'
     ];
 
-    
+    public function schedules()
+    {
+        return $this->hasMany(Schedule::class, 'id', 'schedule_id');
+    }
 }
