@@ -74,9 +74,9 @@ class AdminCourseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
+    public function edit(Course $course)
+    {        
+        return view('admin.course.edit', compact('course'));
     }
 
     /**
@@ -86,9 +86,25 @@ class AdminCourseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Course $course)
     {
-        //
+        $request->validate([
+            'code' => ['required', 'unique:courses,code, ' . $course->id],
+            'name' => ['required', 'max:255'],
+        ]);
+
+        $course->code = $request->code;
+        $course->name = $request->name;
+
+        if ($course->push()) {
+            $request->session()->flash('message', 'Course Data Updated Successfully!');
+            $request->session()->flash('alert-class', 'alert-success');
+        } else {
+            $request->session()->flash('message', 'Course Data Updated Unuccessfully!');
+            $request->session()->flash('alert-class', 'alert-warning');
+        }
+
+        return redirect()->route('admin.course.index');
     }
 
     /**
