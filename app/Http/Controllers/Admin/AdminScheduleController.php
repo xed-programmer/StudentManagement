@@ -35,7 +35,13 @@ class AdminScheduleController extends Controller
      */
     public function create()
     {
-        $subjects = Subject::with('coursesubjects')->orderBy('code', 'ASC')->get();        
+        // $subjects = Subject::with('coursesubjects')->orderBy('code', 'ASC')->get();        
+        $subjects = Subject::with('coursesubjects')
+        ->join('course_subjects', 'course_subjects.subject_id', '=', 'subjects.id')
+        ->whereIn('subjects.id', function($query){
+            $query->select('course_subjects.subject_id')
+            ->from('course_subjects');            
+        })->get(['subjects.*']);
         $professors = Professor::with(['user' => function($q){
             $q->orderBy('name');
         }])->get();
