@@ -171,4 +171,8 @@ Route::group(['prefix' => 'gatepass', 'as' => 'gatepass.'], function () {
 
 Route::get('/announcements', [AnnouncementController::class, 'index'])->name('announcement');
 
+Route::get('/send/message',
+    [SmsController::class, 'sendMessage']
+)->name('sendMessage');
+
 require __DIR__ . '/auth.php';
