@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use App\Models\User;
+use App\Notifications\SmsNotification;
 use Illuminate\Http\Request;
 
 class GatePassController extends Controller
@@ -19,7 +20,7 @@ class GatePassController extends Controller
             'student_code' => ['required', 'max:10', 'exists:students,student_code'],
         ]);
 
-        $student = Student::with('attendances')->where('student_code', $request->student_code)->firstOrFail();                
+        $student = Student::with(['attendances', 'user'])->where('student_code', $request->student_code)->firstOrFail();                
         
         //This is the equivalent syntax in Mysql
         //SELECT * FROM `attendances` WHERE `created_at` > '2021-10-25 00:00:00.0' AND (`status` = 'time-in' OR `status` = 'time-out');
@@ -39,11 +40,26 @@ class GatePassController extends Controller
             }
         }
         //if count is even, then it must be time in, else time out
-        if($attendances->count()%2 == 0){
+        if($attendances->count()%2 == 0){            
             $student->attendances()->create(['status' => 'time-in']);
+            $phone = '63'. substr($student->phone, 1);
+            $data = [
+                'body' => $student->user->name . ' entered the school at ' . now()->format('h:i A'), 
+                'to' => $phone               
+            ];
         }else{
             $student->attendances()->create(['status' => 'time-out']);
-        }    
+            $phone = '63'. substr($student->phone, 1);
+            $data = [
+                'body' => $student->user->name . ' leave the school at ' . now()->format('h:i A'),  
+                'to' => $phone              
+            ];
+        }
+    
+        // $student->notify(new SmsNotification($data));
+
+        $smsCntr = new SmsController();
+        $smsCntr->sendMessage($data);        
         
         return redirect()->route('gatepass.index');
     }

@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class Student extends Model
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
 
     protected $fillable = [
         'user_id', 'student_code', 'phone', 'course_id', 'year', 'section', 'academic_year'
@@ -42,5 +43,10 @@ class Student extends Model
     public function addsubjects()
     {
         return $this->hasMany(StudentAddSubject::class);
+    }
+
+    public function routeNotificationForNexmo($notification)
+    {
+        return '63'. substr($this->phone, 1);
     }
 }

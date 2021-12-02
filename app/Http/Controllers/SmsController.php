@@ -8,17 +8,15 @@ use Nexmo\Laravel\Facade\Nexmo;
 
 class SmsController extends Controller
 {
-    public function sendMessage(){
+    public function sendMessage($data){
       try {
         $message = Nexmo::message()->send([
-          'to'   => '639663126435',
-          'from' => '639510592362',
-          'text' => 'SMS NOTIFICATION GOODS NA .'
-        ]);
-        echo 'sent';
+          'to'   => $data['to'],
+          'from' => '639663126435',
+          'text' => $data['body'] . ' Thank you and have a great day!'          
+        ]);        
        }catch (\Exception $e) {
         echo $e->getMessage();
-
        }
     }
 }

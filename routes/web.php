@@ -19,6 +19,7 @@ use App\Http\Controllers\Profile\ProfileAdminController;
 use App\Http\Controllers\Profile\ProfileStudentController;
 use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\Profile\ProfileGuardianController;
+use App\Http\Controllers\SmsController;
 use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 
