@@ -2,8 +2,6 @@
 
 use App\Http\Controllers\Admin\AdminStudentController;
 use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\AdminCourseController;
-use App\Http\Controllers\Admin\AdminCourseSubjectController;
 use App\Http\Controllers\Admin\AdminPostController;
 use App\Http\Controllers\Admin\AdminProfessorController;
 use App\Http\Controllers\Admin\AdminScheduleController;
@@ -70,51 +68,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['middleware' => ['checkrole:admin'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::get('/',[AdminController::class, 'index'])->name('index');
 
-        Route::prefix('course')->as('course.')->group(function () {
-            Route::get('/', [AdminCourseController::class, 'index'])->name('index');
-            Route::get('/create', [AdminCourseController::class, 'create'])->name('create');
-            Route::post('/create', [AdminCourseController::class, 'store'])->name('create');
-            Route::get('/edit/{course:code}', [AdminCourseController::class, 'edit'])->name('edit');
-            Route::put('/edit/{course:code}', [AdminCourseController::class, 'update'])->name('update');            
-            Route::delete('/{course:code}', [AdminCourseController::class, 'destroy'])->name('delete'); 
-        });  
-
-        Route::prefix('subject')->as('subject.')->group(function () {
-            Route::get('/', [AdminSubjectController::class, 'index'])->name('index');
-            Route::get('/create', [AdminSubjectController::class, 'create'])->name('create');
-            Route::post('/create', [AdminSubjectController::class, 'store'])->name('create');
-            Route::get('/edit/{subject:code}', [AdminSubjectController::class, 'edit'])->name('edit');
-            Route::put('/edit/{subject:code}', [AdminSubjectController::class, 'update'])->name('update');            
-            Route::delete('/{subject:code}', [AdminSubjectController::class, 'destroy'])->name('delete'); 
-        });   
-
-        Route::prefix('coursesubject')->as('coursesubject.')->group(function () {
-            Route::get('/', [AdminCourseSubjectController::class, 'index'])->name('index');
-            Route::get('/create', [AdminCourseSubjectController::class, 'create'])->name('create');
-            Route::post('/create', [AdminCourseSubjectController::class, 'store'])->name('create');
-            Route::get('/edit/{coursesubject}', [AdminCourseSubjectController::class, 'edit'])->name('edit');
-            Route::put('/edit/{coursesubject}', [AdminCourseSubjectController::class, 'update'])->name('update');            
-            Route::delete('/{coursesubject}', [AdminCourseSubjectController::class, 'destroy'])->name('delete'); 
-        });   
-
-        Route::prefix('professor')->as('professor.')->group(function () {
-            Route::get('/', [AdminProfessorController::class, 'index'])->name('index');
-            Route::get('/register', [AdminProfessorController::class, 'create'])->name('register');
-            Route::post('/register', [AdminProfessorController::class, 'store'])->name('register');
-            Route::get('/edit/{professor}', [AdminProfessorController::class, 'edit'])->name('edit');
-            Route::put('/edit/{professor}', [AdminProfessorController::class, 'update'])->name('update');            
-            Route::delete('/{professor}', [AdminProfessorController::class, 'destroy'])->name('delete'); 
-        });  
-        
-        Route::prefix('schedule')->as('schedule.')->group(function () {
-            Route::get('/', [AdminScheduleController::class, 'index'])->name('index');
-            Route::get('/add', [AdminScheduleController::class, 'create'])->name('add');
-            Route::post('/add', [AdminScheduleController::class, 'store'])->name('add');
-            Route::get('/edit/{schedule}', [AdminScheduleController::class, 'edit'])->name('edit');
-            Route::put('/edit/{schedule}', [AdminScheduleController::class, 'update'])->name('update');            
-            Route::delete('/{schedule}', [AdminScheduleController::class, 'destroy'])->name('delete'); 
-        });  
-        
         Route::prefix('student')->as('student.')->group(function () {
             Route::get('/', [AdminStudentController::class, 'index'])->name('index');
             Route::get('/register', [AdminStudentController::class, 'create'])->name('register');
@@ -142,19 +95,6 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/create', [GuardianController::class, 'create'])->name('create.student');
         Route::post('/store/{guardian}', [GuardianController::class, 'store'])->name('store.student');
         Route::delete('/{guardian}/{student}', [GuardianController::class, 'destroy'])->name('delete.student');
-    });
-
-    Route::group(['middleware' => ['checkrole:professor'], 'prefix' => 'professor', 'as'=> 'professor.'], function () {
-        Route::get('/', [ProfessorController::class, 'index'])->name('index');
-        Route::get('/schedule', [ProfessorController::class, 'showSchedule'])->name('schedule.show');
-        Route::get('/class/{schedule}', [ProfessorController::class, 'showClass'])->name('class.show');
-        Route::prefix('student')->as('student.')->group(function () {
-            Route::post('/data', [ProfessorController::class, 'getStudentData'])->name('data');
-            Route::get('/add/{schedule}', [ProfessorController::class, 'addStudent'])->name('add');
-            Route::post('/add/{schedule}', [ProfessorController::class, 'storeStudent'])->name('add');
-            Route::get('/attendance/{schedule}', [ProfessorController::class, 'createAttendance'])->name('attendance.create');
-            Route::post('/attendance/{schedule}', [ProfessorController::class, 'storeAttendance'])->name('attendance.store');
-        });
     });
 });
 

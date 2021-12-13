@@ -27,8 +27,7 @@ class CreateStudentRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255'],
             'year' => ['required'],
-            'section' => ['required'],
-            'course' => ['required', 'exists:courses,id'],
+            'section' => ['required'],            
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'student_code' => ['required', 'string', 'max:10', 'unique:students'],
             'phone' => ['required', 'regex:/(09)[0-9]{9}/'],

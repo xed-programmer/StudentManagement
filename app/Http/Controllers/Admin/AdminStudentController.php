@@ -27,7 +27,7 @@ class AdminStudentController extends Controller
      */
     public function index()
     {
-        $students = Student::with(['user', 'course'])->get();
+        $students = Student::with(['user'])->get();
         return view('admin.student.index')->with(['students' => $students]);
     }
 
@@ -39,9 +39,8 @@ class AdminStudentController extends Controller
     public function create()
     {
         $yearlevels = $this::getYearLevel();
-        $sections = $this::getSections();
-        $courses = Course::orderby('code')->get();
-        return view('admin.student.register', compact(['yearlevels', 'sections', 'courses']));
+        $sections = $this::getSections();        
+        return view('admin.student.register', compact(['yearlevels', 'sections']));
     }
 
     /**
@@ -53,9 +52,8 @@ class AdminStudentController extends Controller
     public function edit(Student $student)
     {
         $yearlevels = $this::getYearLevel();
-        $sections = $this::getSections();
-        $courses = Course::orderby('code')->get();
-        return view('admin.student.edit', compact(['student', 'courses','yearlevels', 'sections']));
+        $sections = $this::getSections();        
+        return view('admin.student.edit', compact(['student','yearlevels', 'sections']));
     }
 
     /**
@@ -68,8 +66,7 @@ class AdminStudentController extends Controller
     public function update(Student $student, Request $request)
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'course' => ['required', 'exists:courses,id'],
+            'name' => ['required', 'string', 'max:255'],            
             'year' => ['required'],
             'section' => ['required'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email, ' . $student->user_id],
@@ -82,8 +79,7 @@ class AdminStudentController extends Controller
         $student->student_code = $request->student_code;
         $student->phone = $request->phone;
         $student->year = $request->year;
-        $student->section = $request->section;
-        $student->course_id = $request->course;
+        $student->section = $request->section;        
 
         $student->user->name = $request->name;
         $student->user->email = $request->email;

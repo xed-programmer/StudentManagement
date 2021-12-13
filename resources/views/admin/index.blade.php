@@ -25,22 +25,6 @@
         <!-- ./col -->
         <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-success">
-                <div class="inner">
-                    <h3>{{ $prof }}</h3>
-
-                    <p>Professors</p>
-                </div>
-                <div class="icon">
-                    <i class="fas fa-chalkboard-teacher"></i>
-                </div>
-                <a href="{{ route('admin.professor.index') }}" class="small-box-footer">More info <i
-                        class="fas fa-arrow-circle-right"></i></a>
-            </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-6">
-            <!-- small box -->
             <div class="small-box bg-warning">
                 <div class="inner">
                     <h3>{{ $student }}</h3>
@@ -71,56 +55,6 @@
             </div>
         </div>
         <!-- ./col -->
-    </div>
-    <div class="row">
-        <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-info">
-                <div class="inner">
-                    <h3>{{ $course }}</h3>
-
-                    <p>Courses</p>
-                </div>
-                <div class="icon">
-                    <i class="fas fa-university"></i>
-                </div>
-                <a href="{{ route('admin.course.index') }}" class="small-box-footer">More info <i
-                        class="fas fa-arrow-circle-right"></i></a>
-            </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-success">
-                <div class="inner">
-                    <h3>{{ $subject }}</h3>
-
-                    <p>Subjects</p>
-                </div>
-                <div class="icon">
-                    <i class="fas fa-book"></i>
-                </div>
-                <a href="{{ route('admin.subject.index') }}" class="small-box-footer">More info <i
-                        class="fas fa-arrow-circle-right"></i></a>
-            </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-warning">
-                <div class="inner">
-                    <h3>{{ $schedule }}</h3>
-
-                    <p>Schedules</p>
-                </div>
-                <div class="icon">
-                    <i class="far fa-calendar-alt"></i>
-                </div>
-                <a href="{{ route('admin.schedule.index') }}" class="small-box-footer">More info <i
-                        class="fas fa-arrow-circle-right"></i></a>
-            </div>
-        </div>
-        <!-- ./col -->
         <div class="col-lg-3 col-6">
             <!-- small box -->
             <div class="small-box bg-danger">
@@ -136,7 +70,6 @@
                         class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
-        <!-- ./col -->
     </div>
 @endsection
 

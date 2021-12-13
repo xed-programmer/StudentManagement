@@ -16,16 +16,12 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $users = User::count();
-        $prof = Professor::count();
+        $users = User::count();        
         $student = Student::count();
-        $guardian = Guardian::count();
-        $course = Course::count();
-        $subject = Subject::count();        
+        $guardian = Guardian::count();        
         $post = Post::count();
-        $schedule = Schedule::count();        
+        
 
-        return view('admin.index', compact(['users', 'prof', 'student', 'guardian', 'course', 
-        'subject', 'post', 'schedule']));
+        return view('admin.index', compact(['users', 'student', 'guardian', 'post']));
     }    
 }

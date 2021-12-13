@@ -37,8 +37,7 @@ class RegisteredStudentController extends Controller
             'phone' => $request->phone,
             'year' => $request->year,
             'section' => $request->section,
-            'academic_year' => $academic_year,            
-            'course_id' => $request->course,            
+            'academic_year' => $academic_year
         ]);
 
         $role = Role::where('name', 'student')->firstOrFail();

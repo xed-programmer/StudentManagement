@@ -30,19 +30,6 @@
 
                 <div class="row">
                     <div class="col-3">
-                        <!-- Courses -->
-                        <div class="form-group">
-                            <x-label for="course" :value="__('Course')" />
-                            <select name="course" id="course" class="form-control">
-                                @foreach ($courses as $course)
-                                    <option value="{{ $course->id }}" @if (old('course->code') == $course->code)
-                                        selected
-                                @endif>{{ $course->code }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-3">
                         <!-- year -->
                         <div class="form-group">
                             <x-label for="year" :value="__('Year Level')" />
@@ -98,6 +85,7 @@
                 <div class="card-footer">
                     <button type="submit" class="btn btn-primary">{{ __('Register') }}</button>
                 </div>
+            </div>
         </form>
     </div>
 @endsection

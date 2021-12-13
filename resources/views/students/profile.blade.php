@@ -1,9 +1,4 @@
 <x-app-layout>
-    {{-- @if (session()->has('message'))
-    <div class="alert {{session()->get('alert-class')}} alert-dismissible fade show" id="alert">
-        {{ session()->get('message') }}
-    </div>
-@endif --}}
 
     @if (session('status') == 'verification-link-sent')
         <div class="mb-4 font-medium text-sm text-green-600">
@@ -17,14 +12,6 @@
                     Your Information
                 </h3>
                 @if (!$student->user->hasVerifiedEmail())
-                    {{-- <form method="GET" action="{{ route('profile.student.edit') }}">
-                        @csrf
-                        <div>
-                            <x-button>
-                                {{ __('Edit') }}
-                            </x-button>
-                        </div>
-                    </form> --}}
                     <a href="{{ route('profile.student.edit') }}">
                         <x-button type="button">
                             {{ __('Edit') }}
@@ -41,9 +28,6 @@
                         </div>
                     </form>
                 @endif
-                {{-- <p class="mt-1 max-w-2xl text-sm text-gray-500">
-                
-              </p> --}}
             </div>
             <div class="border-t border-gray-200">
                 <dl>

@@ -38,19 +38,6 @@
 
                 <div class="row">
                     <div class="col-3">
-                        <!-- Courses -->
-                        <div class="form-group">
-                            <x-label for="course" :value="__('Course')" />
-                            <select name="course" id="course" class="form-control">
-                                @foreach ($courses as $course)
-                                    <option value="{{ $course->id }}" @if ($student->course_id == $course->id)
-                                        selected
-                                @endif>{{ $course->code }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-3">
                         <!-- year -->
                         <div class="form-group">
                             <x-label for="year" :value="__('Year Level')" />
@@ -93,8 +80,8 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                     </div>
-                    <input id="email" class="form-control" type="email" name="email"
-                        value="{{ $student->user->email }}" placeholder="Email" required />
+                    <input id="email" class="form-control" type="email" name="email" value="{{ $student->user->email }}"
+                        placeholder="Email" required />
                 </div>
 
                 <!-- Contact number -->
@@ -108,6 +95,7 @@
                 <div class="card-footer">
                     <button type="submit" class="btn btn-primary">{{ __('Update') }}</button>
                 </div>
+            </div>
         </form>
     </div>
 @endsection
