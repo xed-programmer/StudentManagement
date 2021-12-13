@@ -1,4 +1,5 @@
  <!-- DataTables  & Plugins -->
+ <script src="{{ asset('plugins/moment/moment.min.js') }}"></script>
  <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
  <script src="{{ asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
  <script src="{{ asset('plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
@@ -23,8 +24,36 @@
              "info": true,
              "scrollX": true,
              "scrollY": true,
-             "buttons": ["copy", "csv", "excel", "pdf", "print"]
+             "buttons": [
+                 'copy',
+                 {
+                     extend: 'csv',
+                     title: $("#table-title").text(),
+                     messageTop: 'As of ' + moment().format('MMMM DD, YYYY')
+                 },
+                 {
+                     extend: 'print',
+                     title: $("#table-title").text(),
+                     messageTop: 'As of ' + moment().format('MMMM DD, YYYY')
+                 },
+                 {
+                     extend: 'excel',
+                     title: $("#table-title").text(),
+                     messageTop: 'As of ' + moment().format('MMMM DD, YYYY')
+                 },
+                 {
+                     extend: 'pdf',
+                     title: $("#table-title").text(),
+                     messageTop: 'As of ' + moment().format('MMMM DD, YYYY')
+                 },
+                 {
+                     extend: 'print',
+                     title: $("#table-title").text(),
+                     messageTop: 'As of ' + moment().format('MMMM DD, YYYY')
+                 }
+             ]
          }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+         //"copy", "csv", "excel", "pdf",
      });
 
      @if (session()->has('message'))
