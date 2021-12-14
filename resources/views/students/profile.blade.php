@@ -9,7 +9,7 @@
         <div class="bg-white shadow overflow-hidden sm:rounded-lg">
             <div class="flex justify-between px-4 py-5 sm:px-6">
                 <h3 class="text-lg leading-6 font-medium text-gray-900">
-                    Your Information
+                    {{ __('Account Details') }}
                 </h3>
                 @if (!$student->user->hasVerifiedEmail())
                     <a href="{{ route('profile.student.edit') }}">

@@ -24,7 +24,7 @@
                     @if ($student != null)
                         <h1 class="text-3xl">{{ $student->user->name }}</h1>
                         <h1>{{ $student->student_code }}</h1>
-                        <h1>{{ $student->year }} {{ $student->section }}</h1>
+                        <h1>{{ $student->course }} {{ $student->year }} {{ $student->section }}</h1>
                     @endif
                 </div>
             </div>
