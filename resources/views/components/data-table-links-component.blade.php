@@ -52,8 +52,7 @@
                      messageTop: 'As of ' + moment().format('MMMM DD, YYYY')
                  }
              ]
-         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-         //"copy", "csv", "excel", "pdf",
+         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');         
      });
 
      @if (session()->has('message'))

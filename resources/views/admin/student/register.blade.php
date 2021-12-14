@@ -30,6 +30,15 @@
 
                 <div class="row">
                     <div class="col-3">
+                        <!-- Course -->
+                        <div class="form-group">
+                            <x-label for="course" :value="__('Course')" />
+
+                            <x-input id="course" class="form-control" type="text" name="course" :value="old('course')"
+                                required />
+                        </div>
+                    </div>
+                    <div class="col-3">
                         <!-- year -->
                         <div class="form-group">
                             <x-label for="year" :value="__('Year Level')" />

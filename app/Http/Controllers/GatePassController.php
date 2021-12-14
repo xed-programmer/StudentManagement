@@ -10,7 +10,7 @@ class GatePassController extends Controller
 {
     public function index()
     {
-        return view('gatepass.index');
+        return view('gatepass.index')->with(['student'=>null]);
     }
 
     public function store(Request $request)
@@ -19,7 +19,7 @@ class GatePassController extends Controller
             'student_code' => ['required', 'max:10', 'exists:students,student_code'],
         ]);
 
-        $student = Student::with('attendances')->where('student_code', $request->student_code)->firstOrFail();                
+        $student = Student::with(['attendances', 'user'])->where('student_code', $request->student_code)->firstOrFail();                
         
         //This is the equivalent syntax in Mysql
         //SELECT * FROM `attendances` WHERE `created_at` > '2021-10-25 00:00:00.0' AND (`status` = 'time-in' OR `status` = 'time-out');
@@ -33,8 +33,7 @@ class GatePassController extends Controller
         //check if the student tap rfid within 60 seconds
         
         if($attendances->count()>0){
-            if(now()->diffInSeconds($attendances[0]->created_at) < 60){
-                // $student->attendances()->create(['status' => $attendances[0]->status]);
+            if(now()->diffInSeconds($attendances[0]->created_at) < 60){                
                 return redirect()->route('gatepass.index');
             }
         }
@@ -43,8 +42,7 @@ class GatePassController extends Controller
             $student->attendances()->create(['status' => 'time-in']);
         }else{
             $student->attendances()->create(['status' => 'time-out']);
-        }    
-        
-        return redirect()->route('gatepass.index');
+        }        
+        return view('gatepass.index')->with(['student'=> $student]);
     }
 }

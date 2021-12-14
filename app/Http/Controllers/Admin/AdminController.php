@@ -4,13 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Attendance;
-use App\Models\Course;
 use App\Models\Guardian;
 use App\Models\Post;
-use App\Models\Professor;
-use App\Models\Schedule;
 use App\Models\Student;
-use App\Models\Subject;
 use App\Models\User;
 
 class AdminController extends Controller

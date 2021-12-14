@@ -22,8 +22,7 @@ class RegisteredStudentController extends Controller
 
     public function store(CreateStudentRequest $request)
     {
-        $default_student_password = '123456789';
-        $academic_year = today()->format('Y') . '-' . today()->addYears(1)->format('Y');
+        $default_student_password = '123456789';        
         $request->validated();
 
         $user = User::create([
@@ -35,9 +34,9 @@ class RegisteredStudentController extends Controller
         $res = $user->student()->create([
             'student_code' => $request->student_code,
             'phone' => $request->phone,
+            'course' => $request->year,
             'year' => $request->year,
-            'section' => $request->section,
-            'academic_year' => $academic_year
+            'section' => $request->section,            
         ]);
 
         $role = Role::where('name', 'student')->firstOrFail();

@@ -67,6 +67,7 @@ class AdminStudentController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],            
+            'course' => ['required'],
             'year' => ['required'],
             'section' => ['required'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email, ' . $student->user_id],
@@ -78,6 +79,7 @@ class AdminStudentController extends Controller
 
         $student->student_code = $request->student_code;
         $student->phone = $request->phone;
+        $student->course = $request->course;
         $student->year = $request->year;
         $student->section = $request->section;        
 

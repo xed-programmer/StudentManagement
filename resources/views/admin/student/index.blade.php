@@ -12,7 +12,7 @@
     @endif
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">{{ __('Student Lists') }}</h3>
+            <h3 class="card-title" id="table-title">{{ __('Student Lists') }}</h3>
         </div>
         <div class="card-body">
             <div class="row">
@@ -31,11 +31,11 @@
                                     <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
                                         aria-label="Student Code: activate to sort column ascending">Student Code</th>
                                     <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
+                                        aria-label="Course: activate to sort column ascending">Course</th>
+                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
                                         aria-label="Year Level: activate to sort column ascending">Year Level</th>
                                     <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
                                         aria-label="Section: activate to sort column ascending">Section</th>
-                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
-                                        aria-label="Academic Year: activate to sort column ascending">Academic Year</th>
                                     <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1">Actions</th>
                                 </tr>
                             </thead>
@@ -44,6 +44,7 @@
                                     <tr>
                                         <td class="dtr-control sorting_1" tabindex="0">{{ $student->user->name }}</td>
                                         <td class="dtr-control sorting_1" tabindex="0">{{ $student->student_code }}</td>
+                                        <td class="dtr-control sorting_1" tabindex="0">{{ $student->course }}</td>
                                         <td class="dtr-control sorting_1" tabindex="0">{{ $student->year }}</td>
                                         <td class="dtr-control sorting_1" tabindex="0">{{ $student->section }}</td>
                                         <td class="dtr-control sorting_1" tabindex="0">{{ $student->academic_year }}
@@ -54,8 +55,8 @@
                                                     class="btn btn-sm btn-warning mr-2">Edit</a>
                                                 <form action="{{ route('admin.student.delete', $student) }}"
                                                     method="POST" onclick="
-                                                                                                return confirm('Do you want to delete this data?');
-                                                                                            ">
+                                                                                                        return confirm('Do you want to delete this data?');
+                                                                                                    ">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button class="btn btn-sm btn-danger">Delete</button>

@@ -92,6 +92,8 @@
                                             colspan="1" aria-label="Student Code: activate to sort column ascending">Student
                                             Code</th>
                                         <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
+                                            colspan="1" aria-label="Course: activate to sort column ascending">Course</th>
+                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
                                             colspan="1" aria-label="Year Level: activate to sort column ascending">Year
                                             Level</th>
                                         <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
@@ -113,6 +115,8 @@
                                             <td class="dtr-control sorting_1" tabindex="0">
                                                 {{ $attendance->student->student_code }}
                                             </td>
+                                            <td class="dtr-control sorting_1" tabindex="0">
+                                                {{ $attendance->student->course }}</td>
                                             <td class="dtr-control sorting_1" tabindex="0">
                                                 {{ $attendance->student->year }}</td>
                                             <td class="dtr-control sorting_1" tabindex="0">

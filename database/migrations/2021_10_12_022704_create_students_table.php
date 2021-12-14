@@ -18,6 +18,9 @@ class CreateStudentsTable extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('student_code')->unique();
             $table->string('phone');
+            $table->string('course');
+            $table->string('year');
+            $table->string('section');            
             $table->timestamps();
         });
     }
