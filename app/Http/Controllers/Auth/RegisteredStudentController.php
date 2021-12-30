@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Helpers\SendSMS;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateStudentRequest;
 use App\Models\Role;
@@ -37,11 +38,13 @@ class RegisteredStudentController extends Controller
             'course' => $request->year,
             'year' => $request->year,
             'section' => $request->section,            
-        ]);
+        ]);        
 
         $role = Role::where('name', 'student')->firstOrFail();
 
-        $user->roles()->attach($role->id);        
+        $user->roles()->attach($role->id);
+
+        SendSMS::sendSMS("Student Account created successfully", $res->phone);
         
         if ($res) {
             $request->session()->flash('message', 'Student Added Successfully!');
@@ -50,6 +53,9 @@ class RegisteredStudentController extends Controller
             $request->session()->flash('message', 'Student Added Unuccessfully!');
             $request->session()->flash('alert-class', 'alert-warning');
         }
+
+        event(new Registered($user));
+        
         // return redirect(RouteServiceProvider::HOME);
         return redirect()->back();
     }
