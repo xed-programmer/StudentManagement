@@ -10,7 +10,7 @@
                             @if (now()->diffInDays($post->created_at) >= 1)
                                 {{ $post->created_at->format('D, d F Y') }}
                             @else
-                                {{ $post->created_at->diffForHumas() }}
+                                {{ $post->created_at->diffForHumans() }}
                             @endif
                         </div>
                         <div class="p-6">
@@ -29,16 +29,18 @@
             </div>
         @endforelse
 
-        @if ($posts->count() > 0)
+        @if ($posts->count() > $paginate_num)
             <div class="pt-4">
                 <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
                     <div class="bg-white overflow-hidden sm:rounded-lg">
-                        <div class="p-6 text-lg text-gray-400 uppercase tracking-wider">
+                        <div class="p-6 text-lg text-black uppercase tracking-wider">
                             {{ $posts->links() }}
                         </div>
                     </div>
                 </div>
             </div>
+
         @endif
+
     </div>
 </x-app-layout>

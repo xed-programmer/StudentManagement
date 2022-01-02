@@ -9,7 +9,8 @@ class AnnouncementController extends Controller
 {
     public function index()
     {
-        $posts = Post::latest()->paginate(10);
-        return view('announcement')->with(['posts' => $posts]);
+        $paginate_num = 10;
+        $posts = Post::latest()->paginate($paginate_num);
+        return view('announcement')->with(['posts' => $posts, 'paginate_num' => $paginate_num]);
     }
 }
