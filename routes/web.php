@@ -18,6 +18,7 @@ use App\Http\Controllers\Profile\ProfileStudentController;
 use App\Http\Controllers\Profile\ProfileController;
 use App\Http\Controllers\Profile\ProfileGuardianController;
 use App\Http\Controllers\StudentController;
+use App\Mail\AnnouncementMail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -110,5 +111,8 @@ Route::group(['prefix' => 'gatepass', 'as' => 'gatepass.'], function () {
 });
 
 Route::get('/announcements', [AnnouncementController::class, 'index'])->name('announcement');
+// Route::get('/mail', function(){
+//     return new AnnouncementMail();
+// });
 
 require __DIR__ . '/auth.php';
