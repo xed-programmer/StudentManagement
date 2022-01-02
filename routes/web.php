@@ -44,6 +44,7 @@ Route::group(['middleware' => ['auth']], function () {
     })->name('nopermission');
 
 
+    // PROFILE
     Route::group(['prefix' => 'profile', 'as' => 'profile.'], function () {
         Route::get('/', [ProfileController::class, 'index'])->name('index');
 
@@ -66,9 +67,11 @@ Route::group(['middleware' => ['auth']], function () {
         });
     });
 
+    // ADMIN
     Route::group(['middleware' => ['checkrole:admin'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::get('/',[AdminController::class, 'index'])->name('index');
 
+        // STUDENTS
         Route::prefix('student')->as('student.')->group(function () {
             Route::get('/', [AdminStudentController::class, 'index'])->name('index');
             Route::get('/register', [AdminStudentController::class, 'create'])->name('register');
@@ -78,18 +81,23 @@ Route::group(['middleware' => ['auth']], function () {
             Route::delete('/{student:student_code}', [AdminStudentController::class, 'destroy'])->name('delete'); 
         });        
 
+        // POST / ANNOUNCEMENTS
         Route::prefix('posts')->as('posts.')->group(function () {
             Route::get('/', [AdminPostController::class, 'index'])->name('index');
             Route::post('/', [AdminPostController::class, 'store'])->name('store');
-            Route::get('/edit', [AdminPostController::class, 'edit'])->name('edit');
+            Route::get('/edit/{post}', [AdminPostController::class, 'edit'])->name('edit');
+            Route::put('/edit/{post}', [AdminPostController::class, 'update'])->name('update');
             Route::delete('/{post}', [AdminPostController::class, 'destroy'])->name('delete');
         });
     });
 
+
+    // STUDENTS
     Route::group(['middleware' => ['checkrole:student']], function () {
         Route::get('/student', [StudentController::class, 'index'])->name('student');
     });
 
+    // GUARDIAN
     Route::group(['middleware' => ['checkrole:guardian'], 'prefix' => 'guardian', 'as' => 'guardian.'], function () {
         Route::get('/', [GuardianController::class, 'index'])->name('index');
         Route::get('/view/{student:student_code}', [GuardianController::class, 'showStudent'])->name('show.student');

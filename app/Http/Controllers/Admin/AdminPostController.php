@@ -78,9 +78,9 @@ class AdminPostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
+    public function edit(Post $post)
+    {        
+        return view('admin.post.edit')->with(['post' => $post]);
     }
 
     /**
@@ -90,9 +90,25 @@ class AdminPostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(Post $post, Request $request)
+    {        
+        $request->validate([
+            'post' => ['required'],
+            'plain_post' => ['required'],
+        ]);
+        
+        $post->body = $request->post;
+        $post->plain_body = $request->plain_post;
+
+        if ($post->save()) {
+            $request->session()->flash('message', 'Post Updated Successfully!');
+            $request->session()->flash('alert-class', 'alert-success');
+        } else {
+            $request->session()->flash('message', 'Post Updated Unsuccessfully!');
+            $request->session()->flash('alert-class', 'alert-warning');
+        }
+        
+        return redirect()->route('admin.posts.index');        
     }
 
     /**
@@ -101,8 +117,15 @@ class AdminPostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
+    public function destroy(Post $post, Request $request)
+    {        
+        if ($post->delete()) {
+            $request->session()->flash('message', 'Student Data Deleted Successfully!');
+            $request->session()->flash('alert-class', 'alert-success');
+        } else {
+            $request->session()->flash('message', 'Student Data Deleted Unuccessfully!');
+            $request->session()->flash('alert-class', 'alert-warning');
+        }
+        return redirect()->route('admin.posts.index');
     }
 }
