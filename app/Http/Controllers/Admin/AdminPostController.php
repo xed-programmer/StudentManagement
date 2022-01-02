@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\AnnouncementMail;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class AdminPostController extends Controller
 {
@@ -48,6 +50,14 @@ class AdminPostController extends Controller
             'plain_body' => $request->plain_post,
         ]);
 
+
+        // Send the newly post annoucements to every users email
+        $users = User::all();
+
+        foreach ($users as $user ) {
+            Mail::to($user)->queue(new AnnouncementMail($post->body));
+        }
+        
         return redirect()->route('admin.posts.index');
     }
 

@@ -11,14 +11,15 @@ class AnnouncementMail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    private $body;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($body)
     {
-        //
+        $this->body = $body;
     }
 
     /**
@@ -28,6 +29,8 @@ class AnnouncementMail extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.announcement');
+        return $this        
+        ->markdown('emails.announcement')
+        ->with('body', $this->body);
     }
 }
