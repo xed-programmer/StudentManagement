@@ -6,13 +6,9 @@ use App\Helpers\SendSMS;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateStudentRequest;
 use App\Models\Role;
-use App\Models\Student;
 use App\Models\User;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
 
 class RegisteredStudentController extends Controller
 {
@@ -56,7 +52,7 @@ class RegisteredStudentController extends Controller
 
         event(new Registered($user));
         
-        // return redirect(RouteServiceProvider::HOME);
+        // return redirect(RouteServiceProvider::HOME); 
         return redirect()->back();
     }
 }
