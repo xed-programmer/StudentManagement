@@ -24,11 +24,17 @@
             <div class="row">
                 <form action="{{ route('admin.student.import') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <fieldset class="form-group border p-3">
-                        <legend class="w-auto px-2">Import Student List</legend>
-                        <input type="file" name="file" id="file" class="form-control">
-                        <input type="submit" value="Upload">
-                    </fieldset>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <input type="submit" class="btn btn-sm border rounded-left bg-success" value="Upload">
+                        </div>
+                        <div class="custom-file">
+                            <input type="file" name="file" class="custom-file-input" id="inputGroupFile01"
+                                aria-describedby="inputGroupFileAddon01"
+                                accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                            <label class="custom-file-label" for="inputGroupFile01">Upload Student List</label>
+                        </div>
+                    </div>
                 </form>
             </div>
 
@@ -68,8 +74,8 @@
                                                 <form action="{{ route('admin.student.delete', $student) }}"
                                                     method="POST"
                                                     onclick="
-                                                                                                                                                                                                    return confirm('Do you want to delete this data?');
-                                                                                                                                                                                                ">
+                                                                                                                                                                                                                                                        return confirm('Do you want to delete this data?');
+                                                                                                                                                                                                                                                    ">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button class="btn btn-sm btn-danger">Delete</button>
