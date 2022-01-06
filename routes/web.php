@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\AdminPostController;
 use App\Http\Controllers\Admin\AdminProfessorController;
 use App\Http\Controllers\Admin\AdminScheduleController;
 use App\Http\Controllers\Admin\AdminSubjectController;
+use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\Auth\RegisteredGuardianController;
 use App\Http\Controllers\Auth\RegisteredStudentController;
@@ -70,6 +71,16 @@ Route::group(['middleware' => ['auth']], function () {
     // ADMIN
     Route::group(['middleware' => ['checkrole:admin'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::get('/',[AdminController::class, 'index'])->name('index');
+
+        // USERS
+        Route::prefix('user')->as('user.')->group(function () {
+            Route::get('/', [AdminUserController::class, 'index'])->name('index');
+            Route::get('/register', [AdminUserController::class, 'create'])->name('register');
+            Route::post('/register', [AdminUserController::class, 'store'])->name('register');
+            Route::get('/edit/{id}', [AdminUserController::class, 'edit'])->name('edit');
+            Route::put('/edit/{id}', [AdminUserController::class, 'update'])->name('update');            
+            Route::delete('/{id}', [AdminUserController::class, 'destroy'])->name('delete'); 
+        });        
 
         // STUDENTS
         Route::prefix('student')->as('student.')->group(function () {
