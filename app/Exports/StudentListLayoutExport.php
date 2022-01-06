@@ -23,7 +23,8 @@ class StudentListLayoutExport implements WithHeadings
             'Course',
             'Section',
             'Year',
-            'Email'
+            'Email',
+            'Phone'
         ];
     }
 }

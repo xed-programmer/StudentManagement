@@ -88,6 +88,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/', [AdminStudentController::class, 'index'])->name('index');
             Route::get('/register', [AdminStudentController::class, 'create'])->name('register');
             Route::post('/register', [RegisteredStudentController::class, 'store'])->name('register');
+            Route::post('/import', [AdminStudentController::class, 'importStudent'])->name('import');
             Route::get('/edit/{student:student_code}', [AdminStudentController::class, 'edit'])->name('edit');
             Route::put('/edit/{student:student_code}', [AdminStudentController::class, 'update'])->name('update');            
             Route::delete('/{student:student_code}', [AdminStudentController::class, 'destroy'])->name('delete');             

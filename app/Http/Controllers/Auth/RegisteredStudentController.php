@@ -31,7 +31,7 @@ class RegisteredStudentController extends Controller
         $res = $user->student()->create([
             'student_code' => $request->student_code,
             'phone' => $request->phone,
-            'course' => $request->year,
+            'course' => $request->course,
             'year' => $request->year,
             'section' => $request->section,            
         ]);        

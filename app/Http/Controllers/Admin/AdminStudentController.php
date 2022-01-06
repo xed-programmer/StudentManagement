@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Exports\StudentListLayoutExport;
 use App\Http\Controllers\Controller;
+use App\Imports\StudentImport;
 use App\Models\Student;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -35,6 +36,24 @@ class AdminStudentController extends Controller
     {
         $students = Student::with(['user'])->get();
         return view('admin.student.index')->with(['students' => $students]);
+    }
+
+    public function importStudent(Request $request)
+    {        
+        if($request->has('file')){
+            $file = request()->file('file')->getRealPath();            
+            Excel::import(new StudentImport, $file);
+            if(session()->has('student_count')){
+                $request->session()->flash('message', 'Student Import Successfully. Count ' . session()->get('student_count'));
+                $request->session()->flash('alert-class', 'alert-success');
+            }
+            $request->session()->flash('message', 'Student Import Unsuccessfully.');
+            $request->session()->flash('alert-class', 'alert-danger');
+        }else{
+            $request->session()->flash('message', 'Student Import Unsuccessfully.');
+            $request->session()->flash('alert-class', 'alert-danger');
+        }
+        return redirect()->route('admin.student.index');   
     }
 
     /**

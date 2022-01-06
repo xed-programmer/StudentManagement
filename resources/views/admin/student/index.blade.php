@@ -17,14 +17,21 @@
         <div class="card-body">
             <div class="row">
                 <a href="{{ route('admin.student.register') }}" class="btn btn-lg btn-success m-2">Add new student</a>
-            </div>
-            <div class="row">
-                <a href="{{ route('admin.student.studentlayoutxlsx') }}" class="btn btn-sm btn-info m-2">Generate Excel
+                <a href="{{ route('admin.student.studentlayoutxlsx') }}" class="btn btn-lg btn-info m-2">Generate Excel
                     Student
                     List Layout</a>
-                <a href="{{ route('admin.student.studentlayoutxlsx') }}" class="btn btn-sm btn-info m-2">Import Student
-                    List</a>
             </div>
+            <div class="row">
+                <form action="{{ route('admin.student.import') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <fieldset class="form-group border p-3">
+                        <legend class="w-auto px-2">Import Student List</legend>
+                        <input type="file" name="file" id="file" class="form-control">
+                        <input type="submit" value="Upload">
+                    </fieldset>
+                </form>
+            </div>
+
             <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
                 <div class="row">
                     <div class="col-sm-12">
@@ -54,16 +61,15 @@
                                         <td class="dtr-control sorting_1" tabindex="0">{{ $student->course }}</td>
                                         <td class="dtr-control sorting_1" tabindex="0">{{ $student->year }}</td>
                                         <td class="dtr-control sorting_1" tabindex="0">{{ $student->section }}</td>
-                                        <td class="dtr-control sorting_1" tabindex="0">{{ $student->academic_year }}
-                                        </td>
                                         <td class="dtr-control sorting_1" tabindex="0">
                                             <div class="d-flex justify-content-center">
                                                 <a href="{{ route('admin.student.edit', $student) }}"
                                                     class="btn btn-sm btn-warning mr-2">Edit</a>
                                                 <form action="{{ route('admin.student.delete', $student) }}"
-                                                    method="POST" onclick="
-                                                                                                                        return confirm('Do you want to delete this data?');
-                                                                                                                    ">
+                                                    method="POST"
+                                                    onclick="
+                                                                                                                                                                                                    return confirm('Do you want to delete this data?');
+                                                                                                                                                                                                ">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button class="btn btn-sm btn-danger">Delete</button>
