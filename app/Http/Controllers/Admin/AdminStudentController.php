@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\StudentListLayoutExport;
 use App\Http\Controllers\Controller;
-use App\Models\Course;
 use App\Models\Student;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AdminStudentController extends Controller
 {
@@ -18,6 +19,11 @@ class AdminStudentController extends Controller
     private function getSections()
     {
         return ['A', 'B', 'C', 'D'];
+    }
+
+    public function getExcelStudentListLayout()
+    {
+        return Excel::download(new StudentListLayoutExport(), 'studentlist.xlsx');        
     }
     
     /**

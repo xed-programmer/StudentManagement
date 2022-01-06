@@ -18,6 +18,13 @@
             <div class="row">
                 <a href="{{ route('admin.student.register') }}" class="btn btn-lg btn-success m-2">Add new student</a>
             </div>
+            <div class="row">
+                <a href="{{ route('admin.student.studentlayoutxlsx') }}" class="btn btn-sm btn-info m-2">Generate Excel
+                    Student
+                    List Layout</a>
+                <a href="{{ route('admin.student.studentlayoutxlsx') }}" class="btn btn-sm btn-info m-2">Import Student
+                    List</a>
+            </div>
             <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
                 <div class="row">
                     <div class="col-sm-12">
@@ -55,8 +62,8 @@
                                                     class="btn btn-sm btn-warning mr-2">Edit</a>
                                                 <form action="{{ route('admin.student.delete', $student) }}"
                                                     method="POST" onclick="
-                                                                                                        return confirm('Do you want to delete this data?');
-                                                                                                    ">
+                                                                                                                        return confirm('Do you want to delete this data?');
+                                                                                                                    ">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button class="btn btn-sm btn-danger">Delete</button>

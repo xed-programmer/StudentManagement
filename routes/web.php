@@ -84,13 +84,14 @@ Route::group(['middleware' => ['auth']], function () {
 
         // STUDENTS
         Route::prefix('student')->as('student.')->group(function () {
+            Route::get('/export', [AdminStudentController::class, 'getExcelStudentListLayout'])->name('studentlayoutxlsx');
             Route::get('/', [AdminStudentController::class, 'index'])->name('index');
             Route::get('/register', [AdminStudentController::class, 'create'])->name('register');
             Route::post('/register', [RegisteredStudentController::class, 'store'])->name('register');
             Route::get('/edit/{student:student_code}', [AdminStudentController::class, 'edit'])->name('edit');
             Route::put('/edit/{student:student_code}', [AdminStudentController::class, 'update'])->name('update');            
-            Route::delete('/{student:student_code}', [AdminStudentController::class, 'destroy'])->name('delete'); 
-        });        
+            Route::delete('/{student:student_code}', [AdminStudentController::class, 'destroy'])->name('delete');             
+        });
 
         // POST / ANNOUNCEMENTS
         Route::prefix('posts')->as('posts.')->group(function () {
