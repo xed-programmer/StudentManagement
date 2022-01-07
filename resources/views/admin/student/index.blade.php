@@ -29,10 +29,10 @@
                             <input type="submit" class="btn btn-sm border rounded-left bg-success" value="Upload">
                         </div>
                         <div class="custom-file">
-                            <input type="file" name="file" class="custom-file-input" id="inputGroupFile01"
+                            <input type="file" name="file" class="custom-file-input" id="file"
                                 aria-describedby="inputGroupFileAddon01"
                                 accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
-                            <label class="custom-file-label" for="inputGroupFile01">Upload Student List</label>
+                            <label class="custom-file-label" for="file">Upload Student List</label>
                         </div>
                     </div>
                 </form>
@@ -74,8 +74,8 @@
                                                 <form action="{{ route('admin.student.delete', $student) }}"
                                                     method="POST"
                                                     onclick="
-                                                                                                                                                                                                                                                        return confirm('Do you want to delete this data?');
-                                                                                                                                                                                                                                                    ">
+                                                                                                                                                                                                                                                            return confirm('Do you want to delete this data?');
+                                                                                                                                                                                                                                                        ">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button class="btn btn-sm btn-danger">Delete</button>

@@ -21,40 +21,22 @@ class StudentImport implements ToCollection, WithHeadingRow, WithCalculatedFormu
     * @return \Illuminate\Database\Eloquent\Model|null
     */
     public function collection(Collection $rows)
-    {
-        // dd($rows);
-        // Validator::make($rows->toArray(), [
-
-        //     '*.Student Code' => ['required', 'unique:students,student_code'],
-        //     '*.Name' => 'required',
-        //     '*.Course' => 'required',
-        //     '*.Year' => 'required',
-        //     '*.Section' => 'required',
-        //     '*.Email' => ['required', 'email', 'unique:users'],
-        //     '*.Phone' => ['required', 'regex:/(09)[0-9]{9}/'],
-        // ])->validate();        
+    {       
         $validated = [];
         foreach($rows->toArray() as $row){            
             $valids = Validator::make($row, [
                 'name' => ['required', 'max:255'],
                 'course' => ['required'],
                 'year' => ['required'],
-                'section' => ['required'],            
+                'section' => ['required'],
                 'email' => ['required', 'email', 'max:255', 'unique:users'],
-                'student_code' => ['required', 'max:10', 'unique:students'],
-                'phone' => ['required', 'regex:/(09)[0-9]{9}/'],
+                'student_code' => ['required', 'unique:students'],
+                'phone' => ['required', 'digits:10'],
             ])->validate();
             array_push($validated, $valids);
         }
-        // $validator = Validator::make($rows->toArray(), [
-        //     'name' => ['required', 'max:255'],
-        //     'course' => ['required'],
-        //     'year' => ['required'],
-        //     'section' => ['required'],            
-        //     'email' => ['required', 'email', 'max:255', 'unique:users'],
-        //     'student_code' => ['required', 'max:10', 'unique:students'],
-        //     'phone' => ['required', 'regex:/(09)[0-9]{9}/'],
-        // ]);    
+        
+        $length = 10;
 
         $default_student_password = '123456789';    
         $role = Role::where('name', 'student')->firstOrFail();  
@@ -67,8 +49,8 @@ class StudentImport implements ToCollection, WithHeadingRow, WithCalculatedFormu
             ]);
     
             $user->student()->create([
-                'student_code' => $row["student_code"],
-                'phone' => $row["phone"],
+                'student_code' => substr(str_repeat(0, $length).$row["student_code"], - $length),
+                'phone' => "0".$row["phone"],
                 'course' => $row["course"],
                 'year' => $row["year"],
                 'section' => $row["section"] 
@@ -76,7 +58,7 @@ class StudentImport implements ToCollection, WithHeadingRow, WithCalculatedFormu
 
             $user->roles()->attach($role->id);
 
-            // SendSMS::sendSMS("Student Account created successfully", $res->phone);
+            SendSMS::sendSMS("Student Account created successfully", $row['phone']);
             event(new Registered($user));
             $count++;
         }

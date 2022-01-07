@@ -43,12 +43,10 @@ class AdminStudentController extends Controller
         if($request->has('file')){
             $file = request()->file('file')->getRealPath();            
             Excel::import(new StudentImport, $file);
-            if(session()->has('student_count')){
+            if(session()->has('student_count')){                
                 $request->session()->flash('message', 'Student Import Successfully. Count ' . session()->get('student_count'));
                 $request->session()->flash('alert-class', 'alert-success');
             }
-            $request->session()->flash('message', 'Student Import Unsuccessfully.');
-            $request->session()->flash('alert-class', 'alert-danger');
         }else{
             $request->session()->flash('message', 'Student Import Unsuccessfully.');
             $request->session()->flash('alert-class', 'alert-danger');
