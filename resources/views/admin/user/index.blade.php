@@ -16,7 +16,7 @@
         </div>
         <div class="card-body">
             <div class="row">
-                <a href="{{ route('admin.student.register') }}" class="btn btn-lg btn-success m-2">Create new User</a>
+                <a href="{{ route('admin.user.register') }}" class="btn btn-lg btn-success m-2">Create new User</a>
             </div>
             <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
                 <div class="row">
@@ -44,9 +44,9 @@
                                         </td>
                                         <td class="dtr-control sorting_1" tabindex="0">
                                             <div class="d-flex justify-content-center">
-                                                <a href="{{ route('admin.user.edit', $user->id) }}"
+                                                <a href="{{ route('admin.user.edit', $user) }}"
                                                     class="btn btn-sm btn-warning mr-2">Edit</a>
-                                                <form action="{{ route('admin.user.delete', $user->id) }}" method="POST"
+                                                <form action="{{ route('admin.user.delete', $user) }}" method="POST"
                                                     onclick="return confirm('Do you want to delete this data?');">
                                                     @csrf
                                                     @method('DELETE')
