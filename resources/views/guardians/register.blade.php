@@ -29,9 +29,16 @@
 
             <!-- Email Address -->
             <div class="mt-4">
-                <x-label for="email" :value="__('Email')" />
+                <x-label for="email" :value="__('Email Address')" />
 
                 <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
+            </div>
+ 
+            <!-- Phone -->
+            <div class="mt-4">
+                <x-label for="phone" :value="__('Mobile Number')" />
+
+                <x-input id="phone" class="block mt-1 w-full" type="tel" name="phone" :value="old('phone')" required />
             </div>
 
             <!-- Password -->

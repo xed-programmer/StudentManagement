@@ -10,7 +10,7 @@ class Guardian extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 'student_code',
+        'user_id', 'student_code', 'phone', 'gatepass'
     ];
 
     public function user()
