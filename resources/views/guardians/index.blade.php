@@ -176,6 +176,7 @@
                             } catch {
                                 alert('Data Not Saved');
                             }
+                            console.log(error);
                         },
                     });
                 });

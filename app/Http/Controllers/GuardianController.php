@@ -19,9 +19,10 @@ class GuardianController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {        
+    {                
         $user = auth()->user();
-        $guardian = Guardian::with('students', 'students.user')->whereBelongsTo($user)->firstOrFail();
+        $guardian = Guardian::with('students', 'students.user')->whereBelongsTo($user)->firstOrFail();        
+  
         return view('guardians.index', ['guardian' => $guardian]);
     }
 
@@ -63,7 +64,8 @@ class GuardianController extends Controller
         $student = Student::where('student_code', $request->student_code)->firstOrFail();        
         if($guardian->hasStudent($student)){
             return response()->json(['error' => $student->user->name.' has already been added'], 404);
-        }       
+        }               
+       
         $student->guardians()->attach($guardian->id);
     }
 

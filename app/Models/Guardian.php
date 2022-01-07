@@ -22,4 +22,14 @@ class Guardian extends Model
     {
         return $this->belongsToMany(Student::class);
     }    
+
+    public function hasStudent(Student $student)
+    {
+        foreach($this->students()->get() as $s){
+            if($s->id == $student->id){
+                return true;
+            }
+        }   
+        return false;     
+    }
 }
