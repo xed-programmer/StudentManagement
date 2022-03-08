@@ -28,7 +28,8 @@
     },
     "autoload": {
         "files": [
-            "App/Helpers/PaginationHelper.php"
+            "app/Helpers/PaginationHelper.php",
+            "app/Helpers/SendSMS.php"
         ],
         "psr-4": {
             "App\\": "app/",
