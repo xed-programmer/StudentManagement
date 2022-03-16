@@ -28,10 +28,12 @@ class ProfileAdminController extends Controller
        $request->validate([
         'name' => ['required', 'string', 'max:255'],
         'email' => ['required', 'string', 'email', 'max:255', 'unique:users, email, ' . $user->id],
+        'phone' => ['required', 'regex:/(09)[0-9]{9}/'],
     ]);
 
     $user->name = $request->name;
-    $user->email = $request->email;         
+    $user->email = $request->email;
+    $user->phone_number = $request->phone;
 
        if ($user->push()) {
            $request->session()->flash('message', 'Admin Data Updated Successfully!');

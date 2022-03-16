@@ -46,7 +46,7 @@ class ProfileStudentController extends Controller
             'phone' => ['required', 'regex:/(09)[0-9]{9}/'],
         ]);
 
-        $student->phone = $request->phone;
+        $user->phone_number = $request->phone;
         $student->user->name = $request->name;
         $student->user->email = $request->email;        
 

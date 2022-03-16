@@ -42,8 +42,10 @@ class ProfileGuardianController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email, ' . $user->id],            
+            'phone' => ['required', 'regex:/(09)[0-9]{9}/'],
         ]);
         
+        $user->phone_number = $request->phone;
         $guardian->user->name = $request->name;
         $guardian->user->email = $request->email;        
 

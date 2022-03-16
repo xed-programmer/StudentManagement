@@ -100,14 +100,14 @@ class AdminStudentController extends Controller
 
         
 
-        $student->student_code = $request->student_code;
-        $student->phone = $request->phone;
+        $student->student_code = $request->student_code;        
         $student->course = $request->course;
         $student->year = $request->year;
         $student->section = $request->section;        
 
         $student->user->name = $request->name;
         $student->user->email = $request->email;
+        $student->user->phone_number = $request->phone;
 
         if ($student->push()) {
             $request->session()->flash('message', 'Student Data Updated Successfully!');

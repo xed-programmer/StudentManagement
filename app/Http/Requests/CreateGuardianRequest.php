@@ -27,8 +27,7 @@ class CreateGuardianRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'student_code' => ['required', 'string', 'max:10', 'exists:students'],
-            'phone' => ['required', 'regex:/(09)[0-9]{9}/'],
+            'student_code' => ['required', 'string', 'max:10', 'exists:students'],            
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ];
     }

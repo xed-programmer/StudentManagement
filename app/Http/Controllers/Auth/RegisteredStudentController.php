@@ -26,11 +26,11 @@ class RegisteredStudentController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($default_student_password),
+            'phone_number' => $request->phone,
         ]);
 
         $res = $user->student()->create([
-            'student_code' => $request->student_code,
-            'phone' => $request->phone,
+            'student_code' => $request->student_code,            
             'course' => $request->course,
             'year' => $request->year,
             'section' => $request->section,            
@@ -40,7 +40,7 @@ class RegisteredStudentController extends Controller
 
         $user->roles()->attach($role->id);
 
-        SendSMS::sendSMS("Student Account created successfully", $res->phone);
+        SendSMS::sendSMS("Student Account created successfully", $user->phone);
         
         if ($res) {
             $request->session()->flash('message', 'Student Added Successfully!');

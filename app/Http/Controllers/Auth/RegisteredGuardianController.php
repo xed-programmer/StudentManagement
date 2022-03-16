@@ -39,12 +39,13 @@ class RegisteredGuardianController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'phone_number' => $request->phone,
         ]);
 
-        $guardian = $user->guardian()->create([
-            'phone' => $request->phone,
+        $guardian = $user->guardian()->create([            
             'gatepass' => $validated['gatepass'],
         ]);
+        
         $role = Role::where('name', 'guardian')->firstOrFail();
         $user->roles()->attach($role->id);
 
@@ -53,8 +54,10 @@ class RegisteredGuardianController extends Controller
         $student->guardians()->attach($guardian->id);
 
         $message = 'Your Account was successfully created. This is your Gatepass Code '.$validated['gatepass']. '. Dont share it with other people.';
-        SendSMS::sendSMS($message, $request->phone);
+        SendSMS::sendSMS($message, $user->phone);
+
         event(new Registered($user));        
+        
         return redirect()->route('home');
     }
 }

@@ -66,12 +66,14 @@ class AdminUserController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'role' => ['required', 'exists:roles,name'],
+            'phone' => ['required', 'regex:/(09)[0-9]{9}/'],
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'phone_number' => $request->phone,
         ]);
 
         $role = Role::where('name', $request->role)->firstOrFail();
@@ -79,6 +81,7 @@ class AdminUserController extends Controller
         $user->roles()->attach($role->id);
 
         event(new Registered($user));
+        
         if ($role) {
             $request->session()->flash('message', 'User Created Successfully!');
             $request->session()->flash('alert-class', 'alert-success');
@@ -127,10 +130,12 @@ class AdminUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$user->id],            
             'role' => ['required', 'exists:roles,name'],
+            'phone' => ['required', 'regex:/(09)[0-9]{9}/'],
         ]);
         
         $user->name = $request->name;
         $user->email = $request->email;
+        $user->phone_number = $request->phone;
 
         if(!in_array($request->role ,$user->roles()->pluck('name')->ToArray())){
             $role = Role::where('name', $request->role)->firstOrFail();
