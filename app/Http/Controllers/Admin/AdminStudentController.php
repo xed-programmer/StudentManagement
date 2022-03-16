@@ -46,6 +46,7 @@ class AdminStudentController extends Controller
             // $file1 = request()->file('file')->store('temp');                        
             // $file = storage_path('app') . '/' . $file1;            
             // Excel::import(new StudentImport, $file);
+            dd(request()->file('file'));
             Excel::import(new StudentImport, request()->file('file'));
 
             if(session()->has('student_count')){                
