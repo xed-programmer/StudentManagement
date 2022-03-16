@@ -19,14 +19,6 @@
 
             <div class="card-body">
 
-                <!-- Academic Year -->
-                <div class="form-group">
-                    <x-label for="academic_year" :value="__('Academic Year')" />
-
-                    <input id="academic_year" class="form-control" type="text" name="academic_year"
-                        value="{{ $student->academic_year }}" required />
-                </div>
-
                 <!-- Student Code / RFID -->
                 <div class="form-group">
                     <x-label for="student_code" :value="__('Student Code')" />
@@ -37,15 +29,25 @@
 
 
                 <div class="row">
+
+                    <div class="col-3">
+                        <!-- course -->
+                        <div class="form-group">
+                            <x-label for="course" :value="__('Course')" />
+
+                            <input id="course" class="form-control" type="text" name="course"
+                                value="{{ $student->course }}" required autofocus />
+                        </div>
+                    </div>
+
                     <div class="col-3">
                         <!-- year -->
                         <div class="form-group">
                             <x-label for="year" :value="__('Year Level')" />
                             <select name="year" id="year" class="form-control">
                                 @foreach ($yearlevels as $year)
-                                    <option value="{{ $year }}" @if ($student->year == $year)
-                                        selected
-                                @endif>{{ $year }}</option>
+                                    <option value="{{ $year }}" @if ($student->year == $year) selected @endif>
+                                        {{ $year }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -57,10 +59,8 @@
                             <x-label for="section" :value="__('Section')" />
                             <select name="section" id="section" class="form-control">
                                 @foreach ($sections as $section)
-                                    <option value="{{ $section }}" @if ($student->section == $section)
-                                        selected
-                                @endif
-                                >{{ $section }}</option>
+                                    <option value="{{ $section }}" @if ($student->section == $section) selected @endif>
+                                        {{ $section }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -88,8 +88,8 @@
                 <div class="form-group">
                     <x-label for="phone" :value="__('Guardian\'s Phone Number')" />
 
-                    <input id="phone" class="form-control" type="tel" name="phone" value="{{ $student->phone }}"
-                        required />
+                    <input id="phone" class="form-control" type="tel" name="phone"
+                        value="{{ $student->user->phone_number }}" required />
                 </div>
 
                 <div class="card-footer">
