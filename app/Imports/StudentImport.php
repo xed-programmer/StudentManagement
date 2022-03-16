@@ -45,12 +45,12 @@ class StudentImport implements ToCollection, WithHeadingRow, WithCalculatedFormu
             $user = User::create([
                 'name' => $row["name"],
                 'email' => $row["email"],
+                'phone_number' => "0".$row["phone"],
                 'password' => Hash::make($default_student_password),
             ]);
     
             $user->student()->create([
-                'student_code' => substr(str_repeat(0, $length).$row["student_code"], - $length),
-                'phone' => "0".$row["phone"],
+                'student_code' => substr(str_repeat(0, $length).$row["student_code"], - $length),                
                 'course' => $row["course"],
                 'year' => $row["year"],
                 'section' => $row["section"] 
