@@ -54,7 +54,7 @@ class RegisteredGuardianController extends Controller
         $student->guardians()->attach($guardian->id);
 
         $message = 'Your Account was successfully created. This is your Gatepass Code '.$validated['gatepass']. '. Dont share it with other people.';
-        SendSMS::sendSMS($message, $user->phone);
+        SendSMS::sendSMS($message, $user->phone_number);
 
         event(new Registered($user));        
         

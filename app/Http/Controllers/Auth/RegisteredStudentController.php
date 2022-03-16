@@ -40,7 +40,7 @@ class RegisteredStudentController extends Controller
 
         $user->roles()->attach($role->id);
 
-        SendSMS::sendSMS("Student Account created successfully", $user->phone);
+        SendSMS::sendSMS("Student Account created successfully", $user->phone_number);
         
         if ($res) {
             $request->session()->flash('message', 'Student Added Successfully!');
