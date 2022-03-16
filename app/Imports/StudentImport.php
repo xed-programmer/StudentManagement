@@ -21,8 +21,7 @@ class StudentImport implements ToCollection, WithHeadingRow, WithCalculatedFormu
     * @return \Illuminate\Database\Eloquent\Model|null
     */
     public function collection(Collection $rows)
-    {       
-        dd($rows);
+    {               
         $validated = [];
         foreach($rows->toArray() as $row){            
             $valids = Validator::make($row, [
