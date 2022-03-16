@@ -42,6 +42,9 @@ class AdminStudentController extends Controller
     public function importStudent(Request $request)
     {        
         if($request->has('file')){
+            $request->validate([
+                'file' => ['required|mimes:xls,xlsx']
+            ]);
             // $file = request()->file('file')->getRealPath();     
             // $file1 = request()->file('file')->store('temp');                        
             // $file = storage_path('app') . '/' . $file1;            
