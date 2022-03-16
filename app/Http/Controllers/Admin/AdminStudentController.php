@@ -42,11 +42,11 @@ class AdminStudentController extends Controller
     public function importStudent(Request $request)
     {        
         if($request->has('file')){
-            //$file = request()->file('file')->getRealPath();     
-            // $file1 = request()->file('file')->store('temp');                        
+            $file = request()->file('file')->getRealPath();     
+            $file1 = request()->file('file')->store('temp');                        
             // $file = storage_path('app') . '/' . $file1;            
             // Excel::import(new StudentImport, $file);
-            dd(request()->file('file'));
+            dd([$file1, $request]);
             Excel::import(new StudentImport, request()->file('file'));
 
             if(session()->has('student_count')){                
