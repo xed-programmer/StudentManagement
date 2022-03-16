@@ -43,7 +43,7 @@ class AdminStudentController extends Controller
     {        
         if($request->has('file')){
             $request->validate([
-                'file' => ['required|mimes:xls,xlsx']
+                'file' => ['required', 'mimes:xls,xlsx']
             ]);
             // $file = request()->file('file')->getRealPath();     
             // $file1 = request()->file('file')->store('temp');                        
