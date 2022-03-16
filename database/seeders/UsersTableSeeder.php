@@ -2,9 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\Registered;
 
 class UsersTableSeeder extends Seeder
 {
@@ -15,10 +17,12 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert([
+
+        $user = User::create([
             'name' => 'Admin',
-            'email' => 'admin@gmail.com',
+            'email' => 'xedprogrammer@gmail.com',
             'password' => Hash::make('123456789'),
+            'phone_number' => '09510592362',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -27,5 +31,6 @@ class UsersTableSeeder extends Seeder
             'role_id' => 1,
             'user_id' => 1,
         ]);
+        event(new Registered($user));
     }
 }
