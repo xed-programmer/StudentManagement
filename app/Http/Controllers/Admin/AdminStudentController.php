@@ -8,8 +8,8 @@ use App\Imports\StudentImport;
 use App\Models\Student;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Maatwebsite\Excel\Excel;
-// use Maatwebsite\Excel\Facades\Excel;
+// use Maatwebsite\Excel\Excel;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AdminStudentController extends Controller
 {
@@ -43,9 +43,10 @@ class AdminStudentController extends Controller
     {        
         if($request->has('file')){
             //$file = request()->file('file')->getRealPath();     
-            $file1 = request()->file('file')->store('temp');                        
-            $file = storage_path('app') . '/' . $file1;            
-            Excel::import(new StudentImport, $file);
+            // $file1 = request()->file('file')->store('temp');                        
+            // $file = storage_path('app') . '/' . $file1;            
+            // Excel::import(new StudentImport, $file);
+            Excel::import(new StudentImport, request()->file('file'));
 
             if(session()->has('student_count')){                
                 $request->session()->flash('message', 'Student Import Successfully. Count ' . session()->get('student_count'));
