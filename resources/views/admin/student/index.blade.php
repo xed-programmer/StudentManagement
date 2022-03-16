@@ -10,6 +10,8 @@
             {{ session()->get('message') }}
         </div>
     @endif
+    <!-- Validation Errors -->
+    <x-auth-validation-errors class="m-4 text-danger" :errors="$errors" />
     <div class="card">
         <div class="card-header">
             <h3 class="card-title" id="table-title">{{ __('Student Lists') }}</h3>
@@ -74,8 +76,8 @@
                                                 <form action="{{ route('admin.student.delete', $student) }}"
                                                     method="POST"
                                                     onclick="
-                                                                                                                                                                                                                                                            return confirm('Do you want to delete this data?');
-                                                                                                                                                                                                                                                        ">
+                                                                                                                                                                                                                                                                return confirm('Do you want to delete this data?');
+                                                                                                                                                                                                                                                            ">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button class="btn btn-sm btn-danger">Delete</button>
@@ -95,6 +97,5 @@
 
 @push('scripts')
     @component('components.data-table-links-component')
-
     @endcomponent
 @endpush
