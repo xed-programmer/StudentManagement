@@ -132,8 +132,8 @@ Route::group(['prefix' => 'gatepass', 'as' => 'gatepass.'], function () {
 });
 
 Route::get('/announcements', [AnnouncementController::class, 'index'])->name('announcement');
-// Route::get('/mail', function(){
-//     return new AnnouncementMail();
-// });
+Route::get('/mail', function(){
+    return new AnnouncementMail("<h1>Hello World</p>");
+});
 
 require __DIR__ . '/auth.php';
