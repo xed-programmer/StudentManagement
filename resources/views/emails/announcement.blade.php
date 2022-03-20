@@ -2,7 +2,7 @@
     # Annoucement
 
     @php
-    strip_tags(htmlspecialchars_decode($description));
+    strip_tags(htmlspecialchars_decode($body));
     @endphp
 
     @component('mail::button', ['url' => url('/announcements')])
