@@ -1,7 +1,9 @@
 @component('mail::message')
     # Annoucement
 
-    @{{ body }}
+    @php
+    strip_tags(htmlspecialchars_decode($description));
+    @endphp
 
     @component('mail::button', ['url' => url('/announcements')])
         View More Announcements
