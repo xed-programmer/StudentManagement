@@ -1,7 +1,7 @@
 @component('mail::message')
     # Annoucement
 
-    @{{ $body }}
+    @{{ body }}
 
     @component('mail::button', ['url' => url('/announcements')])
         View More Announcements
