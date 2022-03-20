@@ -48,7 +48,7 @@ class ProfileStudentController extends Controller
 
         $user->phone_number = $request->phone;
         $student->user->name = $request->name;
-        $student->user->email = $request->email;        
+        $student->user->email = $request->email;
 
         if ($student->push()) {
             $request->session()->flash('message', 'Student Data Updated Successfully!');
