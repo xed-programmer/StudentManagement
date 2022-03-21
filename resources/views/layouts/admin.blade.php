@@ -29,7 +29,8 @@
             <!-- Left navbar links -->
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i
+                            class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="{{ route('home') }}" class="nav-link">{{ __('Home') }}</a>
@@ -59,7 +60,7 @@
             <a href="{{ route('admin.index') }}" class="brand-link">
                 <img src="{{ asset('images/logo.png') }}" alt="Logo" class="brand-image img-circle elevation-3"
                     style="opacity: .8">
-                <span class="brand-text font-weight-light">Soft Eng 1</span>
+                <span class="brand-text font-weight-light">RFID Monitoring</span>
             </a>
 
             <!-- Sidebar -->
@@ -72,7 +73,8 @@
                         <i class="text-xl far fa-user text-info"></i>
                     </div>
                     <div class="info">
-                        <a href="{{ route('profile.index') }}" class="nav-link d-block">{{ auth()->user()->name }}</a>
+                        <a href="{{ route('profile.index') }}"
+                            class="nav-link d-block">{{ auth()->user()->name }}</a>
                     </div>
                 </div>
 
