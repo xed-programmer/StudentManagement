@@ -14,11 +14,14 @@
                 <div class="mx-auto md:w-3/5 py-6 text-center flex items-center flex-col justify-center">
                     <div class="h-1/2 w-1/3 mt-8 flex lg:mt-0 lg:flex-shrink-0" style="height: 50vh;">
                         <div class="rounded-md shadow p-10 border-2 border-black" style="width: 100%">
-                            <img src="{{ asset('images/avatar1.png') }}" alt="photo" class="m-auto h-28 w-28">
-                            <h1 class="text-3xl">Dexter Aragon</h1>
-                            <h1>20190474</h1>
-                            <h1>asdasd </h1>
                             @if ($student != null)
+                                @if ($student->user->profile_pic)
+                                    <img src="{{ asset($student->user->profile_pic) }}" alt="photo"
+                                        class="m-auto h-28 w-28">
+                                @else
+                                    <img src="{{ asset('uploads/images/avatar1.png') }}" alt="photo"
+                                        class="m-auto h-28 w-28">
+                                @endif
                                 <h1 class="text-3xl">{{ $student->user->name }}</h1>
                                 <h1>{{ $student->student_code }}</h1>
                                 <h1>{{ $student->course }} {{ $student->year }} {{ $student->section }}</h1>

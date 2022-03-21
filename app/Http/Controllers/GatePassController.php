@@ -34,7 +34,7 @@ class GatePassController extends Controller
         
         if($attendances->count()>0){
             if(now()->diffInSeconds($attendances[0]->created_at) < 60){                
-                return redirect()->route('gatepass.index');
+                return view('gatepass.index')->with('student', $student);
             }
         }
         //if count is even, then it must be time in, else time out
