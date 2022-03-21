@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\SendAnnouncementMailJob;
 use App\Mail\AnnouncementMail;
 use App\Models\Post;
 use App\Models\User;
@@ -55,7 +56,7 @@ class AdminPostController extends Controller
         $users = User::all();
 
         foreach ($users as $user ) {
-            Mail::to($user)->queue(new AnnouncementMail($post->body));
+            SendAnnouncementMailJob::dispatch(['to'=>$user->email, 'body'=>$post->body]);
         }
         
         return redirect()->route('admin.posts.index');

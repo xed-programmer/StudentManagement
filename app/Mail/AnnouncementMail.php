@@ -31,6 +31,7 @@ class AnnouncementMail extends Mailable
     {
         return $this        
         ->markdown('emails.announcement')
+        ->subject('School Announcement')
         ->with('body', $this->body);
     }
 }
