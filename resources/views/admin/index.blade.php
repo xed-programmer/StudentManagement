@@ -13,12 +13,12 @@
                 <div class="inner">
                     <h3>{{ $users }}</h3>
 
-                    <p>Users</p>
+                    <p>Administrator</p>
                 </div>
                 <div class="icon">
-                    <i class="ion ion-bag"></i>
+                    <i class="fas fa-users"></i>
                 </div>
-                <a href="{{ route('admin.index') }}" class="small-box-footer">More info <i
+                <a href="{{ route('admin.user.index') }}" class="small-box-footer">More info <i
                         class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
@@ -61,7 +61,7 @@
                 <div class="inner">
                     <h3>{{ $post }}</h3>
 
-                    <p>Posts</p>
+                    <p>Announcements</p>
                 </div>
                 <div class="icon">
                     <i class="fas fa-bullhorn"></i>
@@ -186,7 +186,6 @@
 
 @push('scripts')
     @component('components.data-table-links-component')
-
     @endcomponent
     <script>
         $(function() {

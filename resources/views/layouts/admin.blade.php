@@ -97,13 +97,13 @@
                         <li class="nav-item">
                             <a href="{{ route('admin.posts.index') }}" class="nav-link">
                                 <i class="nav-icon fas fa-bullhorn text-info"></i>
-                                <p>{{ __('Posts') }}</p>
+                                <p>{{ __('Announcements') }}</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('admin.user.index') }}" class="nav-link">
                                 <i class="nav-icon fas fa-users text-info"></i>
-                                <p>{{ __('Users') }}</p>
+                                <p>{{ __('Administrator') }}</p>
                             </a>
                         </li>
                     </ul>
@@ -134,12 +134,6 @@
                 </div>
             </div>
         </div>
-
-        {{-- <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-        </aside>
-        <!-- /.control-sidebar --> --}}
 
         <!-- Main Footer -->
         <footer class="main-footer">
