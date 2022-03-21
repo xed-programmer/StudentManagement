@@ -52,6 +52,13 @@
                         placeholder="Email" required />
                 </div>
 
+                <!-- Contact number -->
+                <div class="form-group">
+                    <x-label for="phone" :value="__('Phone Number')" />
+
+                    <x-input id="phone" class="form-control" type="tel" name="phone" :value="old('phone')" required />
+                </div>
+
                 <!-- Password -->
                 <div class="form-group">
                     <x-label for="password" :value="__('Password')" />

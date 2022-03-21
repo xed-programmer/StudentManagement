@@ -33,12 +33,10 @@
                     <select name="role" id="role" class="form-control w-50">
                         @foreach ($roles as $i => $role)
                             <option value="{{ $role->name }}" @if (in_array(
-            $role->id,
-            $user->roles()->pluck('id')->ToArray(),
-        ))
-                                selected
-                        @endif
-                        >{{ Str::ucfirst($role->name) }}</option>
+    $role->id,
+    $user->roles()->pluck('id')->ToArray(),
+)) selected @endif>
+                                {{ Str::ucfirst($role->name) }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -57,6 +55,14 @@
                     </div>
                     <x-input id="email" class="form-control" type="email" name="email" :value="$user->email"
                         placeholder="Email" required />
+                </div>
+
+                <!-- Contact number -->
+                <div class="form-group">
+                    <x-label for="phone" :value="__('Phone Number')" />
+
+                    <input id="phone" class="form-control" type="tel" name="phone" value="{{ $user->phone_number }}"
+                        required />
                 </div>
 
                 <div class="card-footer">

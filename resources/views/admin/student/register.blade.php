@@ -44,9 +44,8 @@
                             <x-label for="year" :value="__('Year Level')" />
                             <select name="year" id="year" class="form-control">
                                 @foreach ($yearlevels as $year)
-                                    <option value="{{ $year }}" @if (old('year') == $year)
-                                        selected
-                                @endif>{{ $year }}</option>
+                                    <option value="{{ $year }}" @if (old('year') == $year) selected @endif>
+                                        {{ $year }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -58,10 +57,8 @@
                             <x-label for="section" :value="__('Section')" />
                             <select name="section" id="section" class="form-control">
                                 @foreach ($sections as $section)
-                                    <option value="{{ $section }}" @if (old('section') == $section)
-                                        selected
-                                @endif
-                                >{{ $section }}</option>
+                                    <option value="{{ $section }}" @if (old('section') == $section) selected @endif>
+                                        {{ $section }}</option>
                                 @endforeach
                             </select>
                         </div>

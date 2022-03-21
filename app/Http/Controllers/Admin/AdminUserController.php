@@ -22,20 +22,13 @@ class AdminUserController extends Controller
     public function index()
     {
         $users = User::whereHas('roles', function($q){
-            $q->whereNotIn('name', ['student', 'guardian']);
+            $q->where('name','=', 'admin');
         })
         ->with(['roles' => function($q){
-            $q->whereNotIn('name', ['student', 'guardian']);
+            $q->where('name','=', 'admin');
         }])
         ->get();
 
-        // $users = User::join('role_user', 'role_user.user_id', '=', 'users.id')
-        // ->join('roles', 'roles.id', '=', 'role_user.role_id')
-        // ->whereIn('users.id', function($query){
-        //     $query->select('user_id')
-        //     ->from('role_user')
-        //     ->where('roles.name', '!=', 'student');
-        // })->get(['users.*','roles.name as role', 'role_user.role_id']);
         // dd($users);
         return view('admin.user.index', compact('users'));
     }
