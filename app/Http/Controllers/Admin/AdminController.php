@@ -19,7 +19,7 @@ class AdminController extends Controller
         $guardian = Guardian::count();        
         $post = Post::count();
         $attendances = Attendance::with('student.user')->latest()->get();
-        $visitors = Visitor::with('user')->latest()->get();
+        $visitors = Visitor::with('attendance')->latest()->get();
 
         return view('admin.index', compact(['users', 'student', 'guardian', 'post', 'attendances', 'visitors']));
     }    

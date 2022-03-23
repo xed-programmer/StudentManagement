@@ -15,8 +15,11 @@ class CreateVisitorsTable extends Migration
     {
         Schema::create('visitors', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('status'); // time-in, time-out
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->string('address');
+            $table->string('phone_number');
+            $table->rememberToken();
             $table->timestamps();
         });
     }

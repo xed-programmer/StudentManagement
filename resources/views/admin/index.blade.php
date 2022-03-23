@@ -154,6 +154,9 @@
                                             colspan="1" aria-sort="ascending"
                                             aria-label="Name: activate to sort column descending">Name</th>
                                         <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1"
+                                            colspan="1" aria-label="Status: activate to sort column ascending">Destination
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1"
                                             colspan="1" aria-label="Status: activate to sort column ascending">Status</th>
                                         <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1"
                                             colspan="1" aria-label="Day: activate to sort column ascending">Day</th>
@@ -165,7 +168,9 @@
                                     @foreach ($visitors as $visitor)
                                         <tr>
                                             <td class="dtr-control sorting_1" tabindex="0">
-                                                {{ $visitor->user->name }}
+                                                {{ $visitor->name }}
+                                            </td>
+                                            <td class="dtr-control sorting_1" tabindex="0">{{ $visitor->destination }}
                                             </td>
                                             <td class="dtr-control sorting_1" tabindex="0">{{ $visitor->status }}</td>
                                             <td class="dtr-control sorting_1" tabindex="0">

@@ -130,11 +130,13 @@ Route::group(['middleware' => 'guest'], function () {
 Route::group(['prefix' => 'gatepass', 'as' => 'gatepass.'], function () {
     Route::get('/', [GatePassController::class, 'index'])->name('index');
     Route::post('/', [GatePassController::class, 'store'])->name('store');
+
+    Route::get('/v', [GatePassController::class, 'visitor'])->name('visitor.index');
+    Route::post('/v', [GatePassController::class, 'store_visitor'])->name('visitor.store');
+    Route::post('/v/a', [GatePassController::class, 'add_visitor'])->name('visitor.add');
 });
 
 Route::get('/announcements', [AnnouncementController::class, 'index'])->name('announcement');
-Route::get('/mail', function(){
-    return new AnnouncementMail("<h1>Hello World</p>");
-});
+
 
 require __DIR__ . '/auth.php';

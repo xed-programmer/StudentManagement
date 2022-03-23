@@ -12,6 +12,9 @@
                 </div>
                 <!--Right Col-->
                 <div class="mx-auto md:w-3/5 py-6 text-center flex items-center flex-col justify-center">
+                    <h1 class="my-4 text-5xl font-bold leading-tight">
+                        Student's Gatepass
+                    </h1>
                     <div class="w-1/3 mt-8 flex lg:mt-0 lg:flex-shrink-0" style="height: 50vh;">
                         <div class="rounded-md shadow p-10 border-2 border-black" style="width: 100%">
                             @if ($student != null)
