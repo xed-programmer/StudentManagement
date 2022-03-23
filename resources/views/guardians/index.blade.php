@@ -45,7 +45,7 @@
                                                         {{ $s->student_code }}
                                                     </td>
                                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                        {{ $s->phone }}
+                                                        {{ $s->user->phone_number }}
                                                     </td>
                                                     <td
                                                         class="flex justify-center gap-1 px-6 py-4 text-sm text-gray-500">
