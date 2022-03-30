@@ -9,6 +9,7 @@ use App\Models\Guardian;
 use App\Models\Role;
 use App\Models\Student;
 use App\Models\User;
+use App\Models\Visitor;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -56,7 +57,16 @@ class RegisteredGuardianController extends Controller
         $message = 'Your Account was successfully created. This is your Gatepass Code '.$validated['gatepass']. '. Dont share it with other people.';
         SendSMS::sendSMS($message, $user->phone_number);
 
-        event(new Registered($user));        
+        // insert guardian to visitor table
+
+        Visitor::create([
+            'name' => $user->name,
+            'email' => $user->email,            
+            'phone_number' => $user->phone_number,
+            'address' => $request->address
+        ]);
+
+        event(new Registered($user));
         
         return redirect()->route('home');
     }
