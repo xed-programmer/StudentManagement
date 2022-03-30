@@ -13,7 +13,7 @@ class DropTableVisitorsTable extends Migration
      */
     public function up()
     {
-        Schema::drop('visitors');
+        Schema::dropIfExists('visitors');
     }
 
     /**
