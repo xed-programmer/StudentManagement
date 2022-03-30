@@ -5,14 +5,11 @@ namespace App\Http\Controllers\Auth;
 use App\Helpers\SendSMS;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateGuardianRequest;
-use App\Models\Guardian;
 use App\Models\Role;
 use App\Models\Student;
 use App\Models\User;
 use App\Models\Visitor;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -41,6 +38,7 @@ class RegisteredGuardianController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'phone_number' => $request->phone,
+            'profile_pic' => 'uploads' . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'avatar1.png'
         ]);
 
         $guardian = $user->guardian()->create([            
