@@ -30,6 +30,11 @@ class RolesTableSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            [
+                'name' => 'guard',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ]);
     }
 }
