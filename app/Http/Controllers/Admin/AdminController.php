@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Attendance;
+use App\Models\AttendanceVisitor;
 use App\Models\Guardian;
 use App\Models\Post;
 use App\Models\Student;
@@ -19,8 +20,8 @@ class AdminController extends Controller
         $guardian = Guardian::count();        
         $post = Post::count();
         $attendances = Attendance::with('student.user')->latest()->get();
-        $visitors = Visitor::with('attendance')->latest()->get();
+        $visitorAttendances = AttendanceVisitor::with('visitor')->latest()->get();
 
-        return view('admin.index', compact(['users', 'student', 'guardian', 'post', 'attendances', 'visitors']));
+        return view('admin.index', compact(['users', 'student', 'guardian', 'post', 'attendances', 'visitorAttendances']));
     }    
 }

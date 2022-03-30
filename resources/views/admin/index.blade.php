@@ -165,18 +165,18 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($visitors as $visitor)
+                                    @foreach ($visitorAttendances as $attendance)
                                         <tr>
                                             <td class="dtr-control sorting_1" tabindex="0">
-                                                {{ $visitor->name }}
+                                                {{ $attendance->visitor->name }}
                                             </td>
-                                            <td class="dtr-control sorting_1" tabindex="0">{{ $visitor->destination }}
+                                            <td class="dtr-control sorting_1" tabindex="0">{{ $attendance->destination }}
                                             </td>
-                                            <td class="dtr-control sorting_1" tabindex="0">{{ $visitor->status }}</td>
+                                            <td class="dtr-control sorting_1" tabindex="0">{{ $attendance->status }}</td>
                                             <td class="dtr-control sorting_1" tabindex="0">
-                                                {{ $visitor->created_at->format('D, M j Y') }}</td>
+                                                {{ $attendance->created_at->format('D, M j Y') }}</td>
                                             <td class="dtr-control sorting_1" tabindex="0">
-                                                {{ $visitor->created_at->format('h:i a') }}</td>
+                                                {{ $attendance->created_at->format('h:i a') }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
