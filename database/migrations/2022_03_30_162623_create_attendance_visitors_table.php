@@ -15,7 +15,7 @@ class CreateAttendanceVisitorsTable extends Migration
     {
         Schema::create('attendance_visitors', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('visitors_id')->constrained()->onDelete('cascade');
+            $table->foreignId('visitor_id')->constrained()->onDelete('cascade');
             $table->string('destination');
             $table->string('status');
             $table->timestamps();
