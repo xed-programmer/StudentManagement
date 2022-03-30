@@ -26,17 +26,20 @@ class GatePassController extends Controller
         ->where('student_code', $request->student_code)->firstOrFail();
         
         //check if the student tap rfid within 60 seconds        
+        $status = '';
         if($student->attendances->count()>0){
             if(now()->diffInSeconds($student->attendances[0]->created_at) > 60){                                
                 //if count is even, then it must be time in, else time out
-                if($student->attendances->count()%2 == 0){
-                    $student->attendances()->create(['status' => 'time-in']);
+                if($student->attendances->count()%2 == 0){  
+                    $status = 'time-in';
                 }else{
-                    $student->attendances()->create(['status' => 'time-out']);
+                    $status = 'time-out';
                 }                        
-            }
-        }    
-        
+            }            
+        }else{
+            $status = 'time-in';
+        }        
+        $student->attendances()->create(['status' => $status]);
         return view('gatepass.index')->with(['student'=> $student]);
     }
 
@@ -59,21 +62,20 @@ class GatePassController extends Controller
         ->firstOrFail();
         
         //check if the student tap rfid within 60 seconds        
+        $status = '';
         if($visitor->attendances->count()>0){
             if(now()->diffInSeconds($visitor->attendances[0]->created_at) > 60){                                
                 //if count is even, then it must be time in, else time out
-                $status = '';
                 if($visitor->attendances->count()%2 == 0){
                     $status = 'time-in';
                 }else{
                     $status = 'time-out';
-                }   
-                $visitor->attendances()->create(['status' => $status, 'destination' => $request->destination]);
+                }                   
             }
         }else{
-            $visitor->attendances()->create(['status' => 'time-in', 'destination' => $request->destination]);
-        }
-        
+            $status = 'time-in';
+        }        
+        $visitor->attendances()->create(['status' => $status, 'destination' => $request->destination]);
         return view('gatepass.visitor')->with(['visitor'=> $visitor, 'destination' => $request->destination]);
     }
 
