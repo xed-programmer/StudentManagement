@@ -40,7 +40,7 @@ class GatePassController extends Controller
             $status = 'time-in';
         }        
         $student->attendances()->create(['status' => $status]);
-        return view('gatepass.index')->with(['student'=> $student]);
+        return view('gatepass.index')->with(['student'=> $student, 'status' => $status]);
     }
 
     public function visitor()
@@ -76,7 +76,7 @@ class GatePassController extends Controller
             $status = 'time-in';
         }        
         $visitor->attendances()->create(['status' => $status, 'destination' => $request->destination]);
-        return view('gatepass.visitor')->with(['visitor'=> $visitor, 'destination' => $request->destination]);
+        return view('gatepass.visitor')->with(['visitor'=> $visitor, 'destination' => $request->destination, 'status' => $status]);
     }
 
     public function add_visitor(Request $request){        

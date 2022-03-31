@@ -15,13 +15,13 @@
                     <h1 class="my-4 text-5xl font-bold leading-tight">
                         Visitor's Gatepass
                     </h1>
-                    <div class="w-1/3 mt-8 flex lg:mt-0 lg:flex-shrink-0" style="height: 50vh;">
+                    <div class="w-1/3 mt-8 flex lg:mt-0 lg:flex-shrink-0" style="height: 35vh;">
                         <div class="rounded-md shadow p-10 border-2 border-black" style="width: 100%">
                             @if ($visitor != null)
                                 <h1 class="text-3xl">{{ $visitor->name }}</h1>
                                 <h1>{{ $visitor->email }}</h1>
                                 <h1>Destination: {{ $destination }}</h1>
-                                <h1>{{ $visitor->address }}</h1>
+                                <h1>{{ strtoupper($status) }}</h1>
                             @endif
                         </div>
                     </div>
