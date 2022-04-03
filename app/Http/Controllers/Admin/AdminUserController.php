@@ -11,7 +11,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\Hash;
-use Maatwebsite\Excel\Concerns\ToArray;
 
 class AdminUserController extends Controller
 {
@@ -22,15 +21,14 @@ class AdminUserController extends Controller
      */
     public function index()
     {
-        $users = User::whereHas('roles', function($q){
-            $q->where('name','=', 'admin');
+        $users = User::whereHas('roles', function($q){            
+            $q->whereNotIn('name', ['student', 'guardian']);
         })
         ->with(['roles' => function($q){
-            $q->where('name','=', 'admin');
+            $q->whereNotIn('name', ['student', 'guardian']);
         }])
         ->get();
-
-        // dd($users);
+        
         return view('admin.user.index', compact('users'));
     }
 
@@ -91,17 +89,6 @@ class AdminUserController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -111,8 +98,9 @@ class AdminUserController extends Controller
     {
         $roles = DB::table('roles')
         ->whereNotIn('name', ['student', 'guardian'])
-        ->get();        
-        return view('admin.user.edit')->with(['user' => $user,'roles' => $roles]);
+        ->get();
+        $buildings = Building::orderBy('name')->get();        
+        return view('admin.user.edit')->with(['user' => $user, 'roles'=>$roles, 'buildings' => $buildings]);
     }
 
     /**
@@ -128,16 +116,26 @@ class AdminUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$user->id],            
             'role' => ['required', 'exists:roles,name'],
+            'building' => ['required', 'exists:buildings,name'],
             'phone' => ['required', 'regex:/(09)[0-9]{9}/'],
         ]);
         
         $user->name = $request->name;
         $user->email = $request->email;
         $user->phone_number = $request->phone;
-
-        if(!in_array($request->role ,$user->roles()->pluck('name')->ToArray())){
+        
+        // Update User Role Pivot table
+        $currentRoles = $user->roles()->get();             
+        if(!$currentRoles->contains('name', '=', $request->role)){
             $role = Role::where('name', $request->role)->firstOrFail();
-            $user->roles()->attach($role->id);
+            $user->roles()->updateExistingPivot($currentRoles[0]->id, ['role_id'=>$role->id]);
+        }
+
+        // Update User Building Pivot table
+        $currentBuilding = $user->buildings()->get();
+        if(!$currentBuilding->contains('name', '=', $request->role)){
+            $building = Building::where('name', $request->building)->firstOrFail();
+            $user->buildings()->updateExistingPivot($currentBuilding[0]->id, ['building_id'=>$building->id]);
         }
 
         if($request->email != $user->email){              

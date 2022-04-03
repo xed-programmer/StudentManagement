@@ -59,7 +59,7 @@ class StudentImport implements ToCollection, WithHeadingRow, WithCalculatedFormu
             $user->roles()->attach($role->id);
 
             SendSMS::sendSMS("Student Account created successfully", $row['phone']);
-            event(new Registered($user));
+            Registered::dispatch($user);
             $count++;
         }
         session()->flash('student_count', $count);        

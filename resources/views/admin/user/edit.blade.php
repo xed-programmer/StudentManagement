@@ -31,12 +31,27 @@
                     <x-label for="role" :value="__('Role')" />
 
                     <select name="role" id="role" class="form-control w-50">
-                        @foreach ($roles as $i => $role)
+                        @foreach ($roles as $role)
                             <option value="{{ $role->name }}" @if (in_array(
     $role->id,
     $user->roles()->pluck('id')->ToArray(),
 )) selected @endif>
                                 {{ Str::ucfirst($role->name) }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <!-- Building -->
+                <div class="form-group">
+                    <x-label for="building" :value="__('building')" />
+
+                    <select name="building" id="building" class="form-control w-50">
+                        @foreach ($buildings as $building)
+                            <option value="{{ $building->name }}" @if (in_array(
+    $building->id,
+    $user->buildings()->pluck('id')->ToArray(),
+)) selected @endif>
+                                {{ Str::ucfirst($building->name) }}</option>
                         @endforeach
                     </select>
                 </div>
