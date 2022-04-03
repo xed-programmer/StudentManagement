@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class RenameVisitorsIdToVisitorIdFromAttendanceVisitors extends Migration
+class CreateBuildingUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class RenameVisitorsIdToVisitorIdFromAttendanceVisitors extends Migration
      */
     public function up()
     {
-        Schema::table('attendance_visitors', function (Blueprint $table) {
-            $table->renameColumn('visitors_id', 'visitor_id');
+        Schema::create('building_user', function (Blueprint $table) {
+            $table->foreignId('building_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
         });
     }
 
@@ -25,8 +26,6 @@ class RenameVisitorsIdToVisitorIdFromAttendanceVisitors extends Migration
      */
     public function down()
     {
-        Schema::table('attendance_visitors', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('building_user');
     }
 }
