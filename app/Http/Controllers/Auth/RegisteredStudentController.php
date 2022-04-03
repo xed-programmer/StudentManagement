@@ -51,7 +51,7 @@ class RegisteredStudentController extends Controller
             $request->session()->flash('alert-class', 'alert-warning');
         }
 
-        event(new Registered($user));
+        Registered::dispatch($user);
         
         // return redirect(RouteServiceProvider::HOME); 
         return redirect()->back();

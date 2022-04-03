@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Building;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
@@ -42,8 +43,9 @@ class AdminUserController extends Controller
     {
         $roles = DB::table('roles')
         ->whereNotIn('name', ['student', 'guardian'])
-        ->get();        
-        return view('admin.user.register')->with(['roles'=>$roles]);
+        ->get();
+        $buildings = Building::orderBy('name')->get();        
+        return view('admin.user.register')->with(['roles'=>$roles, 'buildings' => $buildings]);
     }
 
     /**
@@ -59,6 +61,7 @@ class AdminUserController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'role' => ['required', 'exists:roles,name'],
+            'building' => ['required', 'exists:buildings,name'],
             'phone' => ['required', 'regex:/(09)[0-9]{9}/'],
         ]);
 
@@ -70,8 +73,10 @@ class AdminUserController extends Controller
         ]);
 
         $role = Role::where('name', $request->role)->firstOrFail();
-
         $user->roles()->attach($role->id);
+
+        $building = Building::where('name', $request->building)->firstOrFail();
+        $user->buildings()->attach($building->id);
 
         event(new Registered($user));
         
@@ -135,8 +140,8 @@ class AdminUserController extends Controller
             $user->roles()->attach($role->id);
         }
 
-        if($request->email != $user->email){
-            event(new Registered($user));
+        if($request->email != $user->email){              
+            Registered::dispatch($user);            
         }        
         
         if ($user->save()) {

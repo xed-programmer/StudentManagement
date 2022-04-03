@@ -64,7 +64,7 @@ class RegisteredGuardianController extends Controller
             'address' => $request->address
         ]);
 
-        event(new Registered($user));
+        Registered::dispatch($user);
         
         return redirect()->route('home');
     }
