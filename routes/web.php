@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminBuildingController;
 use App\Http\Controllers\Admin\AdminStudentController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminPostController;
@@ -102,6 +103,15 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/edit/{post}', [AdminPostController::class, 'edit'])->name('edit');
             Route::put('/edit/{post}', [AdminPostController::class, 'update'])->name('update');
             Route::delete('/{post}', [AdminPostController::class, 'destroy'])->name('delete');
+        });
+
+        // Building
+        Route::prefix('b')->as('building.')->group(function () {
+            Route::get('/', [AdminBuildingController::class, 'index'])->name('index');            
+            Route::post('/', [AdminBuildingController::class, 'store'])->name('store');
+            Route::get('/edit/{building}', [AdminBuildingController::class, 'edit'])->name('edit');
+            Route::put('/edit/{building}', [AdminBuildingController::class, 'update'])->name('update');
+            Route::delete('/{building}', [AdminBuildingController::class, 'destroy'])->name('delete');
         });
     });
 
