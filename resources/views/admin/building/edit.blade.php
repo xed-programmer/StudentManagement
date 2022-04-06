@@ -1,7 +1,8 @@
 <div class="card card-primary p-4">
     <!-- form start -->
-    <form action="{{ route('admin.building.update', $building) }}" method="post">
+    <form action="{{ route('admin.building.update', $building) }}" method="POST">
         @csrf
+        @method('PUT')
         <div class="form-group">
             <x-label for="name" :value="__('Name')" class="text-dark" />
 

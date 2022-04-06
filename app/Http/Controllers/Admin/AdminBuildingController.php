@@ -33,42 +33,39 @@ class AdminBuildingController extends Controller
         return redirect()->route('admin.building.index');
     }
 
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Building $building)
     {
         return view('admin.building.edit')->with(['building'=>$building]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Building $building, Request $request)
     {
-        //
+        $request->validate([
+            'name'=>['required', 'unique:buildings,name,'.$building->id]
+        ]);
+    
+        $building->name = $request->name;
+        
+        if ($building->save()) {
+            $request->session()->flash('message', 'Building Updated Successfully!');
+            $request->session()->flash('alert-class', 'alert-success');
+        } else {
+            $request->session()->flash('message', 'Building Updated Unsuccessfully!');
+            $request->session()->flash('alert-class', 'alert-warning');
+        }
+        
+        return redirect()->route('admin.building.index');     
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function destroy(Building $building, Request $request)
     {
-        //
+        if ($building->delete()) {
+            $request->session()->flash('message', 'Building Data Deleted Successfully!');
+            $request->session()->flash('alert-class', 'alert-success');
+        } else {
+            $request->session()->flash('message', 'Building Data Deleted Unuccessfully!');
+            $request->session()->flash('alert-class', 'alert-warning');
+        }
+        return redirect()->route('admin.building.index');
     }
 }
