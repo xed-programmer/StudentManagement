@@ -106,6 +106,18 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="{{ route('admin.building.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-building text-info"></i>
+                                <p>{{ __('Building') }}</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.destination.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-map-pin text-info"></i>
+                                <p>{{ __('Destination') }}</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{ route('admin.user.index') }}" class="nav-link">
                                 <i class="nav-icon fas fa-users text-info"></i>
                                 <p>{{ __('Administrator') }}</p>

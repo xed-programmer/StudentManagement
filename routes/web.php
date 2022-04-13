@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminBuildingController;
 use App\Http\Controllers\Admin\AdminStudentController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AdminDestinationController;
 use App\Http\Controllers\Admin\AdminPostController;
 use App\Http\Controllers\Admin\AdminProfessorController;
 use App\Http\Controllers\Admin\AdminScheduleController;
@@ -112,6 +113,15 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/edit/{building}', [AdminBuildingController::class, 'edit'])->name('edit');
             Route::put('/edit/{building}', [AdminBuildingController::class, 'update'])->name('update');
             Route::delete('/{building}', [AdminBuildingController::class, 'destroy'])->name('delete');
+        });
+
+        // Destination
+        Route::prefix('d')->as('destination.')->group(function () {
+            Route::get('/', [AdminDestinationController::class, 'index'])->name('index');            
+            Route::post('/', [AdminDestinationController::class, 'store'])->name('store');
+            Route::get('/edit/{destination}', [AdminDestinationController::class, 'edit'])->name('edit');
+            Route::put('/edit/{destination}', [AdminDestinationController::class, 'update'])->name('update');
+            Route::delete('/{destination}', [AdminDestinationController::class, 'destroy'])->name('delete');
         });
     });
 
