@@ -94,6 +94,29 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-id-badge text-info"></i>
+                                <p>
+                                    Gatepass
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview" style="display: none;">
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.gatepass.student') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Students</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.gatepass.visitor') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Visitors</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{ route('admin.student.index') }}" class="nav-link">
                                 <i class="nav-icon fas fa-user-graduate text-info"></i>
                                 <p>{{ __('Students') }}</p>

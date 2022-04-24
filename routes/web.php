@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminBuildingController;
 use App\Http\Controllers\Admin\AdminStudentController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminDestinationController;
+use App\Http\Controllers\Admin\AdminGatepassController;
 use App\Http\Controllers\Admin\AdminPostController;
 use App\Http\Controllers\Admin\AdminProfessorController;
 use App\Http\Controllers\Admin\AdminScheduleController;
@@ -75,6 +76,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['middleware' => ['checkrole:admin'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::get('/',[AdminController::class, 'index'])->name('index');
 
+        // Gatepass
+        Route::prefix('gatepass')->as('gatepass.')->group(function(){
+            Route::get('/s', [AdminGatepassController::class, 'student'])->name('student');
+            Route::get('/v', [AdminGatepassController::class, 'visitor'])->name('visitor');
+        });
         // USERS
         Route::prefix('user')->as('user.')->group(function () {
             Route::get('/', [AdminUserController::class, 'index'])->name('index');
