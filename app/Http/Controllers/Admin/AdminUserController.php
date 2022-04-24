@@ -14,11 +14,6 @@ use Illuminate\Support\Facades\Hash;
 
 class AdminUserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $users = User::whereHas('roles', function($q){            
@@ -32,11 +27,6 @@ class AdminUserController extends Controller
         return view('admin.user.index', compact('users'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $roles = DB::table('roles')
@@ -46,12 +36,6 @@ class AdminUserController extends Controller
         return view('admin.user.register')->with(['roles'=>$roles, 'buildings' => $buildings]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {        
         $request->validate([
@@ -88,12 +72,6 @@ class AdminUserController extends Controller
         return redirect()->route('admin.user.index');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit(User $user)
     {
         $roles = DB::table('roles')
@@ -103,13 +81,6 @@ class AdminUserController extends Controller
         return view('admin.user.edit')->with(['user' => $user, 'roles'=>$roles, 'buildings' => $buildings]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(User $user, Request $request)
     {        
         $request->validate([
@@ -125,16 +96,20 @@ class AdminUserController extends Controller
         $user->phone_number = $request->phone;
         
         // Update User Role Pivot table
-        $currentRoles = $user->roles()->get();             
+        $currentRoles = $user->roles()->get();                     
         if(!$currentRoles->contains('name', '=', $request->role)){
             $role = Role::where('name', $request->role)->firstOrFail();
             $user->roles()->updateExistingPivot($currentRoles[0]->id, ['role_id'=>$role->id]);
         }
 
         // Update User Building Pivot table
+        $building = Building::where('name', $request->building)->firstOrFail();
+
         $currentBuilding = $user->buildings()->get();
-        if(!$currentBuilding->contains('name', '=', $request->role)){
-            $building = Building::where('name', $request->building)->firstOrFail();
+        if(count($currentBuilding)==0){
+            $user->buildings()->attach($building->id);
+        }
+        else if(!$currentBuilding->contains('name', '=', $request->role)){            
             $user->buildings()->updateExistingPivot($currentBuilding[0]->id, ['building_id'=>$building->id]);
         }
 
@@ -152,12 +127,6 @@ class AdminUserController extends Controller
         return redirect()->route('admin.user.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(User $user, Request $request)
     {        
         if ($user->delete()) {
