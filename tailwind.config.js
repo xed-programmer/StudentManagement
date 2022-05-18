@@ -20,6 +20,7 @@ module.exports = {
             opacity: ['disabled'],
         },
     },
-
-    plugins: [require('@tailwindcss/forms')],
+    content: ['./src/**/*.{php,js}', './node_modules/tw-elements/dist/js/**/*.js'],
+    plugins: [require('@tailwindcss/forms'),
+    require('tw-elements/dist/plugin')],
 };

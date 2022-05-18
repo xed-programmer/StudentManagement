@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Destination;
 use App\Models\Student;
 use App\Models\User;
 use App\Models\Visitor;
@@ -9,9 +10,16 @@ use Illuminate\Http\Request;
 
 class GatePassController extends Controller
 {
+    private function getDestination()
+    {
+        return Destination::all();
+    }
+
     public function index()
     {
-        return view('gatepass.index')->with(['student'=>null]);
+        $destinations = $this::getDestination();
+        $_SESSION['destinations'] = $destinations;
+        return view('gatepass.index')->with(['student'=>null, 'visitor'=>null, 'destinations' => $destinations]);
     }
 
     public function store(Request $request)
@@ -38,9 +46,15 @@ class GatePassController extends Controller
             }            
         }else{
             $status = 'time-in';
-        }        
+        }
         $student->attendances()->create(['status' => $status]);
-        return view('gatepass.index')->with(['student'=> $student, 'status' => $status]);
+
+        if(isset($_SESSION['destinations'])){
+            $destinations = $_SESSION('destinations');
+        }else{
+            $destinations = $this::getDestination();
+        }
+        return view('gatepass.index')->with(['student'=> $student, 'visitor'=> null, 'status' => $status, 'destinations' => $destinations]);
     }
 
     public function visitor()
@@ -76,7 +90,13 @@ class GatePassController extends Controller
             $status = 'time-in';
         }        
         $visitor->attendances()->create(['status' => $status, 'destination' => $request->destination]);
-        return view('gatepass.visitor')->with(['visitor'=> $visitor, 'destination' => $request->destination, 'status' => $status]);
+
+        if(isset($_SESSION['destinations'])){
+            $destinations = $_SESSION('destinations');
+        }else{
+            $destinations = $this::getDestination();
+        }
+        return view('gatepass.index')->with(['student' => null,'visitor'=> $visitor, 'destinations' => $destinations, 'destination' => $request->destination, 'status' => $status]);
     }
 
     public function add_visitor(Request $request){        
