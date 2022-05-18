@@ -16,13 +16,14 @@ class AdminUserController extends Controller
 {
     public function index()
     {
-        $users = User::whereHas('roles', function($q){            
+        $users = User::with(['roles', 'buildings'])
+        ->whereHas('roles', function($q){            
             $q->whereNotIn('name', ['student', 'guardian']);
         })
-        ->with(['roles' => function($q){
-            $q->whereNotIn('name', ['student', 'guardian']);
-        }])
-        ->get();
+        ->whereHas('buildings', function($q){
+            $q->where('building_id', '=', auth()->user()->buildings()->pluck('id')[0]);
+        })
+        ->get();      
         
         return view('admin.user.index', compact('users'));
     }
