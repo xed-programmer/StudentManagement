@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Destination;
 use App\Models\Student;
 use App\Models\Visitor;
 use Illuminate\Http\Request;
@@ -75,6 +76,8 @@ class GatePassController extends Controller
             'destination' => ['required'],
         ]);
 
+        $destination = Destination::where('name', $request->desination)->get();
+
         $visitor = Visitor::with(['attendances'=> function($q){
             $q->where('created_at', '>', today())->latest();
         }])
@@ -94,8 +97,8 @@ class GatePassController extends Controller
             }
         }else{
             $status = 'time-in';
-        }        
-        $visitor->attendances()->create(['status' => $status, 'destination' => $request->destination]);
+        }
+        $visitor->attendances()->create(['status' => $status, 'destination' => $request->destination, 'destination_id' => $destination->id]);
 
         if(isset($_SESSION['destinations'])){
             $destinations = $_SESSION('destinations');
