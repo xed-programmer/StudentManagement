@@ -48,6 +48,8 @@ class RegisteredGuardianController extends Controller
         $role = Role::where('name', 'guardian')->firstOrFail();
         $user->roles()->attach($role->id);
 
+        $user->buildings()->attach(auth()->user()->buildings()->pluck('id')[0]);
+
         $student = Student::where('student_code', $request->student_code)->firstOrFail();        
         // $guardian->students()->attach($student->id);
         $student->guardians()->attach($guardian->id);
@@ -64,7 +66,7 @@ class RegisteredGuardianController extends Controller
             'address' => $request->address
         ]);
 
-        Registered::dispatch($user);
+        event(new Registered($user));
         
         return redirect()->route('home');
     }

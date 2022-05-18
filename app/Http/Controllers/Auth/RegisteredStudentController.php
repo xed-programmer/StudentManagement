@@ -35,12 +35,17 @@ class RegisteredStudentController extends Controller
             'course' => $request->course,
             'year' => $request->year,
             'section' => $request->section,            
-        ]);        
+        ]);
+
+        // Add Role to user
 
         $role = Role::where('name', 'student')->firstOrFail();
 
-        $user->roles()->attach($role->id);
+        $user->roles()->attach($role->id);        
 
+        $user->buildings()->attach(auth()->user()->buildings()->pluck('id')[0]);
+
+        // Send SMS
         SendSMS::sendSMS("Student Account created successfully", $user->phone_number);
         
         if ($res) {
@@ -51,7 +56,8 @@ class RegisteredStudentController extends Controller
             $request->session()->flash('alert-class', 'alert-warning');
         }
 
-        Registered::dispatch($user);
+        // Send gmail
+        event(new Registered($user));
         
         // return redirect(RouteServiceProvider::HOME); 
         return redirect()->back();

@@ -48,7 +48,7 @@ class RegisteredUserController extends Controller
             'profile_pic' => 'uploads' . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'avatar1.png'
         ]);
 
-        Registered::dispatch($user);
+        event(new Registered($user));
 
         Auth::login($user);
 
