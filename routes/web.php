@@ -136,7 +136,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['middleware' => ['checkrole:student']], function () {
         Route::get('/student', [StudentController::class, 'index'])->name('student');
     });
-
+    
     // GUARDIAN
     Route::group(['middleware' => ['checkrole:guardian'], 'prefix' => 'guardian', 'as' => 'guardian.'], function () {
         Route::get('/', [GuardianController::class, 'index'])->name('index');
@@ -144,6 +144,15 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/create', [GuardianController::class, 'create'])->name('create.student');
         Route::post('/store/{guardian}', [GuardianController::class, 'store'])->name('store.student');
         Route::delete('/{guardian}/{student}', [GuardianController::class, 'destroy'])->name('delete.student');
+    });
+    
+    Route::group(['middleware' => ['checkrole:guard'],'prefix' => 'gatepass', 'as' => 'gatepass.'], function () {
+        Route::get('/', [GatePassController::class, 'index'])->name('index');
+        Route::post('/', [GatePassController::class, 'store'])->name('store');
+    
+        Route::get('/v', [GatePassController::class, 'visitor'])->name('visitor.index');
+        Route::post('/v', [GatePassController::class, 'store_visitor'])->name('visitor.store');
+        Route::post('/v/a', [GatePassController::class, 'add_visitor'])->name('visitor.add');
     });
 });
 
@@ -153,14 +162,6 @@ Route::group(['middleware' => 'guest'], function () {
 });
 
 
-Route::group(['middleware' => ['checkrole:guard'],'prefix' => 'gatepass', 'as' => 'gatepass.'], function () {
-    Route::get('/', [GatePassController::class, 'index'])->name('index');
-    Route::post('/', [GatePassController::class, 'store'])->name('store');
-
-    Route::get('/v', [GatePassController::class, 'visitor'])->name('visitor.index');
-    Route::post('/v', [GatePassController::class, 'store_visitor'])->name('visitor.store');
-    Route::post('/v/a', [GatePassController::class, 'add_visitor'])->name('visitor.add');
-});
 
 Route::get('/announcements', [AnnouncementController::class, 'index'])->name('announcement');
 
