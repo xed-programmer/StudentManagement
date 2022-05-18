@@ -26,7 +26,7 @@ class AddDestinationIdToAttendanceVisitors extends Migration
     public function down()
     {
         Schema::table('attendance_visitors', function (Blueprint $table) {
-            $table->dropColumn('destination_id')
+            $table->dropColumn('destination_id');
         });
     }
 }
