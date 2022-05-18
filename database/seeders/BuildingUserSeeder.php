@@ -17,6 +17,10 @@ class BuildingUserSeeder extends Seeder
         DB::table('building_user')->insert([
             [
                 'building_id' => 1,
+                'user_id' => 1
+            ],
+            [
+                'building_id' => 1,
                 'user_id' => 2
             ],
             [
@@ -25,11 +29,43 @@ class BuildingUserSeeder extends Seeder
             ],
             [
                 'building_id' => 1,
+                'user_id' => 4
+            ],
+            [
+                'building_id' => 1,
                 'user_id' => 5
             ],
             [
                 'building_id' => 1,
                 'user_id' => 6
+            ],
+            [
+                'building_id' => 1,
+                'user_id' => 7
+            ],
+            [
+                'building_id' => 1,
+                'user_id' => 8
+            ],
+            [
+                'building_id' => 1,
+                'user_id' => 9
+            ],
+            [
+                'building_id' => 1,
+                'user_id' => 10
+            ],
+            [
+                'building_id' => 1,
+                'user_id' => 11
+            ],
+            [
+                'building_id' => 1,
+                'user_id' => 12
+            ],
+            [
+                'building_id' => 1,
+                'user_id' => 13
             ],
         ]);
     }

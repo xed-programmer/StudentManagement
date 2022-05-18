@@ -14,11 +14,11 @@ class UpdateDestinationIDSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('attendace_visitors')
+        DB::table('attendance_visitors')
         ->where('destination', 'MIS')
         ->update(['destination_id' => 1]);
 
-        DB::table('attendace_visitors')
+        DB::table('attendance_visitors')
         ->where('destination', 'registrar')
         ->update(['destination_id' => 2]);
     }
