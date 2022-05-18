@@ -8,7 +8,6 @@ use App\Imports\StudentImport;
 use App\Models\Student;
 use App\Models\User;
 use Illuminate\Http\Request;
-// use Maatwebsite\Excel\Excel;
 use Maatwebsite\Excel\Facades\Excel;
 
 class AdminStudentController extends Controller
@@ -28,14 +27,14 @@ class AdminStudentController extends Controller
         return Excel::download(new StudentListLayoutExport(), 'studentlist.xlsx');        
     }
     
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        $students = Student::with(['user'])->get();
+        // $students = Student::with(['user'])->get();
+        $students = Student::with(['user', 'user.buildings'])
+        ->whereHas('user.buildings', function($q){
+            $q->where('building_id', '=', auth()->user()->buildings()->pluck('id')[0]);
+        })
+        ->get();
         return view('admin.student.index')->with(['students' => $students]);
     }
 
@@ -62,11 +61,6 @@ class AdminStudentController extends Controller
         return redirect()->route('admin.student.index');   
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $yearlevels = $this::getYearLevel();
@@ -74,12 +68,6 @@ class AdminStudentController extends Controller
         return view('admin.student.register', compact(['yearlevels', 'sections']));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Student $student)
     {
         $yearlevels = $this::getYearLevel();
@@ -87,13 +75,6 @@ class AdminStudentController extends Controller
         return view('admin.student.edit', compact(['student','yearlevels', 'sections']));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Student $student, Request $request)
     {
         $request->validate([
@@ -128,12 +109,6 @@ class AdminStudentController extends Controller
         return redirect()->route('admin.student.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Student $student, Request $request)
     {
         $res = User::findOrFail($student->user_id)->deleteOrFail();
