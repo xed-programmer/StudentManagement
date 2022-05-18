@@ -46,6 +46,10 @@ class AuthenticatedSessionController extends Controller
         {
            return redirect()->route('guardian.index');
         }
+        if($user->hasRole('guard'))
+        {
+           return redirect()->route('gatepass.index');
+        }
 
         return redirect()->intended(RouteServiceProvider::HOME);
     }

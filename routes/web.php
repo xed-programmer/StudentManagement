@@ -152,8 +152,8 @@ Route::group(['middleware' => 'guest'], function () {
     Route::post('/guardian/register', [RegisteredGuardianController::class, 'store'])->name('guardian.register');
 });
 
-//'middleware' => ['checkrole:securityguard']
-Route::group(['prefix' => 'gatepass', 'as' => 'gatepass.'], function () {
+
+Route::group(['middleware' => ['checkrole:guard'],'prefix' => 'gatepass', 'as' => 'gatepass.'], function () {
     Route::get('/', [GatePassController::class, 'index'])->name('index');
     Route::post('/', [GatePassController::class, 'store'])->name('store');
 

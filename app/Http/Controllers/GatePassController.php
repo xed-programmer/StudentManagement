@@ -2,17 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Destination;
 use App\Models\Student;
-use App\Models\User;
 use App\Models\Visitor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class GatePassController extends Controller
 {
     private function getDestination()
-    {
-        return Destination::all();
+    {        
+        $destinations = DB::table('destinations')
+        ->join('buildings', 'destinations.building_id', '=', 'buildings.id')
+        ->join('building_user', 'destinations.building_id', '=', 'building_user.building_id')
+        ->join('users', 'building_user.user_id', '=', 'users.id')
+        ->where('users.id', '=', auth()->user()->id)
+        ->select('destinations.name')
+        ->get();
+        return $destinations;
     }
 
     public function index()
