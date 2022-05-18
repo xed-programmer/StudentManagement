@@ -14,7 +14,7 @@ class AddDestinationIdToAttendanceVisitors extends Migration
     public function up()
     {
         Schema::table('attendance_visitors', function (Blueprint $table) {
-            $table->foreignId('destination_id')->constrained()->onDelete('cascade');
+            $table->foreignId('destination_id')->constrained()->onDelete('cascade')->default(1);
         });
     }
 
@@ -26,7 +26,7 @@ class AddDestinationIdToAttendanceVisitors extends Migration
     public function down()
     {
         Schema::table('attendance_visitors', function (Blueprint $table) {
-            $table->dropColumn('destination_id');
+            $table->dropColumn('destination_id')
         });
     }
 }
