@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Helpers\SendSMS;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateStudentRequest;
+use App\Jobs\SendEmailVerificationJob;
+use App\Jobs\SendSMSJob;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
@@ -46,7 +48,9 @@ class RegisteredStudentController extends Controller
         $user->buildings()->attach(auth()->user()->buildings()->pluck('id')[0]);
 
         // Send SMS
-        SendSMS::sendSMS("Student Account created successfully", $user->phone_number);
+        // SendSMS::sendSMS("Student Account created successfully", $user->phone_number);
+        SendSMSJob::dispatch(['message'=>"Student Account created successfully",
+            'phone'=> $user->phone_number]);
         
         if ($res) {
             $request->session()->flash('message', 'Student Added Successfully!');
@@ -57,7 +61,8 @@ class RegisteredStudentController extends Controller
         }
 
         // Send gmail
-        event(new Registered($user));
+        // event(new Registered($user));
+        SendEmailVerificationJob::dispatch(new Registered($user));
         
         // return redirect(RouteServiceProvider::HOME); 
         return redirect()->back();

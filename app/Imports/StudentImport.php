@@ -2,7 +2,8 @@
 
 namespace App\Imports;
 
-use App\Helpers\SendSMS;
+use App\Jobs\SendEmailVerificationJob;
+use App\Jobs\SendSMSJob;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
@@ -59,9 +60,13 @@ class StudentImport implements ToCollection, WithHeadingRow, WithCalculatedFormu
             $user->roles()->attach($role->id);
             $user->buildings()->attach(auth()->user()->buildings()->pluck('id')[0]);
 
-            SendSMS::sendSMS("Student Account created successfully", $row['phone']);
+            // SendSMS::sendSMS("Student Account created successfully", $row['phone']);
+            
+            SendSMSJob::dispatch(['message'=>"Student Account created successfully",
+            'phone'=>$row['phone']]);
             // event(new Registered($user));
-            Registered::dispatch($user);
+            // Registered::dispatch($user);
+            SendEmailVerificationJob::dispatch(new Registered($user));
             $count++;
         }
         session()->flash('student_count', $count);        

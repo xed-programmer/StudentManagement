@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\SendEmailVerificationJob;
 use App\Models\Building;
 use App\Models\Role;
 use App\Models\User;
@@ -61,7 +62,8 @@ class AdminUserController extends Controller
         $building = Building::where('name', $request->building)->firstOrFail();
         $user->buildings()->attach($building->id);
 
-        event(new Registered($user));
+        // event(new Registered($user));
+        SendEmailVerificationJob::dispatch(new Registered($user));
         
         if ($role) {
             $request->session()->flash('message', 'User Created Successfully!');

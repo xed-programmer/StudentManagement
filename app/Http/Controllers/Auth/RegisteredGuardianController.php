@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Helpers\SendSMS;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateGuardianRequest;
+use App\Jobs\SendEmailVerificationJob;
+use App\Jobs\SendSMSJob;
 use App\Models\Role;
 use App\Models\Student;
 use App\Models\User;
@@ -55,7 +57,8 @@ class RegisteredGuardianController extends Controller
         $student->guardians()->attach($guardian->id);
 
         $message = 'Your Account was successfully created. This is your Gatepass Code '.$validated['gatepass']. '. Dont share it with other people.';
-        SendSMS::sendSMS($message, $user->phone_number);
+        // SendSMS::sendSMS($message, $user->phone_number);
+        SendSMSJob::dispatch(['message' => $message, 'phone' => $user->phone_number]);
 
         // insert guardian to visitor table
 
@@ -66,7 +69,8 @@ class RegisteredGuardianController extends Controller
             'address' => $request->address
         ]);
 
-        event(new Registered($user));
+        // event(new Registered($user));
+        SendEmailVerificationJob::dispatch(new Registered($user));
         
         return redirect()->route('home');
     }

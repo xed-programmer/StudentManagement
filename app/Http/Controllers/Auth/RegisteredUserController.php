@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\SendEmailVerificationJob;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -48,7 +49,8 @@ class RegisteredUserController extends Controller
             'profile_pic' => 'uploads' . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'avatar1.png'
         ]);
 
-        event(new Registered($user));
+        // event(new Registered($user));
+        SendEmailVerificationJob::dispatch(new Registered($user));
 
         Auth::login($user);
 
