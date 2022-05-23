@@ -76,8 +76,8 @@ class GatePassController extends Controller
             'destination' => ['required'],
         ]);
 
-        $destination = Destination::where('name', $request->desination)->get();
-
+        $destination = Destination::where('name', $request->destination)->first();
+        
         $visitor = Visitor::with(['attendances'=> function($q){
             $q->where('created_at', '>', today())->latest();
         }])

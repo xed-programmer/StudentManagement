@@ -10,7 +10,7 @@ class AttendanceVisitor extends Model
     use HasFactory;
 
     protected $fillable = [
-        'visitor_id', 'status', 'destination' 
+        'visitor_id', 'status', 'destination', 'destination_id'
     ];
 
     public function visitor(){
