@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Helpers\SendSMS;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateGuardianRequest;
 use App\Jobs\SendEmailVerificationJob;
@@ -18,7 +17,7 @@ use Illuminate\Support\Facades\Validator;
 class RegisteredGuardianController extends Controller
 {
     public function create()
-    {
+    {        
         return view('guardians.register');
     }
 
@@ -48,9 +47,7 @@ class RegisteredGuardianController extends Controller
         ]);
         
         $role = Role::where('name', 'guardian')->firstOrFail();
-        $user->roles()->attach($role->id);
-
-        $user->buildings()->attach(auth()->user()->buildings()->pluck('id')[0]);
+        $user->roles()->attach($role->id);                
 
         $student = Student::where('student_code', $request->student_code)->firstOrFail();        
         // $guardian->students()->attach($student->id);
@@ -61,7 +58,6 @@ class RegisteredGuardianController extends Controller
         SendSMSJob::dispatch(['message' => $message, 'phone' => $user->phone_number]);
 
         // insert guardian to visitor table
-
         Visitor::create([
             'name' => $user->name,
             'email' => $user->email,            

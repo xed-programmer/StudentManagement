@@ -15,16 +15,16 @@ use Illuminate\Support\Facades\DB;
 class AdminController extends Controller
 {
     public function index()
-    {
+    {                
         // $users = User::count();
         $users = DB::table('users')
-        ->join('role_user', 'users.id', '=', 'role_user.user_id')        
+        ->join('role_user', 'users.id', '=', 'role_user.user_id')
         ->join('roles', 'roles.id', '=', 'role_user.role_id')
         ->select('users.id')
-        ->where('roles.name', 'admin')         
-        ->count();        
+        ->where('roles.name', 'admin')
+        ->count();
         $student = Student::count();
-        $guardian = Guardian::count();        
+        $guardian = Guardian::count();
         $post = Post::count();
         $attendances = Attendance::with('student.user')->latest()->get();
         $visitorAttendances = AttendanceVisitor::with('visitor')->latest()->get();
